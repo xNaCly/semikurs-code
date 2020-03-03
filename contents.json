@@ -17,5 +17,10 @@
 		"FAT Joe",
 		"Factory Acceptance Test"
 	],
-	"": [""]
+	"Wie sichert man sein Passwort am besten?": [
+		"16 zahlen/ziffern/symbole",
+		"4 zahlen/ziffern/symbole",
+		"6 zahlen/ziffern/symbole",
+		"10 zahlen/ziffern/symbole"
+	]
 }
