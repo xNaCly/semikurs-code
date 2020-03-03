@@ -1,8 +1,8 @@
 {
-	"Welches OS wird am meißten verwendet?": [
-		"Windows",
+	"Welches OS wird am meisten verwendet?": [
+		"Android",
 		"OpenBSD",
-		"Linux",
+		"Windows",
 		"macOS"
 	],
 	"Welches der folgenden ist kein Dateisystem?": [
@@ -10,5 +10,12 @@
 		"Fat32",
 		"George 3",
 		"DOS 3.x"
-	]
+	],
+	"Was bedeuted FAT?": [
+		"File Allocation Table",
+		"Freaking Amazing Tower",
+		"FAT Joe",
+		"Factory Acceptance Test"
+	],
+	"": [""]
 }
