@@ -30,6 +30,7 @@ def format_module(content):
 		lenght = len(question_array)
 		number = random.random() * lenght
 		final_question = question_array[int(round(number))]
+		pass
 	return final_question
 
 def access_data_from_question_key(final_question, content):

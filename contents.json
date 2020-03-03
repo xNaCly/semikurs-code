@@ -22,5 +22,10 @@
 		"4 zahlen/ziffern/symbole",
 		"6 zahlen/ziffern/symbole",
 		"10 zahlen/ziffern/symbole"
+	],
+	"Auf was sollte man im Internet achten?":[
+		"Keine persoenlichen Daten angeben",
+		"Dateisysteme",
+		"Alles"
 	]
 }
