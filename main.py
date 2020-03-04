@@ -11,12 +11,12 @@ from os import system as s
 import random
 
 
-def reading_module(file):
+def reader(file):
 	with open(file, "r") as f:
 		content = f.read()
 	return content
 
-def format_module(content):
+def format_questions(content):
 	# takes json-dict --> adds questions to array --> returns a random question
 	content = loa(content)
 	question_array = []
@@ -44,10 +44,10 @@ def access_data_from_question_key(final_question, content):
 	# answer_array[0] --> right anwser
 
 
-def main_module():
+def example_run():
 	# combines & calls all functions
-	content = reading_module("contents.json")
-	final_question = format_module(content)
+	content = reader("contents.json")
+	final_question = format_questions(content)
 	s("cls")
 	answers = access_data_from_question_key(final_question, content)
 	for a in answers:
@@ -58,4 +58,4 @@ def main_module():
 	else:
 		print("\n\nFalsche Antwort :(")
 
-main_module()
+example_run()
