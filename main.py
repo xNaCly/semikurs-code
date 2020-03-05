@@ -6,7 +6,6 @@
 # return right/false
 
 from json import loads as loa
-from json import dumps as dum
 from os import system as s
 import random
 
@@ -42,20 +41,3 @@ def access_data_from_question_key(final_question, content):
 		answer_array.append(x)
 	return answer_array
 	# answer_array[0] --> right anwser
-
-
-def example_run():
-	# combines & calls all functions
-	content = reader("contents.json")
-	final_question = format_questions(content)
-	s("cls")
-	answers = access_data_from_question_key(final_question, content)
-	for a in answers:
-		print(a)
-	usersinput = input("\n1/2/3/4? ")
-	if usersinput == "1":
-		print("\n\nRichtige Antwort :)")
-	else:
-		print("\n\nFalsche Antwort :(")
-
-example_run()
