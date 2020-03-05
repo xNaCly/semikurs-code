@@ -35,7 +35,6 @@ def format_questions(content):
 def access_data_from_question_key(final_question, content):
 	# combines the questions with the corresponding values
 	content_json = loa(content)
-	print("\n" + final_question + "\n")
 	answer_array = []
 	for x in content_json[final_question]:
 		answer_array.append(x)
