@@ -22,14 +22,9 @@ def format_questions(content):
 	for key in content.keys():
 		question_array.append(key)
 	lenght = len(question_array)
-	number = random.random() * lenght
-	try:
-		final_question = question_array[int(round(number))]
-	except:
-		lenght = len(question_array)
-		number = random.random() * lenght
-		final_question = question_array[int(round(number))]
-		pass
+	number = random.randint(0,lenght-1)
+	final_question = question_array[int(round(number))]
+
 	return final_question
 
 def access_data_from_question_key(final_question, content):
