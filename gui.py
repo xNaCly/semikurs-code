@@ -29,31 +29,33 @@ def mainiac():
     content = main.reader("contents.json")
     question = main.format_questions(content)
     answer_array = main.access_data_from_question_key(question, content)
+    right_answer = answer_array[0]
+
 
     def answer_compare_one():
         text = first_button["text"]
-        if text == answer_array[0]:
+        if text == right_answer:
             print("richtig")
         else:
             print("falsch")
 
     def answer_compare_two():
         text = second_button["text"]
-        if text == answer_array[0]:
+        if text == right_answer:
             print("richtig")
         else:
             print("falsch")
 
     def answer_compare_three():
         text = third_button["text"]
-        if text == answer_array[0]:
+        if text == right_answer:
             print("richtig")
         else:
             print("falsch")
 
     def answer_compare_four():
         text = last_button["text"]
-        if text == answer_array[0]:
+        if text == right_answer:
             print("richtig")
         else:
             print("falsch")
