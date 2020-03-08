@@ -70,7 +70,7 @@ def mainiac():
         main.random.shuffle(copy_array)
         return copy_array
     
-    t.Button(r, text="Neue Frage", width=250, command=rerun).pack()
+    t.Button(r, text="Neue Frage", width=25, command=rerun).pack()
     array = random_answer_value()
     first_button  = t.Button(r, text=array[0], width=250, command=answer_compare_one)
     second_button = t.Button(r, text=array[1], width=250, command=answer_compare_two)
