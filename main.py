@@ -8,13 +8,10 @@
 from json import loads as loa
 from os import system as s
 import random
-
-
 def reader(file):
 	with open(file, "r") as f:
 		content = f.read()
 	return content
-
 def format_questions(content):
 	# takes json-dict --> adds questions to array --> returns a random question
 	content = loa(content)
@@ -24,9 +21,7 @@ def format_questions(content):
 	lenght = len(question_array)
 	number = random.randint(0,lenght-1)
 	final_question = question_array[int(round(number))]
-
 	return final_question
-
 def access_data_from_question_key(final_question, content):
 	# combines the questions with the corresponding values
 	content_json = loa(content)
