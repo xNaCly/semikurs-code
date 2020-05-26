@@ -1,4 +1,4 @@
-import main
+import backend
 import tkinter as t
 r = t.Tk()
 def rerun():
@@ -18,9 +18,9 @@ def mainiac():
     widget_list = all_children()
     for item in widget_list:
         item.pack_forget()
-    content = main.reader("contents.json")
-    question = main.format_questions(content)
-    answer_array = main.access_data_from_question_key(question, content)
+    content = backend.reader("contents.json")
+    question = backend.format_questions(content)
+    answer_array = backend.access_data_from_question_key(question, content)
     right_answer = answer_array[0]
     def answer_compare_one():
         text = first_button["text"]
@@ -51,7 +51,7 @@ def mainiac():
     t.Label(r, text=question, width=250).pack()
     def random_answer_value():
         copy_array = answer_array
-        main.random.shuffle(copy_array)
+        backend.random.shuffle(copy_array)
         return copy_array  
     t.Button(r, text="Neue Frage", width=25, command=rerun).pack()
     array = random_answer_value()
