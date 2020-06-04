@@ -1,29 +1,41 @@
-# adrian & matteo 
-
-# show question and possible answer 
-# ask input
-# compare to question with answers
-# return right/false
-
-### - Backend - ###
-
+"""
+backend for semikurscode aka Quintic
+\n-- --
+\ncontains:
+\n`reader(file)`
+\n`getQuestion(reader(file))`
+\n`getValuesFromQuestion(getQuestion(reader(file)), reader(file))`
+"""
 # json import to store and access data
 from json import loads as loa
 # random import to randomise answers and questions
 import random
 
-# function to read and store the content of the specifed file in the 'content'-variable
 def reader(file):
-
+	"""
+basicly a snippet to read and store the content of the specifed file in the 'content'-variable
+\n-- --
+\n``file:`` jsonFile as jsonReadableString
+\n-- --
+\ninput: `"contents.json"`
+\noutput: `content` `(jsonObject)`
+	"""
 	with open(file, "r") as f:
 		content = f.read()
 
 	return content
 
 
-# function to read json-dict --> adds questions to array --> returns a random question
-def format_questions(content):
 
+def getQuestion(content):
+	"""
+returns a random Question from the given JSONfile
+\n--  --
+\n``content:`` jsonFile as jsonReadableString
+\n--  --
+\ninput: `reader("contents.json")` 
+\noutput: `Welches der folgenden ist kein Dateisystem?` `(String)`
+	"""
 	content = loa(content)
 
 	question_array = []
@@ -38,13 +50,21 @@ def format_questions(content):
 	return final_question
 
 
-# combines the questions with the corresponding values
-def access_data_from_question_key(final_question, content):
-	
+def getValuesFromQuestion(getQuestion, content):
+	"""
+returns an array of values for a given question:
+\n!first value is always the right value!
+\n--  --
+\n``getQuestion:`` questionString as String
+\n``content:`` jsonFile as jsonReadableString
+\n--  --
+>\ninput: `Welches der folgenden ist kein Dateisystem?`, `reader("contents.json")`
+>\noutput: `['JHB52', 'Fat32', 'George 3', 'DOS 3.x']` `(Array)`
+	"""
 	content_json = loa(content)
 
 	answer_array = []
-	for x in content_json[final_question]:
+	for x in content_json[getQuestion]:
 		answer_array.append(x)
 
 	# answer_array[0] --> right anwser
