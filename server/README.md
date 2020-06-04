@@ -1,13 +1,13 @@
 # Backend - REST*ful*Api
 [API-MainURl](http://xnaclyy.pythonanywhere.com)
 
-### Features 4 simple endpoints:
+## Features 4 simple endpoints:
 
-##### /:
+#### /:
 - currently redirects to this repo
-##### all:
+#### all:
 - displays all available questions
-##### random:
+#### random:
 - displays a random question
-##### endpoints:
+#### endpoints:
 - displays an overview about all available endpoints
