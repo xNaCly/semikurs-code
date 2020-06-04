@@ -3,6 +3,7 @@ from flask import Flask, jsonify
 import json
 app = Flask(__name__)
 data = backend.reader("contents.json")
+endpointers = backend.reader("endpoints.json")
 
 def newQuestion():
 	frage = backend.getQuestion(data)
@@ -16,9 +17,16 @@ def newQuestion():
 	}
 	return showObject
 
+
+#routing
+@app.route("/endpoints")
+def endpoints():
+	return jsonify(json.loads(endpointers))
+
 @app.route("/random/")
-def hello():
+def random():
 	return jsonify(newQuestion())
+
 @app.route("/all/")
 def all():
 	return jsonify(json.loads(data))
