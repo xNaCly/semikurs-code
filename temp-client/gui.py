@@ -1,4 +1,7 @@
+import sys
+sys.path.append('../server')
 import backend
+
 import tkinter as t
 r = t.Tk()
 def rerun():
@@ -18,9 +21,9 @@ def mainiac():
     widget_list = all_children()
     for item in widget_list:
         item.pack_forget()
-    content = backend.reader("contents.json")
-    question = backend.format_questions(content)
-    answer_array = backend.access_data_from_question_key(question, content)
+    content = backend.reader("../server/contents.json")
+    question = backend.getQuestion(content)
+    answer_array = backend.getValuesFromQuestion(question, content)
     right_answer = answer_array[0]
     def answer_compare_one():
         text = first_button["text"]

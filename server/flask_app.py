@@ -1,9 +1,9 @@
 import backend
-from flask import Flask, jsonify
+from flask import Flask, jsonify, redirect
 import json
 app = Flask(__name__)
-data = backend.reader("contents.json")
-endpointers = backend.reader("endpoints.json")
+data = backend.reader("./contents.json")
+endpointers = backend.reader("./endpoints.json")
 
 def newQuestion():
 	frage = backend.getQuestion(data)
@@ -31,6 +31,9 @@ def random():
 def all():
 	return jsonify(json.loads(data))
 
+@app.route("/")
+def redi():
+    return redirect("https://github.com/xNaCly/semikurs-code", code=302)
 
 if __name__ == "__main__":
 	app.run(debug=True)
