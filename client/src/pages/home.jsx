@@ -33,6 +33,8 @@ export default class Home extends Component {
 		var content = await fetch("http://xnaclyy.pythonanywhere.com/random/");
 		content = await content.json();
 
+		if (content.frage == this.state.question) return this.newQuestion();
+
 		this.setState({
 			question: content.frage,
 			answers: content.antworten,
