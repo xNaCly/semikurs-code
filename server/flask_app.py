@@ -21,15 +21,22 @@ def newQuestion():
 #routing
 @app.route("/endpoints/")
 def endpoints():
-	return jsonify(json.loads(endpointers))
+	resp = jsonify(json.loads(endpointers))
+	resp.headers['Access-Control-Allow-Origin'] = '*'
+	return resp
 
 @app.route("/random/")
 def random():
-	return jsonify(newQuestion())
+	resp = jsonify(newQuestion())
+	resp.headers['Access-Control-Allow-Origin'] = '*'
+	return resp
+
 
 @app.route("/all/")
 def all():
-	return jsonify(json.loads(data))
+	resp = jsonify(json.loads(data))
+	resp.headers['Access-Control-Allow-Origin'] = '*'
+	return resp
 
 @app.route("/")
 def redi():

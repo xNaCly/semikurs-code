@@ -6,7 +6,7 @@ const config = require('./webpack.config.js');
 
 const env = process.env.NODE_ENV || 'development';
 const target = process.env.TARGET || 'web';
-const isCordova = target === 'cordova'
+const isCordova = target === 'cordova';
 
 const spinner = ora(env === 'production' ? 'building for production...' : 'building development version...');
 spinner.start();

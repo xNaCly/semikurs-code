@@ -1,87 +1,162 @@
-import React from 'react';
+import React, { Component } from "react";
 import {
-  Page,
-  Navbar,
-  NavLeft,
-  NavTitle,
-  NavTitleLarge,
-  NavRight,
-  Link,
-  Toolbar,
-  Block,
-  BlockTitle,
-  List,
-  ListItem,
-  Row,
-  Col,
-  Button
-} from 'framework7-react';
+	Page,
+	Navbar,
+	Link,
+	Toolbar,
+	Block,
+	Icon,
+	BlockTitle,
+	Button,
+	Row,
+	Col,
+	Checkbox,
+	List,
+	ListItem,
+} from "framework7-react";
 
-export default () => (
-  <Page name="home">
-    {/* Top Navbar */}
-    <Navbar large sliding={false}>
-      <NavLeft>
-        <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
-      </NavLeft>
-      <NavTitle sliding>Quintic</NavTitle>
-      <NavRight>
-        <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="right" />
-      </NavRight>
-      <NavTitleLarge>Quintic</NavTitleLarge>
-    </Navbar>
-    {/* Toolbar */}
-    <Toolbar bottom>
-      <Link>Left Link</Link>
-      <Link>Right Link</Link>
-    </Toolbar>
-    {/* Page content */}
-    <Block strong>
-      <p>Here is your blank Framework7 app. Let's see what we have here.</p>
-    </Block>
-    <BlockTitle>Navigation</BlockTitle>
-    <List>
-      <ListItem link="/about/" title="About"/>
-      <ListItem link="/form/" title="Form"/>
-    </List>
+export default class Home extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			question: "",
+			answer: "",
+			answers: [],
+		};
+	}
 
-    <BlockTitle>Modals</BlockTitle>
-    <Block strong>
-      <Row>
-        <Col width="50">
-          <Button fill raised popupOpen="#my-popup">Popup</Button>
-        </Col>
-        <Col width="50">
-          <Button fill raised loginScreenOpen="#my-login-screen">Login Screen</Button>
-        </Col>
-      </Row>
-    </Block>
+	componentWillMount() {
+		this.newQuestion();
+	}
 
-    <BlockTitle>Panels</BlockTitle>
-    <Block strong>
-      <Row>
-        <Col width="50">
-          <Button fill raised panelOpen="left">Left Panel</Button>
-        </Col>
-        <Col width="50">
-          <Button fill raised panelOpen="right">Right Panel</Button>
-        </Col>
-      </Row>
-    </Block>
+	async newQuestion() {
+		var content = await fetch("http://xnaclyy.pythonanywhere.com/random/");
+		content = await content.json();
 
-    <List>
-      <ListItem
-        title="Dynamic (Component) Route"
-        link="/dynamic-route/blog/45/post/125/?foo=bar#about"
-      />
-      <ListItem
-        title="Default Route (404)"
-        link="/load-something-that-doesnt-exist/"
-      />
-      <ListItem
-        title="Request Data & Load"
-        link="/request-and-load/user/123456/"
-      />
-    </List>
-  </Page>
-);
+		this.setState({
+			question: content.frage,
+			answers: content.antworten,
+			right: content.richtigeAntwort,
+		});
+	}
+
+	select = (button) => {
+		button = button.currentTarget;
+		var answer = button.parentElement.getAttribute("answer");
+		this.setState({ answer });
+	};
+
+	submit = () => {
+		// console.log(this.state.answer);
+		if (this.state.answer === this.state.right) {
+			this.newQuestion();
+			this.$f7.dialog.alert("", "Richtige Antwort");
+		} else {
+			this.$f7.dialog.alert("", "Falsche Antwort");
+		}
+	};
+
+	render() {
+		var answers = this.state.answers;
+		var answer = this.state.answer;
+
+		return (
+			<Page name="home">
+				<Navbar title="Quintic"></Navbar>
+				<Block className="text-align-center">
+					<BlockTitle>{this.state.question}</BlockTitle>
+					<br></br>
+					<Row>
+						<Col>
+							<span answer={answers[0]}>
+								<Button
+									onClick={this.select}
+									color={answer === answers[0] ? "teal" : ""}
+									large
+									round
+									raised
+									fill
+								>
+									{answers[0]}
+								</Button>
+							</span>
+						</Col>
+						<Col>
+							<span answer={answers[1]}>
+								<Button
+									onClick={this.select}
+									color={answer === answers[1] ? "teal" : ""}
+									large
+									round
+									raised
+									fill
+								>
+									{answers[1]}
+								</Button>
+							</span>
+						</Col>
+					</Row>
+					<br></br>
+					<Row>
+						<Col>
+							<span answer={answers[2]}>
+								<Button
+									onClick={this.select}
+									color={answer === answers[2] ? "teal" : ""}
+									large
+									round
+									raised
+									fill
+								>
+									{answers[2]}
+								</Button>
+							</span>
+						</Col>
+						<Col>
+							<span answer={answers[3]}>
+								<Button
+									onClick={this.select}
+									color={answer === answers[3] ? "teal" : ""}
+									large
+									round
+									raised
+									fill
+								>
+									{answers[3]}
+								</Button>
+							</span>
+						</Col>
+					</Row>
+					<br></br>
+					<Button
+						large
+						round
+						raised
+						fill
+						color="green"
+						onClick={this.submit}
+					>
+						Submit
+					</Button>
+				</Block>
+
+				<Toolbar bottom>
+					<Link
+						external
+						href="https://github.com/xNaCly/semikurs-code"
+						target="blank"
+					>
+						Github
+					</Link>
+					<span onClick={window.switchDarkMode}>
+						<Icon
+							className="link"
+							f7="lightbulb"
+							tooltip="Toggle Darkmode"
+						></Icon>
+					</span>
+				</Toolbar>
+			</Page>
+		);
+	}
+}

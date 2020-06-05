@@ -17,7 +17,6 @@ const env = process.env.NODE_ENV || 'development';
 const target = process.env.TARGET || 'web';
 
 
-
 module.exports = {
   mode: env,
   entry: {
@@ -27,7 +26,7 @@ module.exports = {
     path: resolvePath('www'),
     filename: 'js/[name].js',
     chunkFilename: 'js/[name].js',
-    publicPath: '',
+    publicPath: '/',
     hotUpdateChunkFilename: 'hot/hot-update.js',
     hotUpdateMainFilename: 'hot/hot-update.json',
   },
@@ -174,10 +173,10 @@ module.exports = {
       }),
       new webpack.optimize.ModuleConcatenationPlugin(),
     ] : [
-      // Development only plugins
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NamedModulesPlugin(),
-    ]),
+        // Development only plugins
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin(),
+      ]),
     new HtmlWebpackPlugin({
       filename: './index.html',
       template: './src/index.html',
