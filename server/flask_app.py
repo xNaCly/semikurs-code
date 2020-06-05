@@ -19,7 +19,7 @@ def newQuestion():
 
 
 #routing
-@app.route("/endpoints")
+@app.route("/endpoints/")
 def endpoints():
 	return jsonify(json.loads(endpointers))
 
