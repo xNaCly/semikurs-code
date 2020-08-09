@@ -27,7 +27,6 @@ html {
 	color: var(--grey_blue);
 	border-radius: 3px;
 	border-color: white;
-	margin-left: 30px;
 }
 h1 {
 	text-align: center;
@@ -38,9 +37,15 @@ h1 {
 }
 hr {
 	color: var(--grey_blue);
-	width: 420px;
+	width: 100%;
 }
 #maincontainer {
+	width: 70vw;
+	text-align: center;
+	margin: 0 auto;
+}
+
+#wrapper {
 	width: 700px;
 	margin: auto;
 	align-items: center;
@@ -49,10 +54,10 @@ hr {
     align-items: center;
     align-content: center;
     flex-wrap: wrap;
-        max-width: 60vw;
+	max-width: 60vw;
     margin: 0 auto;
 }
 
-#maincontainer > button {
+#wrapper > button {
     margin: 1rem;
 }
