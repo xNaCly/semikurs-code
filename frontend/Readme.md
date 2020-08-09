@@ -2,7 +2,7 @@
 
 ```
 - uses native html5, css3 and js
-- can be run by just opening the index.html file in the browser
+- can be run by just opening the index.html file in the browser (after starting the restapiserver)
 ```
 
 ## What it looks like:
