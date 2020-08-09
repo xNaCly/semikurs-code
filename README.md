@@ -1,5 +1,5 @@
 # semikurs-code
-
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 ### Why and how:
 - This project was initiated by me and a good friend of mine as our final product for the seminar course:<br/>
 [computer science & data security (DE)](https://fwg.dahme-spreewald.info/fw/Fachschaften/Technik/Informatik/30549.html)
