@@ -1,15 +1,17 @@
 # semikurs-code
 
-## self host (Backend):
-```
-requires:
-- python3.9
-- flask
-- clone repo, cd repo
-- >>> python3 flask_app.py
-```
+### Why and how:
+- This project was initiated by me and a good friend of mine as our final product for the seminar course:<br/>
+[computer science & data security (DE)](https://fwg.dahme-spreewald.info/fw/Fachschaften/Technik/Informatik/30549.html)
+- the main focus of our classes were and are Date security and programming, specificly [python](https://www.python.org/)
+- me and my friend, we decided to make a restapi using flask and a frontend using native webdevtools (html, css, js) in form of a website
+- this project is intended to be used as a simple, easy to use and maintain tool for educational purposes
 
-## Example Backend:
-<img src="https://cdn.discordapp.com/attachments/568847750226116609/742078507433328711/unknown.png">
-<img src="https://cdn.discordapp.com/attachments/568847750226116609/742078883129589861/unknown.png">
-<img src="https://cdn.discordapp.com/attachments/568847750226116609/742078969741836379/unknown.png">
+### How to use/clone for yourself:
+- install python3.9 (watch tutorials on how to, don't forget to add to python the path and don't forget to install pip)
+- install flask (`pip install flask`)
+- clone the repo (`git clone https://github.com/xNaCly/semikurs-code.git` if you don't have git installed just download the repo as a zip)
+- go to the backend directory and open cmd/powershell in it
+- execute `python3 flask_app.py` (the restapi is now up and running)
+- navigate to frontend/index.html
+- double click or drag into your browser and voilà, choose or loose is working
