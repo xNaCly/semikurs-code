@@ -8,10 +8,14 @@
 - this project is intended to be used as a simple, easy to use and maintain tool for educational purposes
 
 ### How to use/clone for yourself:
-- install python3.9 (watch tutorials on how to, don't forget to add python to the path and don't forget to install pip)
-- install flask (`pip install flask`)
-- clone the repo (`git clone https://github.com/xNaCly/semikurs-code.git` if you don't have git installed just download the repo as a zip)
+- install python3.9 
+(watch tutorials on how to, don't forget to add python to the path and don't forget to install pip)
+- install flask 
+(`pip install flask`)
+- clone the repo 
+(`git clone https://github.com/xNaCly/semikurs-code.git` if you don't have git installed just download the repo as a zip)
 - go to the backend directory and open cmd/powershell in it
-- execute `python3 flask_app.py` (the restapi is now up and running)
+- execute `python3 flask_app.py` 
+(the restapi is now up and running)
 - navigate to frontend/index.html
 - double click or drag into your browser and voilà, choose or loose is working
