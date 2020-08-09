@@ -3,8 +3,11 @@
 ### Why and how:
 - This project was initiated by me and a good friend of mine as our final product for the seminar course:<br/>
 [computer science & data security (DE)](https://fwg.dahme-spreewald.info/fw/Fachschaften/Technik/Informatik/30549.html)
+
 - the main focus of our classes were and are Date security and programming, specifically [python](https://www.python.org/)
+
 - me and my friend, we decided to make a restapi using flask and a frontend using native webdevtools (html, css, js) in form of a website
+
 - this project is intended to be used as a simple, easy to use and maintain tool for educational purposes
 
 ### How to use/clone for yourself:
