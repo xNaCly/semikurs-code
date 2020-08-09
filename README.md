@@ -8,7 +8,7 @@
 - this project is intended to be used as a simple, easy to use and maintain tool for educational purposes
 
 ### How to use/clone for yourself:
-- install python3.9 (watch tutorials on how to, don't forget to add to python the path and don't forget to install pip)
+- install python3.9 (watch tutorials on how to, don't forget to add python to the path and don't forget to install pip)
 - install flask (`pip install flask`)
 - clone the repo (`git clone https://github.com/xNaCly/semikurs-code.git` if you don't have git installed just download the repo as a zip)
 - go to the backend directory and open cmd/powershell in it
