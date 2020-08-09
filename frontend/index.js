@@ -5,12 +5,12 @@ const prefs = {
 
 async function getQuestion() {
 	let response = await fetch(prefs.base_url + prefs.endpoints[1] + "/");
-	response = await response.json();
-	document.getElementById("question").textContent = response.frage;
-	document.getElementById("ant1").textContent = response.antworten[0];
-	document.getElementById("ant2").textContent = response.antworten[1];
-	document.getElementById("ant3").textContent = response.antworten[2];
-	document.getElementById("ant4").textContent = response.antworten[3];
+	var {antworten, frage} = await response.json();
+	document.getElementById("question").textContent = frage;
+	document.getElementById("ant1").textContent = antworten[0];
+	document.getElementById("ant2").textContent = antworten[1];
+	document.getElementById("ant3").textContent = antworten[2];
+	document.getElementById("ant4").textContent = antworten[3];
 }
 
 window.addEventListener("load", async () => {
