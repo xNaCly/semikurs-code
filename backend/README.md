@@ -1,14 +1,15 @@
 # Backend - REST*ful*Api
-[API-MainURl](http://xnaclyy.pythonanywhere.com)
+`http://xnaclyy.pythonanywhere.com/` current api host url
 
 ## Features 4 simple endpoints:
 
 #### /:
 - currently redirects to this repo
-#### all:
+#### /all:
 - displays all available questions
 ```
 example (shortend):
+
 "Was bedeuted FAT?": [
     "File Allocation Table",
     "Freaking Amazing Tower",
@@ -16,7 +17,7 @@ example (shortend):
     "Factory Acceptance Test"
   ],
 ```
-#### random:
+#### /random:
 - displays a random question
 ```
 {
@@ -30,12 +31,12 @@ example (shortend):
   "richtigeAntwort": "Android"
 }
 ```
-#### endpoints:
+#### /endpoints:
 - displays an overview about all available endpoints
 ```
 [
-  "all",
-  "random",
-  "endpoints"
+  "/all",
+  "/random",
+  "/endpoints"
 ]
 ```
