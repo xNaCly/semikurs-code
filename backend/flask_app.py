@@ -40,7 +40,7 @@ def all():
 
 @app.route("/")
 def redi():
-    return redirect("https://github.com/xNaCly/semikurs-code/blob/master/server/README.md", code=302)
+    return redirect("https://github.com/xNaCly/semikurs-code/tree/master/backend", code=302)
 
 if __name__ == "__main__":
 	app.run(debug=True)
