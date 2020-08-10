@@ -19,20 +19,20 @@ def newQuestion():
 
 
 #routing
-@app.route("/endpoints/")
+@app.route("/endpoints")
 def endpoints():
 	resp = jsonify(json.loads(endpointers))
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp
 
-@app.route("/random/")
+@app.route("/random")
 def random():
 	resp = jsonify(newQuestion())
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp
 
 
-@app.route("/all/")
+@app.route("/all")
 def all():
 	resp = jsonify(json.loads(data))
 	resp.headers['Access-Control-Allow-Origin'] = '*'
