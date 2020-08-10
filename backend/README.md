@@ -1,5 +1,5 @@
 # Backend - REST*ful*Api
-[API-MainURl](http://xnaclyy.pythonanywhere.com)
+`http://xnaclyy.pythonanywhere.com/` current api host url
 
 ## Features 4 simple endpoints:
 
