@@ -9,6 +9,7 @@
 - displays all available questions
 ```
 example (shortend):
+
 "Was bedeuted FAT?": [
     "File Allocation Table",
     "Freaking Amazing Tower",
@@ -34,8 +35,8 @@ example (shortend):
 - displays an overview about all available endpoints
 ```
 [
-  "all",
-  "random",
-  "endpoints"
+  "/all",
+  "/random",
+  "/endpoints"
 ]
 ```
