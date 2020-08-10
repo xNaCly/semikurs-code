@@ -5,7 +5,7 @@
 
 #### /:
 - currently redirects to this repo
-#### all:
+#### /all:
 - displays all available questions
 ```
 example (shortend):
@@ -16,7 +16,7 @@ example (shortend):
     "Factory Acceptance Test"
   ],
 ```
-#### random:
+#### /random:
 - displays a random question
 ```
 {
@@ -30,7 +30,7 @@ example (shortend):
   "richtigeAntwort": "Android"
 }
 ```
-#### endpoints:
+#### /endpoints:
 - displays an overview about all available endpoints
 ```
 [
