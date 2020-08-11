@@ -28,6 +28,9 @@ html {
 	border-radius: 3px;
 	border-color: white;
 }
+#answer {
+	display: none;
+}
 h1 {
 	text-align: center;
 }
@@ -49,15 +52,23 @@ hr {
 	width: 700px;
 	margin: auto;
 	align-items: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    flex-wrap: wrap;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	flex-wrap: wrap;
 	max-width: 60vw;
-    margin: 0 auto;
+	margin: 0 auto;
 }
 
 #wrapper > button {
-    margin: 1rem;
+	margin: 1rem;
+}
+select {
+	background-color: var(--grey_light);
+	color: var(--grey_blue);
+	width: 90px;
+	height: 25px;
+	border-radius: 3px;
+	border-color: white;
 }
