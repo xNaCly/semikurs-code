@@ -35,9 +35,9 @@
 -   double click or drag into your browser and voilà, choose or loose is working
 
 ###  futureplans:
-[ ] add understandable docs
-[ ] add german and english readme & docs
-[ ] record a video showing features and installion-process
+- [ ] add understandable docs
+- [ ] add german and english readme & docs
+- [ ] record a video showing features and installion-process
 
 #### The MIT License (MIT)
 
