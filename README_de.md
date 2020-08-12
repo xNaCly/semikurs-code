@@ -35,7 +35,7 @@
 
 ###  futureplans:
 - [ ] verständliche docs hinzufügen
-- [ ] deutsches README.md 
+- [x] deutsches README.md 
 - [ ] video mit exakten schritten aufnehmen
 
 #### The MIT License (MIT)
