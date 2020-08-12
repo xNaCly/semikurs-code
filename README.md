@@ -36,7 +36,7 @@
 
 ###  futureplans:
 - [ ] add understandable docs
-- [ ] add german and english readme & docs
+- [x] add german and english readme & docs
 - [ ] record a video showing features and installion-process
 
 #### The MIT License (MIT)
