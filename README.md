@@ -3,7 +3,7 @@
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
-# [<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/DE.png"/>](https://github.com/xNaCly/semikurs-code/blob/master/README_de.md) [<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/GB.png"/>](https://github.com/xNaCly/semikurs-code/blob/master/README.md)
+# [<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/DE.png"/>](https://github.com/xNaCly/semikurs-code/blob/master/README_de.md) [<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/GB.png"/>](https://github.com/xNaCly/semikurs-code)
 ### Why and how:
 -   This project was initiated by me and a good friend of mine as our final product for the seminar course:<br/>
     [computer science & data security (DE)](https://fwg.dahme-spreewald.info/fw/Fachschaften/Technik/Informatik/30549.html)
