@@ -3,6 +3,7 @@
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
+# [German](https://github.com/xNaCly/semikurs-code/blob/master/README_de.md) [English](https://github.com/xNaCly/semikurs-code/blob/master/README.md)
 ### Why and how:
 
 -   This project was initiated by me and a good friend of mine as our final product for the seminar course:<br/>
