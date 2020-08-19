@@ -1,6 +1,6 @@
 const prefs = {
 	//change this if you got a different port, or an external api-server
-	base_url: "http://xnaclyy.pythonanywhere.com", //"http://127.0.0.1:5000/",
+	base_url: "http://127.0.0.1:5000/", //"http://xnaclyy.pythonanywhere.com", "",
 	endpoints: ["/all", "/random", "/endpoints"],
 };
 
@@ -41,14 +41,35 @@ async function getQuestion() {
 
 		// replace placeholders with randomised 'antwort' values
 		document.getElementById("question").textContent = frage;
-		document.getElementById("ant1").textContent = `A - ${antworten[0]}`;
-		document.getElementById("ant2").textContent = `B - ${antworten[1]}`;
-		document.getElementById("ant3").textContent = `C - ${antworten[2]}`;
-		document.getElementById("ant4").textContent = `D - ${antworten[3]}`;
+		b = document.getElementById("ant1");
+		b.textContent = `A - ${antworten[0]}`;
+		b.style.display = "block";
+		b1 = document.getElementById("ant2");
+		b1.textContent = `B - ${antworten[1]}`;
+		b1.style.display = "block";
+
+		b2 = document.getElementById("ant3");
+		b2.textContent = `C - ${antworten[2]}`;
+		b2.style.display = "block";
+
+		b3 = document.getElementById("ant4");
+		b3.textContent = `D - ${antworten[3]}`;
+		b3.style.display = "block";
+
+		document.getElementById("hr-upper").style.display = "block";
+		document.getElementById("hr-lower").style.display = "block";
+
 		rightanswer = richtigeAntwort;
-	} catch {
-		// if no connection is found, display the alert
-		return (document.getElementById("alert").style.display = "block");
+	} catch (e) {
+		console.error(e);
+
+		document.getElementById("hr-upper").style.display = "none";
+		document.getElementById("hr-lower").style.display = "none";
+
+		// if connection failed, display the alert
+
+		document.getElementById("loader-error").style.display = "block";
+		document.getElementById("alert").style.display = "block";
 	}
 }
 

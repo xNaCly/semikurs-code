@@ -10,11 +10,11 @@
 `without connection to the REST-API server:`
 <br><br>
 <kbd>
-<img src="https://cdn.discordapp.com/attachments/638844015084568597/745674192107601920/unknown.png">
+<img src="https://cdn.discordapp.com/attachments/638844015084568597/745721858246312036/unknown.png">
 </kbd>
 <br><br>
 `with connection to the server:`
 <br><br>
 <kbd>
-<img src="https://cdn.discordapp.com/attachments/638844015084568597/745674550812868750/unknown.png">
+<img src="https://cdn.discordapp.com/attachments/638844015084568597/745721985815937114/unknown.png">
 </kbd>
