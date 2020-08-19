@@ -1,8 +1,8 @@
 # Semikurs-code
+[![made-with-javascript](https://img.shields.io/badge/Made%20with-Javascript-1f425f?style=flat)](https://developer.mozilla.org/en/JavaScript)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![made-with-html](https://img.shields.io/badge/Made%20with-Html-ffcc00?style=flat)](https://developer.mozilla.org/en/html)
 [![made-with-css](https://img.shields.io/badge/Made%20with-Css-0066ff?style=flat)](https://developer.mozilla.org/en/css)
-[![made-with-javascript](https://img.shields.io/badge/Made%20with-Javascript-1f425f?style=flat)](https://developer.mozilla.org/en/JavaScript)
 [![made-with-bootstrap](https://img.shields.io/badge/Made%20with-Bootstrap-7952b3?style=flat)](https://getbootstrap.com/)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
