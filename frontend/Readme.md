@@ -9,8 +9,8 @@
 
 `without connection to the REST-API server:`
 <br>
-<img src="https://cdn.discordapp.com/attachments/638844015084568597/745674192107601920/unknown.png">
+<img style="border: grey; border-radius: 1px;" src="https://cdn.discordapp.com/attachments/638844015084568597/745674192107601920/unknown.png">
 <br>
 `with connection to the server:`
 <br>
-<img src="https://cdn.discordapp.com/attachments/638844015084568597/745674550812868750/unknown.png">
+<img style="border: grey; border-radius: 1px;" src="https://cdn.discordapp.com/attachments/638844015084568597/745674550812868750/unknown.png">
