@@ -8,13 +8,13 @@
 ## What it looks like:
 
 `without connection to the REST-API server:`
-<br>
+<br><br>
 <kbd>
-    <img src="https://cdn.discordapp.com/attachments/638844015084568597/745674192107601920/unknown.png">
+<img src="https://cdn.discordapp.com/attachments/638844015084568597/745674192107601920/unknown.png">
 </kbd>
-<br>
+<br><br>
 `with connection to the server:`
-<br>
+<br><br>
 <kbd>
-    <img src="https://cdn.discordapp.com/attachments/638844015084568597/745674550812868750/unknown.png">
+<img src="https://cdn.discordapp.com/attachments/638844015084568597/745674550812868750/unknown.png">
 </kbd>
