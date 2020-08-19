@@ -24,16 +24,6 @@ async function getQuestion() {
 	try {
 		let response = await fetch(prefs.base_url + prefs.endpoints[1]);
 		var { antworten, frage, richtigeAntwort } = await response.json();
-		// shuffle 'antworten' to be random
-		let temporaryValue, randomIndex;
-
-		for (let i = 0; i < antworten.length; i++) {
-			randomIndex = Math.floor(Math.random() * i);
-
-			temporaryValue = antworten[i];
-			antworten[i] = antworten[randomIndex];
-			antworten[randomIndex] = temporaryValue;
-		}
 		document.getElementById("question").textContent = frage;
 		document.getElementById("ant1").textContent = `A - ${antworten[0]}`;
 		document.getElementById("ant2").textContent = `B - ${antworten[1]}`;
@@ -41,7 +31,7 @@ async function getQuestion() {
 		document.getElementById("ant4").textContent = `D - ${antworten[3]}`;
 		rightanswer = richtigeAntwort;
 	} catch {
-		return (document.getElementById("alert").style.display = "block");
+		return alert("Request to REST-Api failed.");
 	}
 }
 
