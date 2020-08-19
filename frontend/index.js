@@ -1,6 +1,6 @@
 const prefs = {
 	//change this if you got a different port, or an external api-server
-	base_url: "https://xnaclyy.pythonanywhere.com",
+	base_url: "http://xnaclyy.pythonanywhere.com", //"http://127.0.0.1:5000/",
 	endpoints: ["/all", "/random", "/endpoints"],
 };
 
@@ -26,10 +26,7 @@ function checkForAnswer(answer) {
 async function getQuestion() {
 	try {
 		// send request to local api server
-		let response = await fetch(prefs.base_url + prefs.endpoints[1], {
-			method: "GET",
-			headers: { "Content-Type": "application/json", Origin: "http://localhost:3000" },
-		});
+		let response = await fetch(prefs.base_url + prefs.endpoints[1]);
 		var { antworten, frage, richtigeAntwort } = await response.json();
 		// shuffle 'antworten' to be random
 		let temporaryValue, randomIndex;

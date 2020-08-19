@@ -1,5 +1,5 @@
 import backend
-from flask import Flask, jsonify, redirect
+from flask import Flask, jsonify, redirect, Response
 import json
 app = Flask(__name__)
 data = backend.reader("./contents.json")
@@ -11,33 +11,30 @@ def newQuestion():
 	richtigeAntwort = antworten[0]
 
 	showObject = {
-	"frage": frage,
-	"antworten": antworten,
-	"richtigeAntwort": richtigeAntwort
+		"frage": frage,
+		"antworten": antworten,
+		"richtigeAntwort": richtigeAntwort
 	}
 	return showObject
 
 
-@app.route("/endpoints/")
+@app.route("/endpoints")
 def endpoints():
 	resp = jsonify(json.loads(endpointers))
 	resp.headers['Access-Control-Allow-Origin'] = '*'
-	resp.headers['Access-Control-Allow-Methods'] = 'GET'
 	return resp, 200
 
-@app.route("/random/")
+@app.route("/random")
 def random():
 	resp = jsonify(newQuestion())
 	resp.headers['Access-Control-Allow-Origin'] = '*'
-	resp.headers['Access-Control-Allow-Methods'] = 'GET'
 	return resp, 200
 
 
-@app.route("/all/")
+@app.route("/all")
 def all():
 	resp = jsonify(json.loads(data))
 	resp.headers['Access-Control-Allow-Origin'] = '*'
-	resp.headers['Access-Control-Allow-Methods'] = 'GET'
 	return resp, 200
 
 # @app.route("/")
