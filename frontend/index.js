@@ -1,12 +1,12 @@
 const prefs = {
 	//change this if you got a different port, or an external api-server
-	base_url: "http://127.0.0.1:5000",
+	base_url: "https://xnaclyy.pythonanywhere.com",
 	endpoints: ["/all", "/random", "/endpoints"],
 };
 
 var rightanswer = "";
 
-// format answer 
+// format answer
 function submit(button) {
 	var value = button.textContent.split(" - ")[1];
 	checkForAnswer(value);
@@ -26,7 +26,10 @@ function checkForAnswer(answer) {
 async function getQuestion() {
 	try {
 		// send request to local api server
-		let response = await fetch(prefs.base_url + prefs.endpoints[1]);
+		let response = await fetch(prefs.base_url + prefs.endpoints[1], {
+			method: "GET",
+			headers: { "Content-Type": "application/json", Origin: "http://localhost:3000" },
+		});
 		var { antworten, frage, richtigeAntwort } = await response.json();
 		// shuffle 'antworten' to be random
 		let temporaryValue, randomIndex;
@@ -51,7 +54,6 @@ async function getQuestion() {
 		return (document.getElementById("alert").style.display = "block");
 	}
 }
-
 
 // if window is loaded, try loading questions and answers
 window.addEventListener("load", async () => {

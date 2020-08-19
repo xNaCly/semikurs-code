@@ -18,29 +18,31 @@ def newQuestion():
 	return showObject
 
 
-#routing
-@app.route("/endpoints")
+@app.route("/endpoints/")
 def endpoints():
 	resp = jsonify(json.loads(endpointers))
 	resp.headers['Access-Control-Allow-Origin'] = '*'
-	return resp
+	resp.headers['Access-Control-Allow-Methods'] = 'GET'
+	return resp, 200
 
-@app.route("/random")
+@app.route("/random/")
 def random():
 	resp = jsonify(newQuestion())
 	resp.headers['Access-Control-Allow-Origin'] = '*'
-	return resp
+	resp.headers['Access-Control-Allow-Methods'] = 'GET'
+	return resp, 200
 
 
-@app.route("/all")
+@app.route("/all/")
 def all():
 	resp = jsonify(json.loads(data))
 	resp.headers['Access-Control-Allow-Origin'] = '*'
-	return resp
+	resp.headers['Access-Control-Allow-Methods'] = 'GET'
+	return resp, 200
 
-@app.route("/")
-def redi():
-    return redirect("https://github.com/xNaCly/semikurs-code/tree/master/backend", code=302)
+# @app.route("/")
+# def redi():
+    # return redirect("https://github.com/xNaCly/semikurs-code/blob/master/server/README.md", code=302)
 
 if __name__ == "__main__":
 	app.run(debug=True)
