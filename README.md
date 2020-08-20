@@ -1,3 +1,7 @@
+<p align="center">
+    <img style="border-radius: 100px" width="128" height="128" src="https://cdn.discordapp.com/avatars/417699816836169728/8ea8764772217e66ce7b7f9c3dd1561e.png?size=2048">
+</p>
+
 # Semikurs-code
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-Javascript-f1e05a?style=flat)](https://developer.mozilla.org/en/JavaScript)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-3572A5.svg)](https://www.python.org/)
