@@ -12,6 +12,7 @@
 
 
 # [<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/DE.png"/>](https://github.com/xNaCly/semikurs-code/blob/master/README_de.md) [<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/GB.png"/>](https://github.com/xNaCly/semikurs-code)
+# [DOCS](https://github.com/xNaCly/semikurs-code/tree/master/docs) 
 ### Why and how:
 -   This project was initiated by me and a good friend of mine as our final product for the seminar course:<br/>
     [computer science & data security (DE)](https://fwg.dahme-spreewald.info/fw/Fachschaften/Technik/Informatik/30549.html)
