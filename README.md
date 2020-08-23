@@ -23,7 +23,11 @@
 
 -   this project is intended to be used as a simple, easy to use and maintain tool for educational purposes
 
-###  futureplans:
+### planned features:
+- [ ] leaderboard + scoreboard
+- [ ] link leaderboard to db
+
+###  todos:
 - [x] add understandable docs
 - [x] add german and english readme & docs
 - [x] record a video showing features and installion-process
