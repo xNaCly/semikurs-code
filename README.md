@@ -25,7 +25,7 @@
 
 ### planned features:
 - [ ] leaderboard + scoreboard
-- [ ] link leaderboard to db
+- [ ] link leaderboard to db (api endpoint to request leaderboards)
 
 ###  todos:
 - [x] add understandable docs
