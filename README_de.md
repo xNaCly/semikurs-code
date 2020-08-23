@@ -22,24 +22,6 @@
 
 -   Das Projekt verfolgt das Ziel eine simple und einfach zu nutzende Lernplattform zu sein
 
-### Selfhost:
-
--   installiere python3 (folge am besten einen tutorial)
-
--   installiere flask
-    `pip install flask`
-
--   klone das repo
-    (`git clone https://github.com/xNaCly/semikurs-code.git` falls du `git` nicht installiert hast, lade das repo als zip herunter)
-
--   gehe zum `backend`-ordner und starte darin `cmd/powershell`
-
--   führe `python3 flask_app.py` in `cmd/powershell` aus
-    (der server/restapiserver ist nun online (port:5500))
-
--   navigiere zum `frontend`-ordner
-
--   doppelklicke die `index.html`-datei und voilà 
 
 ###  futureplans:
 - [ ] verständliche docs hinzufügen
