@@ -4,7 +4,8 @@
 ## Features 4 simple endpoints:
 
 #### /:
-- currently redirects to this repo
+- ~currently redirects to this repo~ 
+- Isn't an endpoint nomore
 #### /all:
 - displays all available questions
 ```
