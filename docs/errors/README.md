@@ -1,6 +1,6 @@
 # Common Errors:
 
-- [http://giybf.com/](HELP)
+[HELP](http://giybf.com/)
 
 1. Can't install python:
    - google how to install python, troubleshoot common errors
