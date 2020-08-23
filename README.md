@@ -24,9 +24,9 @@
 -   this project is intended to be used as a simple, easy to use and maintain tool for educational purposes
 
 ###  futureplans:
-- [ ] add understandable docs
+- [x] add understandable docs
 - [x] add german and english readme & docs
-- [ ] record a video showing features and installion-process
+- [x] record a video showing features and installion-process
 
 #### The MIT License (MIT)
 
