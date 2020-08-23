@@ -1,6 +1,6 @@
 # How to install / use
 
-# [<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/DE.png"/>]() [<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/GB.png"/>]()
+# [<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/DE.png"/>](https://github.com/xNaCly/semikurs-code/blob/master/docs/start/README_DE.md) [<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/GB.png"/>](https://github.com/xNaCly/semikurs-code/blob/master/docs/start/README.md)
 
 -   install python3.9
     (watch tutorials on how to, don't forget to add python to the path and don't forget to install pip)
