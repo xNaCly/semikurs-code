@@ -23,6 +23,10 @@
 
 -   this project is intended to be used as a simple, easy to use and maintain tool for educational purposes
 
+### URLS:
+- API: `http://xnaclyy.pythonanywhere.com/`
+- WEBSITE: `https://semikurs-code.vercel.app/`
+
 ### planned features:
 - [ ] leaderboard + scoreboard
 - [ ] link leaderboard to db (api endpoint to request leaderboards)
