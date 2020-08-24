@@ -1,10 +1,10 @@
 const prefs = {
 	//change this if you got a different port, or an external api-server
 	/*
-	online: http://xnaclyy.pythonanywhere.com
+	online: https://xnaclyy.pythonanywhere.com
 	localhost: http://127.0.0.1:5000/
 	*/
-	base_url: "http://xnaclyy.pythonanywhere.com",
+	base_url: "https://xnaclyy.pythonanywhere.com",
 	endpoints: ["/all", "/random", "/endpoints"],
 };
 
