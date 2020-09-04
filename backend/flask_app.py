@@ -69,6 +69,5 @@ def scoreboard():
 		with open("./scoreboard.csv", "r") as f:
 			return f.read(), 200
 
-
 if __name__ == "__main__":
 	app.run(debug=True)
