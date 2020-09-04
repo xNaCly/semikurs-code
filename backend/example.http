@@ -3,3 +3,7 @@ GET http://127.0.0.1:5000/endpoints
 GET http://127.0.0.1:5000/random
 ###
 GET http://127.0.0.1:5000/all
+###
+GET http://127.0.0.1:5000/scoreboard
+###
+POST http://127.0.0.1:5000/scoreboard?name=xnacly&score=900
