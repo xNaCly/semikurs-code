@@ -4,7 +4,7 @@ const prefs = {
 	online: https://xnaclyy.pythonanywhere.com
 	localhost: http://127.0.0.1:5000/
 	*/
-	base_url: "https://xnaclyy.pythonanywhere.com",
+	base_url: "http://127.0.0.1:5000/",
 	endpoints: ["/all", "/random", "/endpoints"],
 };
 
@@ -12,17 +12,34 @@ var rightanswer = "";
 
 // format answer
 function submit(button) {
-	var value = button.textContent.split(" - ")[1];
+	checkforscore();
+	let value = button.textContent.split(" - ")[1];
 	checkForAnswer(value);
+}
+
+function checkforscore() {
+	let score = document.getElementById("score").textContent;
+	if (score >= 900) {
+		alert("You won!");
+		return location.reload();
+	} else if (score <= -900) {
+		alert("You lost!");
+		return location.reload();
+	}
 }
 
 // self-explanatory
 function checkForAnswer(answer) {
+	let score = document.getElementById("score");
 	if (rightanswer == answer) {
 		alert("Right answer");
+		let latestscore = score.textContent;
+		score.textContent = Number(latestscore) + 100;
 		return getQuestion();
 	} else {
 		alert("Wrong answer");
+		let latestscore = score.textContent;
+		score.textContent = Number(latestscore) - 100;
 		return getQuestion();
 	}
 }
