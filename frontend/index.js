@@ -48,6 +48,7 @@ async function getQuestion() {
 	try {
 		// send request to local api server
 		let response = await fetch(prefs.base_url + prefs.endpoints[1]);
+		let score = (document.getElementById("score").style.display = "inline");
 		var { antworten, frage, richtigeAntwort } = await response.json();
 		// shuffle 'antworten' to be random
 		let temporaryValue, randomIndex;
