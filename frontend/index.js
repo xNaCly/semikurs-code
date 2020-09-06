@@ -18,18 +18,44 @@ function submit(button) {
 	checkForAnswer(value);
 }
 
+function checkForLifes() {
+	let lifesbutton = document.getElementById("lifes");
+	let lifes = Number(lifesbutton.textContent.split(" ")[1]);
+	if (lifes == 4) {
+		return lifesbutton.classList.replace("btn-success", "btn-warning");
+	} else if (lifes == 2) {
+		return lifesbutton.classList.replace("btn-warning", "btn-danger");
+	}
+	if (!lifes) {
+		alert("Game over.\nYour game will be saved");
+	}
+}
+
 // self-explanatory
 function checkForAnswer(answer) {
 	let score = document.getElementById("score");
+	let lifes = document.getElementById("lifes");
+	checkForLifes();
 	if (rightanswer == answer) {
 		alert("Right answer");
+		//update score
 		let latestscore = score.textContent.split(" ");
 		score.textContent = `Score: ${Number(latestscore[1]) + 100}`;
+
+		//get new question
 		return getQuestion();
 	} else {
 		alert("Wrong answer");
+
+		//update score
 		let latestscore = score.textContent.split(" ");
 		score.textContent = `Score: ${Number(latestscore[1]) - 100}`;
+
+		//update lifes
+		let latestlife = lifes.textContent.split(" ");
+		lifes.textContent = `Lifes: ${Number(latestlife[1]) - 1}`;
+
+		//get new question
 		return getQuestion();
 	}
 }
