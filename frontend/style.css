@@ -32,7 +32,7 @@ hr {
 	width: 450px;
 }
 #error-div {
-	margin-top: 40vh;
+	/* margin-top: 40vh; */
 	display: flex;
 	align-items: center;
 	justify-content: center;
