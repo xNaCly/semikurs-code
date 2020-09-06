@@ -1,4 +1,4 @@
-const production = true;
+const production = false;
 
 const prefs = {
 	//change this if you got a different port, or an external api-server
@@ -14,20 +14,8 @@ var rightanswer = "";
 
 // format answer
 function submit(button) {
-	checkforscore();
 	let value = button.textContent.split(" - ")[1];
 	checkForAnswer(value);
-}
-
-function checkforscore() {
-	let score = document.getElementById("score").textContent;
-	if (score >= 900) {
-		alert("You won!");
-		return location.reload();
-	} else if (score <= -900) {
-		alert("You lost!");
-		return location.reload();
-	}
 }
 
 // self-explanatory
@@ -35,13 +23,13 @@ function checkForAnswer(answer) {
 	let score = document.getElementById("score");
 	if (rightanswer == answer) {
 		alert("Right answer");
-		let latestscore = score.textContent;
-		score.textContent = Number(latestscore) + 100;
+		let latestscore = score.textContent.split(" ");
+		score.textContent = `Score: ${Number(latestscore[1]) + 100}`;
 		return getQuestion();
 	} else {
 		alert("Wrong answer");
-		let latestscore = score.textContent;
-		score.textContent = Number(latestscore) - 100;
+		let latestscore = score.textContent.split(" ");
+		score.textContent = `Score: ${Number(latestscore[1]) - 100}`;
 		return getQuestion();
 	}
 }
@@ -52,6 +40,7 @@ async function getQuestion() {
 		let response = await fetch(prefs.base_url + prefs.endpoints[1]);
 		// display score if connection worked
 		document.getElementById("score").style.display = "inline";
+		document.getElementById("lifes").style.display = "inline";
 		var { antworten, frage, richtigeAntwort } = await response.json();
 		// shuffle 'antworten' to be random
 		let temporaryValue, randomIndex;

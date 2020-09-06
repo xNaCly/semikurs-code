@@ -46,3 +46,6 @@ hr {
 	color: black;
 	display: none;
 }
+#lifes {
+	display: none;
+}

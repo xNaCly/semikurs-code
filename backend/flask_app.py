@@ -5,6 +5,12 @@ app = Flask(__name__)
 data = backend.reader("./contents.json")
 endpointers = backend.reader("./endpoints.json")
 
+def routes():
+	routes = endpointers.replace("[","").replace("]","").replace("\"","").replace(" ","").split(",")
+	print("Routes:")
+	for route in routes:
+		print(f"++ {route}")
+
 def newQuestion():
 	frage = backend.getQuestion(data)
 	antworten = backend.getValuesFromQuestion(frage, data)
@@ -70,4 +76,5 @@ def scoreboard():
 			return f.read(), 200
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	routes()
+	app.run()
