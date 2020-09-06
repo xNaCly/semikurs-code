@@ -27,6 +27,7 @@ function checkForLifes() {
 		return lifesbutton.classList.replace("btn-warning", "btn-danger");
 	} else if (!lifes) {
 		alert("Game over.\nYour game will be saved");
+		location.reload();
 	}
 }
 
