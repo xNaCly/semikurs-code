@@ -25,9 +25,22 @@ function checkForLifes() {
 		return lifesbutton.classList.replace("btn-success", "btn-warning");
 	} else if (lifes == 2) {
 		return lifesbutton.classList.replace("btn-warning", "btn-danger");
-	}
-	if (!lifes) {
+	} else if (!lifes) {
 		alert("Game over.\nYour game will be saved");
+	}
+}
+
+function feedback(rightorwrong) {
+	let feedbackalert = document.getElementById("feedbackalert");
+	feedbackalert.style.display = "flex";
+	if (!rightorwrong) {
+		feedbackalert.classList.remove("alert-success");
+		feedbackalert.classList.add("alert-danger");
+		feedbackalert.innerHTML = "Wrong answer!";
+	} else if (rightorwrong) {
+		feedbackalert.classList.remove("alert-danger");
+		feedbackalert.classList.add("alert-success");
+		feedbackalert.innerHTML = "Right answer!";
 	}
 }
 
@@ -37,15 +50,16 @@ function checkForAnswer(answer) {
 	let lifes = document.getElementById("lifes");
 	checkForLifes();
 	if (rightanswer == answer) {
-		alert("Right answer");
+		// alert("Right answer");
 		//update score
 		let latestscore = score.textContent.split(" ");
 		score.textContent = `Score: ${Number(latestscore[1]) + 100}`;
 
 		//get new question
+		feedback(true);
 		return getQuestion();
 	} else {
-		alert("Wrong answer");
+		// alert("Wrong answer");
 
 		//update score
 		let latestscore = score.textContent.split(" ");
@@ -56,6 +70,7 @@ function checkForAnswer(answer) {
 		lifes.textContent = `Lifes: ${Number(latestlife[1]) - 1}`;
 
 		//get new question
+		feedback(false);
 		return getQuestion();
 	}
 }
@@ -63,6 +78,12 @@ function checkForAnswer(answer) {
 async function getQuestion() {
 	try {
 		// send request to local api server
+		setTimeout(() => {
+			document.getElementById("feedbackalert").style.display = "none";
+			document.getElementById("feedbackalert").classList.remove("alert-success");
+			document.getElementById("feedbackalert").classList.remove("alert-danger");
+		}, 3000);
+
 		let response = await fetch(prefs.base_url + prefs.endpoints[1]);
 		// display score if connection worked
 		document.getElementById("score").style.display = "inline";

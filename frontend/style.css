@@ -49,3 +49,8 @@ hr {
 #lifes {
 	display: none;
 }
+.alert {
+	display: none;
+	align-items: center;
+	justify-content: center;
+}
