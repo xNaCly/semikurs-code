@@ -5,6 +5,13 @@ app = Flask(__name__)
 data = backend.reader("./contents.json")
 endpointers = backend.reader("./endpoints.json")
 
+with open("./auths.csv", "r") as f:
+	auth = f.read().split("\n")
+
+def log(request):
+	with open("./log","a") as f:
+		f.write("\n"+str(request) + "|" + request.remote_addr)
+
 def routes():
 	routes = endpointers.replace("[","").replace("]","").replace("\"","").replace(" ","").split(",")
 	print("Routes:")
@@ -27,12 +34,18 @@ def newQuestion():
 @app.route("/endpoints")
 def endpoints():
 	resp = jsonify(json.loads(endpointers))
+	if not request.args.get("auth") in auth:
+		return "Invalid auth",401
+	log(request)
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
 
 @app.route("/random")
 def random():
 	resp = jsonify(newQuestion())
+	if not request.args.get("auth") in auth:
+		return "Invalid auth",401
+	log(request)
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
 
@@ -40,12 +53,18 @@ def random():
 @app.route("/all")
 def all():
 	resp = jsonify(json.loads(data))
+	if not request.args.get("auth") in auth:
+		return "Invalid auth",401
+	log(request)
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
 
 @app.route("/scoreboard", methods=['POST','GET'])
 def scoreboard():
 	if request.method == "POST":
+		log(request)
+		if not request.args.get("auth") in auth:
+			return "Invalid auth",401
 		name,score = request.args.get("name"), request.args.get("score")
 		if not name or not score:
 			return {
@@ -72,6 +91,9 @@ def scoreboard():
 				"status": 500
 			}
 	elif request.method == "GET":
+		if not request.args.get("auth") in auth:
+			return "Invalid auth",401
+		log(request)
 		with open("./scoreboard.csv", "r") as f:
 			return f.read(), 200
 

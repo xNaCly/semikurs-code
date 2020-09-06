@@ -1,4 +1,4 @@
-const production = true;
+const production = false;
 
 const prefs = {
 	//change this if you got a different port, or an external api-server
@@ -7,7 +7,7 @@ const prefs = {
 	localhost: http://127.0.0.1:5000/
 	*/
 	base_url: production ? "https://xnaclyy.pythonanywhere.com" : "http://127.0.0.1:5000/",
-	endpoints: ["/all", "/random", "/endpoints"],
+	endpoints: ["/all", "/random", "/endpoints", "/scoreboard"],
 };
 
 var rightanswer = "";
@@ -19,6 +19,7 @@ function submit(button) {
 }
 
 function checkForLifes() {
+	let score = document.getElementById("score").textContent;
 	let lifesbutton = document.getElementById("lifes");
 	let lifes = Number(lifesbutton.textContent.split(" ")[1]);
 	if (lifes == 4) {
@@ -26,7 +27,33 @@ function checkForLifes() {
 	} else if (lifes == 2) {
 		return lifesbutton.classList.replace("btn-warning", "btn-danger");
 	} else if (!lifes) {
-		alert("Game over.\nYour game will be saved");
+		if (!production) {
+			var dt = new Date().getTime();
+			var player = "xxxxx".replace(/[xy]/g, function (c) {
+				var r = (dt + Math.random() * 5) % 5 | 0;
+				dt = Math.floor(dt / 5);
+				return (c == "x" ? r : (r & 0x3) | 0x8).toString(5);
+			});
+			var username = prompt(
+				`Game over.\nYour game with a score of: ${score.split(" ")[1]} will be saved as: `
+			);
+			if (!username) {
+				username = `Player ${player}`;
+			}
+			fetch(
+				prefs.base_url +
+					prefs.endpoints[3] +
+					`?name=${username}&score=${
+						score.split(" ")[1]
+					}&auth=e1150d25-f56a-4688-aeb8-8163a3f4b6399eeacf73-fff8-4bfb-bcbb-5f2a40eef02d`,
+				{
+					method: "POST",
+				}
+			);
+		} else {
+			alert("Game over :(");
+		}
+
 		location.reload();
 	}
 }
@@ -85,7 +112,11 @@ async function getQuestion() {
 			document.getElementById("feedbackalert").classList.remove("alert-danger");
 		}, 3000);
 
-		let response = await fetch(prefs.base_url + prefs.endpoints[1]);
+		let response = await fetch(
+			prefs.base_url +
+				prefs.endpoints[1] +
+				"?auth=e1150d25-f56a-4688-aeb8-8163a3f4b6399eeacf73-fff8-4bfb-bcbb-5f2a40eef02d"
+		);
 		// display score if connection worked
 		document.getElementById("score").style.display = "inline";
 		document.getElementById("lifes").style.display = "inline";
