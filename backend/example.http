@@ -6,4 +6,4 @@ GET http://127.0.0.1:5000/all
 ###
 GET http://127.0.0.1:5000/scoreboard
 ###
-POST http://127.0.0.1:5000/scoreboard?name=xnacly&score=900
+POST http://xnaclyy.pythonanywhere.com/scoreboard?name=xnacly&score=900000&auth=
