@@ -5,11 +5,11 @@ app = Flask(__name__)
 data = backend.reader("./contents.json")
 endpointers = backend.reader("./endpoints.json")
 
-with open("./auths.csv", "r") as f:
+with open("./authss.csv", "r") as f:
 	auth = f.read().split("\n")
 
 def log(request):
-	with open("./log","a") as f:
+	with open("./logs","a") as f:
 		f.write("\n"+str(request) + "|" + request.remote_addr)
 
 def routes():
