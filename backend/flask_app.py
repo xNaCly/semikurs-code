@@ -88,16 +88,30 @@ def scoreboard():
 		except Exception as EX:
 			return f"failed to write score to 'scoreboard.csv'{EX}"
 	elif request.method == "GET":
+		with open("./scoreboard.csv", "r") as f:				
+			scores = f.read()
 		if not request.args.get("auth") in auth:
 			return "Invalid auth",401
 		log(request)
-		if not request.args.get("top"):
-			with open("./scoreboard.csv", "r") as f:
-				return f.read(), 200
-		elif request.args.get("top"):
-			with open("./scoreboard.csv", "r") as f:
-				f.read()
+		if request.args.get("top"):
+			scores = scores.split("\n")
+			scores.pop(0)
 
+			def test(x):
+			    return int(x.split(",")[1])
+			returndict = {
+				"content":{},
+				"status":200
+			}
+			scores.sort(reverse=True, key=test)
+			y = 0
+			for x in scores[0:10]:
+				returndict["content"][y] = x
+				y += 1
+			return returndict,200
+		else:
+			return scores,200
+			
 if __name__ == "__main__":
 	routes()
 	app.run()
