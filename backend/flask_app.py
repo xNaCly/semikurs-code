@@ -1,6 +1,7 @@
 import backend
 from flask import Flask, jsonify, redirect, Response, request
 import json
+import uuid
 app = Flask(__name__)
 data = backend.reader("./contents.json")
 endpointers = backend.reader("./endpoints.json")
@@ -74,8 +75,9 @@ def scoreboard():
 				"status": 400
 			}
 		try:
+			useruuid = str(uuid.uuid4()) + str(uuid.uuid4())
 			with open("./scoreboard.csv", "a") as f:
-				f.write(f"\n{name},{score}")
+				f.write(f"\n{name},{score},{useruuid}")
 			return {
 				"content": {
 					"name":name,
@@ -83,19 +85,18 @@ def scoreboard():
 				},
 				"status": 200
 			}
-		except:
-			return {
-				"content": {
-					"error": "failed to write score to 'scoreboard.csv'"
-				},
-				"status": 500
-			}
+		except Exception as EX:
+			return f"failed to write score to 'scoreboard.csv'{EX}"
 	elif request.method == "GET":
 		if not request.args.get("auth") in auth:
 			return "Invalid auth",401
 		log(request)
-		with open("./scoreboard.csv", "r") as f:
-			return f.read(), 200
+		if not request.args.get("top"):
+			with open("./scoreboard.csv", "r") as f:
+				return f.read(), 200
+		elif request.args.get("top"):
+			with open("./scoreboard.csv", "r") as f:
+				f.read()
 
 if __name__ == "__main__":
 	routes()

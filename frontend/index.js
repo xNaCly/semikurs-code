@@ -1,4 +1,4 @@
-const production = true;
+const production = false;
 
 const prefs = {
 	//change this if you got a different port, or an external api-server
@@ -27,7 +27,7 @@ function checkForLifes() {
 	} else if (lifes == 2) {
 		return lifesbutton.classList.replace("btn-warning", "btn-danger");
 	} else if (!lifes) {
-		if (production) {
+		if (!production) {
 			var dt = new Date().getTime();
 			var player = "xxxxx".replace(/[xy]/g, function (c) {
 				var r = (dt + Math.random() * 5) % 5 | 0;
