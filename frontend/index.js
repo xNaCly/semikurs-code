@@ -6,7 +6,7 @@ const prefs = {
 	online: https://xnaclyy.pythonanywhere.com
 	localhost: http://127.0.0.1:5000/
 	*/
-	base_url: production ? "https://xnaclyy.pythonanywhere.com" : "http://127.0.0.1:5000/",
+	base_url: production ? "https://xnaclyy.pythonanywhere.com" : "http://127.0.0.1:5000",
 	endpoints: ["/all", "/random", "/endpoints", "/scoreboard"],
 };
 
@@ -58,6 +58,65 @@ function checkForLifes() {
 	}
 }
 
+async function modifyscoreboard() {
+	let response = await fetch(
+		prefs.base_url +
+			prefs.endpoints[3] +
+			"?auth=e1150d25-f56a-4688-aeb8-8163a3f4b6399eeacf73-fff8-4bfb-bcbb-5f2a40eef02d&top=true"
+	);
+	response = await response.json();
+	document.getElementById("score1").innerHTML += ` ${response.content["0"]
+		.split(",")
+		.splice(0, 2)
+		.toString()
+		.replace(",", " - ")}`;
+	document.getElementById("score2").innerHTML += ` ${response.content["1"]
+		.split(",")
+		.splice(0, 2)
+		.toString()
+		.replace(",", " - ")}`;
+	document.getElementById("score3").innerHTML += ` ${response.content["2"]
+		.split(",")
+		.splice(0, 2)
+		.toString()
+		.replace(",", " - ")}`;
+	document.getElementById("score4").innerHTML += ` ${response.content["3"]
+		.split(",")
+		.splice(0, 2)
+		.toString()
+		.replace(",", " - ")}`;
+	document.getElementById("score5").innerHTML += ` ${response.content["4"]
+		.split(",")
+		.splice(0, 2)
+		.toString()
+		.replace(",", " - ")}`;
+	document.getElementById("score6").innerHTML += ` ${response.content["5"]
+		.split(",")
+		.splice(0, 2)
+		.toString()
+		.replace(",", " - ")}`;
+	document.getElementById("score7").innerHTML += ` ${response.content["6"]
+		.split(",")
+		.splice(0, 2)
+		.toString()
+		.replace(",", " - ")}`;
+	document.getElementById("score8").innerHTML += ` ${response.content["7"]
+		.split(",")
+		.splice(0, 2)
+		.toString()
+		.replace(",", " - ")}`;
+	document.getElementById("score9").innerHTML += ` ${response.content["8"]
+		.split(",")
+		.splice(0, 2)
+		.toString()
+		.replace(",", " - ")}`;
+	document.getElementById("score10").innerHTML += ` ${response.content["9"]
+		.split(",")
+		.splice(0, 2)
+		.toString()
+		.replace(",", " - ")}`;
+}
+
 function feedback(rightorwrong) {
 	let feedbackalert = document.getElementById("feedbackalert");
 	feedbackalert.style.display = "flex";
@@ -107,9 +166,10 @@ async function getQuestion() {
 	try {
 		// send request to local api server
 		setTimeout(() => {
-			document.getElementById("feedbackalert").style.display = "none";
-			document.getElementById("feedbackalert").classList.remove("alert-success");
-			document.getElementById("feedbackalert").classList.remove("alert-danger");
+			feedbackbutton = document.getElementById("feedbackalert");
+			feedbackbutton.classList.remove("alert-success");
+			feedbackbutton.classList.remove("alert-danger");
+			feedbackbutton.innerHTML = "";
 		}, 3000);
 
 		let response = await fetch(
@@ -168,5 +228,6 @@ async function getQuestion() {
 
 // if window is loaded, try loading questions and answers
 window.addEventListener("load", async () => {
+	modifyscoreboard();
 	getQuestion();
 });

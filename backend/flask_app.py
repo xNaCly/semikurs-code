@@ -36,7 +36,14 @@ def newQuestion():
 def endpoints():
 	resp = jsonify(json.loads(endpointers))
 	if not request.args.get("auth") in auth:
-		return "Invalid auth",401
+		resp = jsonify({
+				"content": {
+					"error": "invalid auth"
+				},
+				"status": 401
+			})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
 	log(request)
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
@@ -45,7 +52,14 @@ def endpoints():
 def random():
 	resp = jsonify(newQuestion())
 	if not request.args.get("auth") in auth:
-		return "Invalid auth",401
+		resp = jsonify({
+				"content": {
+					"error": "invalid auth"
+				},
+				"status": 401
+			})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
 	log(request)
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
@@ -55,7 +69,14 @@ def random():
 def all():
 	resp = jsonify(json.loads(data))
 	if not request.args.get("auth") in auth:
-		return "Invalid auth",401
+		resp = jsonify({
+				"content": {
+					"error": "invalid auth"
+				},
+				"status": 401
+			})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
 	log(request)
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
@@ -65,33 +86,58 @@ def scoreboard():
 	if request.method == "POST":
 		log(request)
 		if not request.args.get("auth") in auth:
-			return "Invalid auth",401
+			resp = jsonify({
+				"content": {
+					"error": "invalid auth"
+				},
+				"status": 401
+			})
+			resp.headers['Access-Control-Allow-Origin'] = '*'
+			return resp,401
 		name,score = request.args.get("name"), request.args.get("score")
 		if not name or not score:
-			return {
+			resp = jsonify({
 				"content": {
 					"error": "missing params. syntax should be: ?name=<string>&score=<number>"
 				},
 				"status": 400
-			}
+			})
+			resp.headers['Access-Control-Allow-Origin'] = '*'
+			return resp,400
 		try:
 			useruuid = str(uuid.uuid4()) + str(uuid.uuid4())
 			with open("./scoreboard.csv", "a") as f:
 				f.write(f"\n{name},{score},{useruuid}")
-			return {
+			resp = jsonify({
 				"content": {
 					"name":name,
 					"score":score
 				},
 				"status": 200
-			}
+			})
+			resp.headers['Access-Control-Allow-Origin'] = '*'
+			return resp,200
 		except Exception as EX:
-			return f"failed to write score to 'scoreboard.csv'{EX}"
+			jsonify({
+				"content": {
+					"error": "couldnt write to scoreboardDB:" + EX
+				},
+				"status": 500
+			})
+			resp.headers['Access-Control-Allow-Origin'] = '*'
+			return resp,500
 	elif request.method == "GET":
 		with open("./scoreboard.csv", "r") as f:				
 			scores = f.read()
 		if not request.args.get("auth") in auth:
-			return "Invalid auth",401
+			resp = jsonify({
+				"content": {
+					"error": "invalid auth"
+				},
+				"status": 401
+			})
+			resp.headers['Access-Control-Allow-Origin'] = '*'
+			return resp,401
 		log(request)
 		if request.args.get("top"):
 			scores = scores.split("\n")
@@ -108,6 +154,8 @@ def scoreboard():
 			for x in scores[0:10]:
 				returndict["content"][y] = x
 				y += 1
+			returndict = jsonify(returndict)
+			returndict.headers['Access-Control-Allow-Origin'] = '*'
 			return returndict,200
 		else:
 			return scores,200

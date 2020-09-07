@@ -1,5 +1,5 @@
 #main-content-connection {
-	margin-top: 25vh;
+	margin-top: 10vh;
 }
 
 #ant1,
@@ -43,14 +43,28 @@ hr {
 	justify-content: center;
 }
 #score {
-	color: black;
+	color: #6c757d;
 	display: none;
 }
 #lifes {
 	display: none;
 }
 .alert {
-	display: none;
+	height: 50px;
 	align-items: center;
 	justify-content: center;
+}
+.liste {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.list-group {
+	margin: 5px;
+	text-align: center;
+	width: 500px;
+}
+.vl {
+	border-left: 1px solid #adb5bd;
+	height: 250px;
 }
