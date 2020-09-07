@@ -1,4 +1,4 @@
-const production = false;
+const production = true;
 
 const prefs = {
 	//change this if you got a different port, or an external api-server
@@ -27,7 +27,7 @@ function checkForLifes() {
 	} else if (lifes == 2) {
 		return lifesbutton.classList.replace("btn-warning", "btn-danger");
 	} else if (!lifes) {
-		if (!production) {
+		if (production) {
 			var dt = new Date().getTime();
 			var player = "xxxxx".replace(/[xy]/g, function (c) {
 				var r = (dt + Math.random() * 5) % 5 | 0;
@@ -215,6 +215,8 @@ async function getQuestion() {
 		rightanswer = richtigeAntwort;
 	} catch (e) {
 		console.error(e);
+
+		document.getElementsByClassName("liste")[0].style.display = "none";
 
 		document.getElementById("hr-upper").style.display = "none";
 		document.getElementById("hr-lower").style.display = "none";
