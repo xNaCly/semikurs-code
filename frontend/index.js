@@ -1,4 +1,4 @@
-const production = true;
+const production = false;
 
 const prefs = {
 	//change this if you got a different port, or an external api-server
@@ -7,7 +7,7 @@ const prefs = {
 	localhost: http://127.0.0.1:5000/
 	*/
 	base_url: production ? "https://xnaclyy.pythonanywhere.com" : "http://127.0.0.1:5000",
-	endpoints: ["/all", "/random", "/endpoints", "/scoreboard"],
+	endpoints: ["/all", "/random", "/endpoints", "/scoreboard", "/stats"],
 };
 
 var rightanswer = "";
@@ -27,33 +27,28 @@ function checkForLifes() {
 	} else if (lifes == 2) {
 		return lifesbutton.classList.replace("btn-warning", "btn-danger");
 	} else if (!lifes) {
-		if (production) {
-			var dt = new Date().getTime();
-			var player = "xxxxx".replace(/[xy]/g, function (c) {
-				var r = (dt + Math.random() * 5) % 5 | 0;
-				dt = Math.floor(dt / 5);
-				return (c == "x" ? r : (r & 0x3) | 0x8).toString(5);
-			});
-			var username = prompt(
-				`Game over.\nYour game with a score of: ${score.split(" ")[1]} will be saved as: `
-			);
-			if (!username) {
-				username = `Player ${player}`;
-			}
-			fetch(
-				prefs.base_url +
-					prefs.endpoints[3] +
-					`?name=${username}&score=${
-						score.split(" ")[1]
-					}&auth=e1150d25-f56a-4688-aeb8-8163a3f4b6399eeacf73-fff8-4bfb-bcbb-5f2a40eef02d`,
-				{
-					method: "POST",
-				}
-			);
-		} else {
-			alert("Game over :(");
+		var dt = new Date().getTime();
+		var player = "xxxxx".replace(/[xy]/g, function (c) {
+			var r = (dt + Math.random() * 5) % 5 | 0;
+			dt = Math.floor(dt / 5);
+			return (c == "x" ? r : (r & 0x3) | 0x8).toString(5);
+		});
+		var username = prompt(
+			`Game over.\nYour game with a score of: ${score.split(" ")[1]} will be saved as: `
+		);
+		if (!username) {
+			username = `Player ${player}`;
 		}
-
+		fetch(
+			prefs.base_url +
+				prefs.endpoints[3] +
+				`?name=${username}&score=${
+					score.split(" ")[1]
+				}&auth=e1150d25-f56a-4688-aeb8-8163a3f4b6399eeacf73-fff8-4bfb-bcbb-5f2a40eef02d`,
+			{
+				method: "POST",
+			}
+		);
 		location.reload();
 	}
 }
@@ -228,8 +223,132 @@ async function getQuestion() {
 	}
 }
 
+async function renderStats() {
+	let myChart = document.getElementById("players").getContext("2d");
+
+	let stats = await fetch(
+		prefs.base_url +
+			prefs.endpoints[4] +
+			"?auth=e1150d25-f56a-4688-aeb8-8163a3f4b6399eeacf73-fff8-4bfb-bcbb-5f2a40eef02d"
+	);
+	stats = await stats.json();
+
+	new Chart(myChart, {
+		type: "pie", // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+		data: {
+			labels: ["Registered", "Unregistered"],
+			datasets: [
+				{
+					label: "Players",
+					data: [stats.registered_players, stats.players - stats.registered_players],
+					//backgroundColor:'green',
+					backgroundColor: ["#326a87", "#91afc5"],
+					// borderWidth: 1,
+					// borderColor: "#777",
+					// hoverBorderWidth: 3,
+					// hoverBorderColor: "#000",
+				},
+			],
+		},
+		options: {
+			title: {
+				display: true,
+				text: "Players:",
+				fontSize: 25,
+			},
+			legend: {
+				display: false,
+				position: "bottom",
+				labels: {
+					fontColor: "#000",
+				},
+			},
+			layout: {
+				padding: {
+					left: 0,
+					right: 0,
+					bottom: 0,
+					top: 0,
+				},
+			},
+			tooltips: {
+				enabled: true,
+			},
+		},
+	});
+
+	myChart = document.getElementById("high-low").getContext("2d");
+
+	new Chart(myChart, {
+		type: "bar", // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+		data: {
+			labels: ["Lowestscore", "Highestscore"],
+			datasets: [
+				{
+					label: "Scores",
+					data: [stats.lowest_score, stats.highest_score],
+					backgroundColor: ["#326a87", "#91afc5"],
+				},
+			],
+		},
+		options: {
+			title: {
+				display: true,
+				text: "Scores",
+				fontSize: 25,
+			},
+			legend: {
+				display: false,
+				position: "bottom",
+				labels: {
+					fontColor: "#000",
+				},
+			},
+			layout: {
+				padding: {
+					left: 0,
+					right: 0,
+					bottom: 0,
+					top: 0,
+				},
+			},
+			tooltips: {
+				enabled: true,
+			},
+		},
+	});
+
+	myChart = document.getElementById("all-scores").getContext("2d");
+
+	let dataarray = [];
+	for (let x in stats.all_scores) {
+		// dataarray.push({ x: Number(x), y: stats.all_scores[x] });
+		dataarray.push(x);
+	}
+	// console.log(dataarray);
+	new Chart(myChart, {
+		type: "line", // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+		data: {
+			labels: dataarray,
+			datasets: [
+				{
+					label: "Scores",
+					data: stats.all_scores,
+					borderColor: ["#326a87"],
+					lineTension: 0,
+					pointStyle: "cross",
+					radius: 10,
+					hitRadius: 10,
+					borderDash: [10, 5],
+				},
+			],
+		},
+	});
+}
+
 // if window is loaded, try loading questions and answers
 window.addEventListener("load", async () => {
+	renderStats();
 	modifyscoreboard();
 	getQuestion();
 });

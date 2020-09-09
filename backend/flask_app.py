@@ -159,7 +159,44 @@ def scoreboard():
 			return returndict,200
 		else:
 			return scores,200
-			
+
+@app.route("/stats",methods=["GET"])
+def stats():
+	if not request.args.get("auth") in auth:
+		resp = jsonify({
+			"content": {
+				"error": "invalid auth"
+			},
+			"status": 401
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
+	statsdict = {}
+	with open("./scoreboard.csv") as f:
+		data = f.read()
+	data = data.split("\n")
+	data.pop(0)
+	scores = []
+	names = []
+	unsorted = []
+	for x in data:
+		scores.append(int(x.split(",")[1]))	
+		unsorted.append(int(x.split(",")[1]))
+		if "Player" in x.split(",")[0]:
+			names.append(x.split(",")[0])
+		else:
+			continue
+	scores.sort(reverse=True)
+	statsdict["highest_score"] = scores[0]
+	scores.sort(reverse=False)
+	statsdict["lowest_score"] = scores[0]
+	statsdict["players"] = len(data)
+	statsdict["registered_players"] = len(data) - len(names)
+	statsdict["all_scores"] = unsorted
+	statsdict = jsonify(statsdict)
+	statsdict.headers['Access-Control-Allow-Origin'] = '*'
+	return statsdict,200
+
 if __name__ == "__main__":
 	routes()
 	app.run()
