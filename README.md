@@ -27,14 +27,6 @@
 - API: `http://xnaclyy.pythonanywhere.com/`
 - WEBSITE: `https://semikurs-code.vercel.app/`
 
-### planned features:
-- [ ] leaderboard + scoreboard
-- [ ] link leaderboard to db (api endpoint to request leaderboards)
-
-###  todos:
-- [x] add understandable docs
-- [x] add german and english readme & docs
-- [x] record a video showing features and installion-process
 
 #### The MIT License (MIT)
 
