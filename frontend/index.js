@@ -1,4 +1,4 @@
-const production = false;
+const production = true;
 
 const prefs = {
 	//change this if you got a different port, or an external api-server
