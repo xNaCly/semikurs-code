@@ -33,9 +33,7 @@ function checkForLifes() {
 			dt = Math.floor(dt / 5);
 			return (c == "x" ? r : (r & 0x3) | 0x8).toString(5);
 		});
-		var username = prompt(
-			`Game over.\nYour game with a score of: ${score.split(" ")[1]} will be saved as: `
-		);
+		var username = prompt(`Game over.\nYour game with a score of: ${score.split(" ")[1]} will be saved as: `);
 		if (!username) {
 			username = `Player ${player}`;
 		}
@@ -224,14 +222,30 @@ async function getQuestion() {
 }
 
 async function renderStats() {
-	let myChart = document.getElementById("players").getContext("2d");
-
 	let stats = await fetch(
 		prefs.base_url +
 			prefs.endpoints[4] +
 			"?auth=e1150d25-f56a-4688-aeb8-8163a3f4b6399eeacf73-fff8-4bfb-bcbb-5f2a40eef02d"
 	);
 	stats = await stats.json();
+	console.log(stats.all_scores_sorted);
+	let average = 0;
+	let numbers_below_zero = [];
+	for (var number in stats.all_scores_sorted) {
+		if (Number(stats.all_scores_sorted[number]) < 0) {
+			numbers_below_zero.push(Number(stats.all_scores_sorted[number]));
+		}
+		average += Number(stats.all_scores_sorted[number]);
+	}
+	console.log(average);
+	document.getElementById("stats1").innerHTML +=
+		" " + Math.round(stats.all_scores_sorted[stats.all_scores_sorted.length / 2]);
+	document.getElementById("stats2").innerHTML += " " + Math.round(average / stats.all_scores_sorted.length);
+	document.getElementById("stats3").innerHTML += " " + stats.highest_score;
+	document.getElementById("stats4").innerHTML += " " + stats.lowest_score;
+	document.getElementById("stats5").innerHTML += " " + numbers_below_zero.length;
+	document.getElementById("stats6").innerHTML += ` ${stats.all_scores_sorted.length - numbers_below_zero.length}`;
+	let myChart = document.getElementById("players").getContext("2d");
 
 	new Chart(myChart, {
 		type: "pie", // bar, horizontalBar, pie, line, doughnut, radar, polarArea
@@ -294,7 +308,7 @@ async function renderStats() {
 		options: {
 			title: {
 				display: true,
-				text: "Scores",
+				text: "Scores:",
 				fontSize: 25,
 			},
 			legend: {
@@ -321,7 +335,7 @@ async function renderStats() {
 	myChart = document.getElementById("all-scores").getContext("2d");
 
 	let dataarray = [];
-	for (let x in stats.all_scores) {
+	for (let x in stats.all_scores_unsorted) {
 		// dataarray.push({ x: Number(x), y: stats.all_scores[x] });
 		dataarray.push(x);
 	}
@@ -332,14 +346,23 @@ async function renderStats() {
 			labels: dataarray,
 			datasets: [
 				{
-					label: "Scores",
-					data: stats.all_scores,
+					label: "Scores unsorted",
+					data: stats.all_scores_unsorted,
+					borderColor: ["#91afc5"],
+					lineTension: 0,
+					// pointStyle: "circle",
+					radius: 1,
+					hitRadius: 2,
+					// borderDash: [10, 5],
+				},
+				{
+					label: "Scores sorted",
+					data: stats.all_scores_sorted,
 					borderColor: ["#326a87"],
 					lineTension: 0,
-					pointStyle: "cross",
-					radius: 10,
-					hitRadius: 10,
-					borderDash: [10, 5],
+					radius: 1,
+					hitRadius: 2,
+					// borderDash: [5, 10],
 				},
 			],
 		},

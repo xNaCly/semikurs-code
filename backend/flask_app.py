@@ -192,7 +192,8 @@ def stats():
 	statsdict["lowest_score"] = scores[0]
 	statsdict["players"] = len(data)
 	statsdict["registered_players"] = len(data) - len(names)
-	statsdict["all_scores"] = unsorted
+	statsdict["all_scores_unsorted"] = unsorted
+	statsdict["all_scores_sorted"] = scores
 	statsdict = jsonify(statsdict)
 	statsdict.headers['Access-Control-Allow-Origin'] = '*'
 	return statsdict,200
