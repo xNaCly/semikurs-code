@@ -6,6 +6,8 @@ app = Flask(__name__)
 data = backend.reader("./contents.json")
 endpointers = backend.reader("./endpoints.json")
 
+disable_post = True
+
 with open("./authss.csv", "r") as f:
 	auth = f.read().split("\n")
 
@@ -84,6 +86,15 @@ def all():
 @app.route("/scoreboard", methods=['POST','GET'])
 def scoreboard():
 	if request.method == "POST":
+		if disable_post:
+			resp = jsonify({
+				"content": {
+						"error": "Post requests not allowed!"
+					},
+					"status": 403
+				})
+			resp.headers['Access-Control-Allow-Origin'] = '*'
+			return resp,403
 		log(request)
 		if not request.args.get("auth") in auth:
 			resp = jsonify({
