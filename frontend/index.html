@@ -24,7 +24,7 @@
 					role="tab"
 					aria-controls="play"
 					aria-selected="true"
-					>Play</a
+					><i class="fas fa-play"></i> Play</a
 				>
 			</li>
 			<li class="nav-item">
@@ -36,7 +36,7 @@
 					role="tab"
 					aria-controls="leaderboard"
 					aria-selected="false"
-					>Leaderboard</a
+					><i class="fas fa-list"></i> Ranking</a
 				>
 			</li>
 			<li class="nav-item">
@@ -48,15 +48,16 @@
 					role="tab"
 					aria-controls="Stats"
 					aria-selected="false"
-					>Stats</a
+					><i class="fas fa-chart-pie"></i> Stats</a
 				>
 			</li>
 		</ul>
 		<div class="tab-content" id="myTabContent">
 			<div class="tab-pane fade show active" id="play" role="tabpanel" aria-labelledby="play-tab">
+				<div class="alert" role="alert" id="feedbackalert"></div>
 				<div class="text-center" id="main-content-connection">
 					<br />
-					<h1 id="question"></h1>
+					<h1 class="h1-stats" id="question"></h1>
 					<div class="text-center btn-group-horizontal">
 						<button class="btn btn-lg btn-success" id="lifes" disabled>Lifes: 5</button>
 						<button class="btn btn-lg btn-default" id="score" disabled>Score: 0</button>
@@ -82,6 +83,7 @@
 				</div>
 			</div>
 			<div class="tab-pane fade" id="leaderboard" role="tabpanel" aria-labelledby="leaderboard-tab">
+				<div class="alert" role="alert" id="feedbackalert"></div>
 				<h1 class="h1-stats">Leaderboard:</h1>
 				<div class="liste">
 					<ul class="list-group list-group-flush">
@@ -102,14 +104,15 @@
 				</div>
 			</div>
 			<div class="tab-pane fade" id="Stats" role="tabpanel" aria-labelledby="Stats-tab">
+				<div class="alert" role="alert" id="feedbackalert"></div>
 				<h1 class="h1-stats">Stats:</h1>
 				<div class="canvas-stats">
 					<div class="vl" style="height: 100px"></div>
-					<div class="chart-container-pie" style="position: relative; height: 400px; width: 400px">
+					<div class="chart-container-pie" style="position: relative;">
 						<canvas id="players"></canvas>
 					</div>
 					<div class="vl" style="height: 100px"></div>
-					<div class="chart-container-high-low" style="position: relative; height: 400px; width: 800px">
+					<div class="chart-container-high-low" style="position: relative;">
 						<canvas id="high-low"></canvas>
 					</div>
 					<div class="vl" style="height: 100px"></div>
@@ -147,14 +150,6 @@
 							</tr>
 						</tbody>
 					</table>
-					<!-- <ul class="list-group list-group-flush statsgroup">
-						<li id="stats2" class="list-group-item disabled">&#8709;:</li>
-						<li id="stats1" class="list-group-item disabled">Median:</li>
-						<li id="stats3" class="list-group-item disabled">Highscore:</li>
-						<li id="stats4" class="list-group-item disabled">Lowscore:</li>
-						<li id="stats5" class="list-group-item disabled">Scores below 0:</li>
-						<li id="stats6" class="list-group-item disabled">Scores above 0:</li>
-					</ul> -->
 				</div>
 				<br /><br />
 				<div class="chart-container-line" style="position: relative">
@@ -167,7 +162,6 @@
 				<br /><br />
 			</div>
 		</div>
-		<div class="alert" role="alert" id="feedbackalert"></div>
 		<div id="error-div" class="text-center btn-group-vertical">
 			<button class="btn btn-primary" id="loader-error" disabled>
 				<span class="spinner-border spinner-border-sm"></span>

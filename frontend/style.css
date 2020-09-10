@@ -1,7 +1,9 @@
 #main-content-connection {
-	margin-top: 10vh;
+	/* margin-top: 10vh; */
 }
-
+.nav.nav-tabs {
+	margin-top: 20px;
+}
 #ant1,
 #ant2,
 #ant3,
@@ -58,6 +60,7 @@ hr {
 }
 .alert {
 	height: 50px;
+	margin-top: 20px;
 	align-items: center;
 	justify-content: center;
 }
@@ -91,19 +94,20 @@ a:hover {
 .text-center.btn-group-horizontal {
 	margin: 50px;
 }
-.coming-soon {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
 .canvas-stats {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-.chart-container-high-low,
 .chart-container-pie {
 	margin: 50px;
+	height: 400px;
+	width: 400px;
+}
+.chart-container-high-low {
+	margin: 50px;
+	height: 400px;
+	width: 800px;
 }
 #footer-github-button-link {
 	background-color: rgb(50, 106, 135, 0.2);
