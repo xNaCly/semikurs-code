@@ -9,16 +9,16 @@
 
 `Play:`
 <kbd>
-<img src="https://cdn.discordapp.com/attachments/638844015084568597/753357559087235152/unknown.png">
+<img src="https://cdn.discordapp.com/attachments/638844015084568597/753671487004606484/unknown.png">
 </kbd>
 <br><br>
 `Leaderboard:`
 <kbd>
-<img src="https://cdn.discordapp.com/attachments/638844015084568597/753357786460585985/unknown.png">
+<img src="https://cdn.discordapp.com/attachments/638844015084568597/753671412929003730/unknown.png">
 </kbd>
 <br><br>
 `Stats:`
 <kbd>
-<img src="https://cdn.discordapp.com/attachments/638844015084568597/753358079151833108/unknown.png">
+<img src="https://cdn.discordapp.com/attachments/638844015084568597/753671296235077712/unknown.png">
 </kbd>
 <br><br>
