@@ -134,3 +134,18 @@ a:hover {
 #table-first {
 	font-weight: normal;
 }
+.modal-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 200px;
+	width: 1000px;
+}
+.modal-dialog.modal-lg {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.fas.fa-exclamation-triangle {
+	color: #e3af00;
+}

@@ -17,6 +17,13 @@ def log(request):
 
 def routes():
 	routes = endpointers.replace("[","").replace("]","").replace("\"","").replace(" ","").split(",")
+	print("""
+ __  ___   _    _    ____ _  __   __
+ \ \/ / \ | |  / \  / ___| | \ \ / /
+  \  /|  \| | / _ \| |   | |  \ V / 
+  /  \| |\  |/ ___ \ |___| |___| |  
+ /_/\_\_| \_/_/   \_\____|_____|_|  
+""")
 	print("Routes:")
 	for route in routes:
 		print(f"++ {route}")
@@ -212,3 +219,5 @@ def stats():
 if __name__ == "__main__":
 	routes()
 	app.run()
+else:
+	routes()

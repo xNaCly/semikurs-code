@@ -14,6 +14,24 @@
 		<title>Choose or Loose</title>
 	</head>
 	<body>
+		<div
+			class="modal fade bd-example-modal-lg"
+			tabindex="-1"
+			role="dialog"
+			aria-labelledby="myLargeModalLabel"
+			aria-hidden="true"
+			id="myModal"
+		>
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<i class="fas fa-exclamation-triangle"></i>
+					<p>POST requests to scoreboard/leaderboard currently disabled, we will keep you posted.</p>
+					<br />
+					<p>! Your score will not be saved !</p>
+					<i class="fas fa-exclamation-triangle"></i>
+				</div>
+			</div>
+		</div>
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item">
 				<a
@@ -108,11 +126,11 @@
 				<h1 class="h1-stats">Stats:</h1>
 				<div class="canvas-stats">
 					<div class="vl" style="height: 100px"></div>
-					<div class="chart-container-pie" style="position: relative;">
+					<div class="chart-container-pie" style="position: relative">
 						<canvas id="players"></canvas>
 					</div>
 					<div class="vl" style="height: 100px"></div>
-					<div class="chart-container-high-low" style="position: relative;">
+					<div class="chart-container-high-low" style="position: relative">
 						<canvas id="high-low"></canvas>
 					</div>
 					<div class="vl" style="height: 100px"></div>
@@ -126,7 +144,7 @@
 						<tbody>
 							<tr>
 								<th id="table-first" scope="row">&#8709;:</th>
-								<td id="stats2"></tdid="stats2">
+								<td id="stats2"></td>
 							</tr>
 							<tr>
 								<th id="table-first" scope="row">Median:</th>

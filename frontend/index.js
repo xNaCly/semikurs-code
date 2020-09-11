@@ -228,7 +228,6 @@ async function renderStats() {
 			"?auth=e1150d25-f56a-4688-aeb8-8163a3f4b6399eeacf73-fff8-4bfb-bcbb-5f2a40eef02d"
 	);
 	stats = await stats.json();
-	console.log(stats.all_scores_sorted);
 	let average = 0;
 	let numbers_below_zero = [];
 	for (var number in stats.all_scores_sorted) {
@@ -237,7 +236,6 @@ async function renderStats() {
 		}
 		average += Number(stats.all_scores_sorted[number]);
 	}
-	console.log(average);
 	document.getElementById("stats1").innerHTML +=
 		" " + Math.round(stats.all_scores_sorted[stats.all_scores_sorted.length / 2]);
 	document.getElementById("stats2").innerHTML += " " + Math.round(average / stats.all_scores_sorted.length);
@@ -371,7 +369,21 @@ async function renderStats() {
 
 // if window is loaded, try loading questions and answers
 window.addEventListener("load", async () => {
+	console.warn(
+		`%cmade by:\n\n__  ___   _    _    ____ _  __   __
+\\ \\/ / \\ | |  / \\  / ___| | \\ \\ / /
+ \\  /|  \\| | / _ \\| |   | |  \\ V / 
+ /  \\| |\\  |/ ___ \\ |___| |___| |  
+/_/\\_\\_| \\_/_/   \\_\\____|_____|_|\n\n`,
+		"font-family:monospace"
+	);
+	console.error("visit my github: https://github.com/xNaCly/semikurs-code");
 	renderStats();
 	modifyscoreboard();
 	getQuestion();
+	//displayerrormodal:
+	$("#myModal").modal({ show: true });
+	console.error(
+		"POST requests to scoreboard/leaderboard currently disabled, we will keep you posted.\nwhich means: your score will not be saved."
+	);
 });
