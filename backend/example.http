@@ -1,21 +1,19 @@
-GET http://127.0.0.1:5000/endpoints
+GET http://127.0.0.1:5000/endpoints?sid=
 ###
-GET http://127.0.0.1:5000/random
+GET http://127.0.0.1:5000/random?sid=
 ###
-GET http://127.0.0.1:5000/all
+GET http://127.0.0.1:5000/all?sid=
 ###
-GET http://127.0.0.1:5000/scoreboard
+GET http://127.0.0.1:5000/scoreboard?sid=
 ###
-GET http://127.0.0.1:5000/stats?sid=14fe3c42-2210-4348-ab0a-f52c8add504d
+GET http://127.0.0.1:5000/stats?sid=
 ###
-GET http://127.0.0.1:5000/check?q=Welches%20OS%20wird%20am%20meisten%20verwendet%3F&a=Wrong%20Answer
+GET http://127.0.0.1:5000/check?q=Welches%20OS%20wird%20am%20meisten%20verwendet%3F&a=Wrong%20Answer&sid=
 ###
 GET http://127.0.0.1:5000/register
 ###
 GET http://127.0.0.1:5000/users?pw=lelek
 ###
-POST http://127.0.0.1:5000/scoreboard?name=xnacly&sid=979703a2-0723-4050-98fb-1a73ece5f1ba
-
-
-
-
+PUT http://127.0.0.1:5000/update?cr=no&sid=
+###
+POST http://127.0.0.1:5000/scoreboard?name=xnacly&sid=

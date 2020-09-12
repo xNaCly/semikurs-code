@@ -57,6 +57,7 @@ def routes():
   /  \| |\  |/ ___ \ |___| |___| |  
  /_/\_\_| \_/_/   \_\____|_____|_|  
 """)
+
 	print("Routes:")
 	for route in routes:
 		print(f"++ {route}")
@@ -92,7 +93,7 @@ get all endpoints
 
 - returns array
 """
-@app.route("/endpoints")
+@app.route("/endpoints",methods=["GET"])
 def endpoints():
 	check_for_time()
 	if not request.args.get("sid") in auth:
@@ -135,7 +136,7 @@ get a question:
 
 - returns json
 """
-@app.route("/random")
+@app.route("/random",methods=["GET"])
 def random():
 	check_for_time()
 	if lock_down_api:
@@ -176,7 +177,7 @@ get answer for query:
 
 - returns json
 """
-@app.route("/check")
+@app.route("/check",methods=["GET"])
 def check():
 	check_for_time()	
 	if lock_down_api:
@@ -271,7 +272,7 @@ endpoint disabled due to abuse
 
 -returns json
 """
-@app.route("/all")
+@app.route("/all",methods=["GET"])
 def all():
 	check_for_time()	
 	if lock_down_api:
@@ -501,7 +502,7 @@ def stats():
 	statsdict.headers['Access-Control-Allow-Origin'] = '*'
 	return statsdict,200
 
-@app.route("/register")
+@app.route("/register",methods=["GET"])
 def register():
 	check_for_time()
 	sessionid = uuid.uuid4()
@@ -517,10 +518,72 @@ def register():
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp,201
 
-@app.route("/update", methods=["POST","GET"])
+@app.route("/update",methods=["PUT"])
 def update():
-	pass
-
+	sid = request.args.get("sid")
+	if not sid in auth:
+		resp = jsonify({
+			"content": {
+				"error": "invalid sid"
+			},
+			"status": 401
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
+	correct = request.args.get("cr")
+	if not correct:
+		resp = jsonify({
+			"content": {
+					"error": "missing params. syntax should be: ?name=<string>&sid=<sessionID>"
+				},
+				"status": 400
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,400
+	if users[sid]["lifes"] == 0:
+		resp = jsonify({
+			"content": {
+					"message":"Game over",
+					"body":{
+						"score": users[sid]["score"],
+						"lifes": users[sid]["lifes"],
+					}
+				},
+				"status": 201
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,201
+	if correct == "yes":
+		users[sid]["score"] += 100
+		resp = jsonify({
+			"content": {
+					"message":"userobject updated.",
+					"body":{
+						"score": users[sid]["score"],
+						"lifes": users[sid]["lifes"],
+					}
+				},
+				"status": 201
+			})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,201
+	else:
+		users[sid]["score"] -= 100
+		users[sid]["lifes"] -= 1
+		resp = jsonify({
+			"content": {
+					"message":"userobject updated.",
+					"body":{
+						"score": users[sid]["score"],
+						"lifes": users[sid]["lifes"],
+					}
+				},
+				"status": 201
+			})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,201
+	
+	
 # Dev check for users
 # ---------
 # @app.route("/users")
