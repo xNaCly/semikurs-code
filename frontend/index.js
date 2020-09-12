@@ -390,6 +390,6 @@ window.addEventListener("load", async () => {
 	//displayerrormodal:
 	$("#myModal").modal({ show: true });
 	console.error(
-		"POST requests to scoreboard/leaderboard currently disabled, we will keep you posted.\nwhich means: your score will not be saved."
+		"POST requests to scoreboard/leaderboard currently disabled, we will keep you posted.\nYour score will not be safed."
 	);
 });

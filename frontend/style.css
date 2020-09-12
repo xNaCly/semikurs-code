@@ -18,6 +18,7 @@ hr {
 	display: none;
 	width: 40%;
 }
+.alert.alert-warning.text-center {
 	display: none;
 	border: 1px solid #ffeeba;
 	border-radius: 0.5rem;
