@@ -6,8 +6,7 @@ GET http://127.0.0.1:5000/all
 ###
 GET http://127.0.0.1:5000/scoreboard
 ###
-
-POST https://xnaclyy.pythonanywhere.com/scoreboard?name=xnacly&score=900000&auth=e1150d25-f56a-4688-aeb8-8163a3f4b6399eeacf73-fff8-4bfb-bcbb-5f2a40eef02d
+GET http://127.0.0.1:5000/check?q=Welches%20OS%20wird%20am%20meisten%20verwendet%3F&a=Android
 
 
 

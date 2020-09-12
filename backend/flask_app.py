@@ -6,10 +6,16 @@ app = Flask(__name__)
 data = backend.reader("./contents.json")
 endpointers = backend.reader("./endpoints.json")
 
+lock_down_api = False
 disable_post = True
+disable_dash_all_request = True
+
+if lock_down_api:
+	print("! API LOCKED DOWN !")
 
 def routes():
 	routes = endpointers.replace("[","").replace("]","").replace("\"","").replace(" ","").split(",")
+	print("---------------------")
 	print("""
  __  ___   _    _    ____ _  __   __
  \ \/ / \ | |  / \  / ___| | \ \ / /
@@ -20,44 +26,146 @@ def routes():
 	print("Routes:")
 	for route in routes:
 		print(f"++ {route}")
-
+	print("---------------------\n\n\n")
 def newQuestion():
-	frage = backend.getQuestion(data)
-	antworten = backend.getValuesFromQuestion(frage, data)
-	richtigeAntwort = antworten[0]
+	question = backend.getQuestion(data)
+	answers = backend.getValuesFromQuestion(question, data)
+	rightanswer = answers[0]
 
 	showObject = {
-		"frage": frage,
-		"antworten": antworten,
-		"richtigeAntwort": richtigeAntwort
+		"question": question,
+		"answers": answers,
+		# "richtigeAntwort": richtigeAntwort
 	}
 	return showObject
 
 
 @app.route("/endpoints")
 def endpoints():
+	if lock_down_api:
+		resp = jsonify({
+					"content": {
+							"error": "API currently locked down, try again later"
+						},
+						"status": 403
+					})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,403
 	resp = jsonify(json.loads(endpointers))
-	 
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
 
 @app.route("/random")
 def random():
+	if lock_down_api:
+		resp = jsonify({
+					"content": {
+							"error": "API currently locked down, try again later"
+						},
+						"status": 403
+					})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,403
 	resp = jsonify(newQuestion())
-	 
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
 
+"""
+get answer for query 
+"""
+@app.route("/check")
+def check():
+	if lock_down_api:
+		resp = jsonify({
+					"content": {
+							"error": "API currently locked down, try again later"
+						},
+						"status": 403
+					})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,403
+	q = request.args.get("q")
+	a = request.args.get("a")
+	if not q or not a:
+		resp = jsonify({
+				"content": {
+					"error": "missing params. syntax should be: ?q=<question>&a=<answer>"
+				},
+				"status": 400
+			})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,400
+	content = json.loads(data)
+	awnser = content[q][0]
+	if not awnser:
+		resp = jsonify({
+				"content": {
+					"error": "couldnt find " + q 
+				},
+				"status": 404
+			})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,404
+	if not a == awnser:
+		resp = jsonify({
+				"content": {
+					"success": False,
+					"error": a + " isnt right" 
+				},
+				"status": 409
+			})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,409
+	resp = jsonify({
+			"content": {
+				"success": True,
+				"feedback": a + " is right" 
+			},
+			"status": 200
+		})
+	resp.headers['Access-Control-Allow-Origin'] = '*'
+	return resp,200
+		
 
+
+"""
+endpoint disabled due to abuse
+"""
 @app.route("/all")
 def all():
+	if lock_down_api:
+		resp = jsonify({
+					"content": {
+							"error": "API currently locked down, try again later"
+						},
+						"status": 403
+					})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,403
+	if disable_dash_all_request:
+		resp = jsonify({
+				"content": {
+						"error": "'GET' requests to this Endpoint, due to abuse, not allowed!"
+					},
+					"status": 403
+				})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,403
 	resp = jsonify(json.loads(data))
-	 
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
 
 @app.route("/scoreboard", methods=['POST','GET'])
 def scoreboard():
+	if lock_down_api:
+		resp = jsonify({
+					"content": {
+							"error": "API currently locked down, try again later"
+						},
+						"status": 403
+					})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,403
 	if request.method == "POST":
 		if disable_post:
 			resp = jsonify({
@@ -126,6 +234,15 @@ def scoreboard():
 
 @app.route("/stats",methods=["GET"])
 def stats():
+	if lock_down_api:
+		resp = jsonify({
+					"content": {
+							"error": "API currently locked down, try again later"
+						},
+						"status": 403
+					})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,403
 	statsdict = {}
 	with open("./scoreboard.csv") as f:
 		data = f.read()

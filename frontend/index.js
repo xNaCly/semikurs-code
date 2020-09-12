@@ -1,4 +1,4 @@
-const production = true;
+const production = false;
 
 const prefs = {
 	//change this if you got a different port, or an external api-server
@@ -7,7 +7,7 @@ const prefs = {
 	localhost: http://127.0.0.1:5000/
 	*/
 	base_url: production ? "https://xnaclyy.pythonanywhere.com" : "http://127.0.0.1:5000",
-	endpoints: ["/all", "/random", "/endpoints", "/scoreboard", "/stats"],
+	endpoints: ["/all", "/random", "/endpoints", "/scoreboard", "/stats", "/check"],
 };
 
 var rightanswer = "";
@@ -128,11 +128,16 @@ function feedback(rightorwrong) {
 }
 
 // self-explanatory
-function checkForAnswer(answer) {
+async function checkForAnswer(answer) {
+	let question = document.getElementById("question").textContent;
+	let rightanswer = await fetch(
+		prefs.base_url + prefs.endpoints[5] + `?q=${encodeURIComponent(question)}&a=${encodeURIComponent(answer)}`
+	);
+	rightanswer = await rightanswer.json();
 	let score = document.getElementById("score");
 	let lifes = document.getElementById("lifes");
 	checkForLifes();
-	if (rightanswer == answer) {
+	if (rightanswer.content.success) {
 		// alert("Right answer");
 		//update score
 		let latestscore = score.textContent.split(" ");
@@ -176,39 +181,37 @@ async function getQuestion() {
 		// display score if connection worked
 		document.getElementById("score").style.display = "inline";
 		document.getElementById("lifes").style.display = "inline";
-		var { antworten, frage, richtigeAntwort } = await response.json();
-		// shuffle 'antworten' to be random
+		var { answers, question } = await response.json();
+		// shuffle 'answers' to be random
 		let temporaryValue, randomIndex;
 
-		for (let i = 0; i < antworten.length; i++) {
+		for (let i = 0; i < answers.length; i++) {
 			randomIndex = Math.floor(Math.random() * i);
 
-			temporaryValue = antworten[i];
-			antworten[i] = antworten[randomIndex];
-			antworten[randomIndex] = temporaryValue;
+			temporaryValue = answers[i];
+			answers[i] = answers[randomIndex];
+			answers[randomIndex] = temporaryValue;
 		}
 
 		// replace placeholders with randomised 'antwort' values
-		document.getElementById("question").textContent = frage;
+		document.getElementById("question").textContent = question;
 		b = document.getElementById("ant1");
-		b.textContent = `A - ${antworten[0]}`;
+		b.textContent = `A - ${answers[0]}`;
 		b.style.display = "block";
 		b1 = document.getElementById("ant2");
-		b1.textContent = `B - ${antworten[1]}`;
+		b1.textContent = `B - ${answers[1]}`;
 		b1.style.display = "block";
 
 		b2 = document.getElementById("ant3");
-		b2.textContent = `C - ${antworten[2]}`;
+		b2.textContent = `C - ${answers[2]}`;
 		b2.style.display = "block";
 
 		b3 = document.getElementById("ant4");
-		b3.textContent = `D - ${antworten[3]}`;
+		b3.textContent = `D - ${answers[3]}`;
 		b3.style.display = "block";
 
 		document.getElementById("hr-upper").style.display = "block";
 		document.getElementById("hr-lower").style.display = "block";
-
-		rightanswer = richtigeAntwort;
 	} catch (e) {
 		console.error(e);
 
