@@ -388,7 +388,7 @@ window.addEventListener("load", async () => {
 	modifyscoreboard();
 	getQuestion();
 	//displayerrormodal:
-	$("#myModal").modal({ show: true });
+	$("#myModal").modal({ show: false });
 	console.error(
 		"POST requests to scoreboard/leaderboard currently disabled, we will keep you posted.\nYour score will not be safed."
 	);
