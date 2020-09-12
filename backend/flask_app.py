@@ -8,11 +8,30 @@ endpointers = backend.reader("./endpoints.json")
 
 lock_down_api = False
 disable_post = True
-disable_dash_all_request = True
+disable_dash_all_request = False
 
 if lock_down_api:
 	print("! API LOCKED DOWN !")
+"""
+prints stuff
+---------------------
 
+ __  ___   _    _    ____ _  __   __
+ \ \/ / \ | |  / \  / ___| | \ \ / /
+  \  /|  \| | / _ \| |   | |  \ V /
+  /  \| |\  |/ ___ \ |___| |___| |
+ /_/\_\_| \_/_/   \_\____|_____|_|
+
+Routes:
+++ /all
+++ /random
+++ /endpoints
+++ /scoreboard
+++ /stats
+++ /check
+
+---------------------
+"""
 def routes():
 	routes = endpointers.replace("[","").replace("]","").replace("\"","").replace(" ","").split(",")
 	print("---------------------")
@@ -27,19 +46,37 @@ def routes():
 	for route in routes:
 		print(f"++ {route}")
 	print("---------------------\n\n\n")
+
+"""
+format questions
+"""
 def newQuestion():
 	question = backend.getQuestion(data)
 	answers = backend.getValuesFromQuestion(question, data)
-	rightanswer = answers[0]
 
 	showObject = {
 		"question": question,
 		"answers": answers,
-		# "richtigeAntwort": richtigeAntwort
 	}
 	return showObject
 
+"""
+get all endpoints
 
+-----------
+/endpoints
+[
+  "/all",
+  "/random",
+  "/endpoints",
+  "/scoreboard",
+  "/stats",
+  "/check"
+]
+-----------
+8
+- returns array
+"""
 @app.route("/endpoints")
 def endpoints():
 	if lock_down_api:
@@ -55,6 +92,24 @@ def endpoints():
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
 
+"""
+get a question:
+
+-----------
+/random
+{
+  "answers": [ 
+	  "awnser1",
+	  "awnser2",
+	  "awnser3",
+	  "awnser4"
+  ],
+  "question": ""
+}
+-----------
+
+- returns json
+"""
 @app.route("/random")
 def random():
 	if lock_down_api:
@@ -71,7 +126,20 @@ def random():
 	return resp, 200
 
 """
-get answer for query 
+get answer for query:
+
+-----------
+/check?q=<question>&a=<answer>
+{
+  "content": {
+    "feedback": "<answer> is right",
+    "success": true
+  },
+  "status": 200
+}
+-----------
+
+- returns json
 """
 @app.route("/check")
 def check():
@@ -96,8 +164,8 @@ def check():
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,400
 	content = json.loads(data)
-	awnser = content[q][0]
-	if not awnser:
+	answer = content[q][0]
+	if not answer:
 		resp = jsonify({
 				"content": {
 					"error": "couldnt find " + q 
@@ -106,7 +174,7 @@ def check():
 			})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,404
-	if not a == awnser:
+	if not a == answer:
 		resp = jsonify({
 				"content": {
 					"success": False,
@@ -130,6 +198,33 @@ def check():
 
 """
 endpoint disabled due to abuse
+- would return:
+
+-----------
+/all
+{
+  "question": [
+	  "answer1",
+	  "answer2",
+	  "answer3",
+	  "answer4"
+  ],
+  "question": [
+	  "answer1",
+	  "answer2",
+	  "answer3",
+	  "answer4"
+  ],
+  "question": [
+	  "answer1",
+	  "answer2",
+	  "answer3",
+	  "answer4"
+  ],
+}
+-----------
+
+-returns json
 """
 @app.route("/all")
 def all():
@@ -155,6 +250,39 @@ def all():
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
 
+"""
+get scoreboard
+
+-----------
+/scoreboard
+
+name,score,uuiduuid
+player,score,uuid
+
+- returns csv
+-----------
+
+-----------
+/scoreboard?top=True
+
+{
+  "content": {
+    "0": "player,score,uuid",
+    "1": "player,score,uuid",
+    "2": "player,score,uuid",
+    "3": "player,score,uuid",
+    "4": "player,score,uuid",
+    "5": "player,score,uuid",
+    "6": "player,score,uuid",
+    "7": "player,score,uuid",
+    "8": "player,score,uuid",
+    "9": "player,score,uuid"
+  },
+  "status": 200
+}
+-returns json
+-----------
+"""
 @app.route("/scoreboard", methods=['POST','GET'])
 def scoreboard():
 	if lock_down_api:
@@ -232,6 +360,18 @@ def scoreboard():
 		else:
 			return scores,200
 
+"""
+get stats
+-----------
+{
+  "all_scores_sorted": [...],
+  "all_scores_unsorted": [...],
+  "highest_score": int,
+  "lowest_score": Int,
+  "players": int,
+  "registered_players": int
+}
+"""
 @app.route("/stats",methods=["GET"])
 def stats():
 	if lock_down_api:
