@@ -74,7 +74,7 @@ get all endpoints
   "/check"
 ]
 -----------
-8
+
 - returns array
 """
 @app.route("/endpoints")

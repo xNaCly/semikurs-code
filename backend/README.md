@@ -1,43 +1,140 @@
-# Backend - REST*ful*Api
+# jsonBackend - REST*ful*Api
+
 `http://xnaclyy.pythonanywhere.com/` current api host url
 
-## Features 4 simple endpoints:
+## Endpoints:
 
-#### /:
-- ~currently redirects to this repo~ 
-- Isn't an endpoint nomore
+| path:       | description:                                | params:                  | returns:      |
+| ----------- | ------------------------------------------- | ------------------------ | ------------- |
+| /all        | !endpoint disabled! ~~`get all questions`~~ | :x:                      | ~~JSON-dict~~ |
+| /random     | `get a random question with answers`        | :x:                      | JSON-dict     |
+| /endpoints  | `get all endpoints`                         | :x:                      | Array         |
+| /scoreboard | `get scoreboard`                            | [?top=True]              | csv/JSON-dict |
+| /stats      | `get stats`                                 | :x:                      | JSON-dict     |
+| /check      | `get answer for a question`                 | ?q=<question>&a=<answer> | JSON-dict     |
+
+### Returns in Detail:
+
 #### /all:
-- displays all available questions
-```
-example (shortend):
 
-"Was bedeuted FAT?": [
-    "File Allocation Table",
-    "Freaking Amazing Tower",
-    "FAT Joe",
-    "Factory Acceptance Test"
-  ],
-```
-#### /random:
-- displays a random question
-```
+- JSON-dict
+
+```json
 {
-  "antworten": [
-    "Android",
-    "OpenBSD",
-    "Windows",
-    "macOS"
-  ],
-  "frage": "Welches OS wird am meisten verwendet?",
-  "richtigeAntwort": "Android"
+ "question": [
+   "answer1",
+   "answer2",
+   "answer3",
+   "answer4"
+ ],
+ [...]
 }
 ```
-#### /endpoints:
-- displays an overview about all available endpoints
+
+#### /random:
+
+- JSON-dict
+
+```json
+{
+  "answers": [ 
+	  "awnser1",
+	  "awnser2",
+	  "awnser3",
+	  "awnser4"
+  ],
+  "question": ""
+}
 ```
+
+#### /endpoints:
+
+- Array
+
+```json
 [
   "/all",
   "/random",
-  "/endpoints"
+  "/endpoints",
+  "/scoreboard",
+  "/stats",
+  "/check"
 ]
 ```
+
+#### /scoreboard:
+
+- without `?top=True`:
+
+  - csv
+
+  ```
+  name,score,uuiduuid
+  player,score,uuid
+  ```
+
+- with `?top=True`:
+  - JSON-dict
+
+```
+{
+  "content": {
+    "0": "player,score,uuid",
+    "1": "player,score,uuid",
+    "2": "player,score,uuid",
+    "3": "player,score,uuid",
+    "4": "player,score,uuid",
+    "5": "player,score,uuid",
+    "6": "player,score,uuid",
+    "7": "player,score,uuid",
+    "8": "player,score,uuid",
+    "9": "player,score,uuid"
+  },
+  "status": 200
+}
+```
+
+#### /stats:
+
+- JSON-dict
+
+```json
+{
+  "all_scores_sorted": [...],
+  "all_scores_unsorted": [...],
+  "highest_score": int,
+  "lowest_score": Int,
+  "players": int,
+  "registered_players": int
+}
+```
+
+#### /check:
+
+- JSON-dict
+
+- if answer is valid:
+
+  ```json
+  {
+    "content": {
+      "feedback": "<answer> is right",
+      "success": true
+    },
+    "status": 200
+  }
+  ```
+
+- if answer isnt valid:
+
+  ```json
+  {
+    "content": {
+      "error": "<answer> isnt right",
+      "success": false
+    },
+    "status": 409
+  }
+  ```
+
+  

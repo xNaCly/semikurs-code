@@ -8,7 +8,7 @@ GET http://127.0.0.1:5000/scoreboard
 ###
 GET http://127.0.0.1:5000/stats
 ###
-GET http://127.0.0.1:5000/check?q=Welches%20OS%20wird%20am%20meisten%20verwendet%3F&a=Android
+GET http://127.0.0.1:5000/check?q=Welches%20OS%20wird%20am%20meisten%20verwendet%3F&a=Wrong%20Answer
 
 
 
