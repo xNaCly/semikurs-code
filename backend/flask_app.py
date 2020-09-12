@@ -8,13 +8,6 @@ endpointers = backend.reader("./endpoints.json")
 
 disable_post = True
 
-with open("./authss.csv", "r") as f:
-	auth = f.read().split("\n")
-
-def log(request):
-	with open("./logs","a") as f:
-		f.write("\n"+str(request) + "|" + request.remote_addr)
-
 def routes():
 	routes = endpointers.replace("[","").replace("]","").replace("\"","").replace(" ","").split(",")
 	print("""
@@ -44,32 +37,14 @@ def newQuestion():
 @app.route("/endpoints")
 def endpoints():
 	resp = jsonify(json.loads(endpointers))
-	if not request.args.get("auth") in auth:
-		resp = jsonify({
-				"content": {
-					"error": "invalid auth"
-				},
-				"status": 401
-			})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
-	log(request)
+	 
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
 
 @app.route("/random")
 def random():
 	resp = jsonify(newQuestion())
-	if not request.args.get("auth") in auth:
-		resp = jsonify({
-				"content": {
-					"error": "invalid auth"
-				},
-				"status": 401
-			})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
-	log(request)
+	 
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
 
@@ -77,16 +52,7 @@ def random():
 @app.route("/all")
 def all():
 	resp = jsonify(json.loads(data))
-	if not request.args.get("auth") in auth:
-		resp = jsonify({
-				"content": {
-					"error": "invalid auth"
-				},
-				"status": 401
-			})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
-	log(request)
+	 
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
 
@@ -102,16 +68,6 @@ def scoreboard():
 				})
 			resp.headers['Access-Control-Allow-Origin'] = '*'
 			return resp,403
-		log(request)
-		if not request.args.get("auth") in auth:
-			resp = jsonify({
-				"content": {
-					"error": "invalid auth"
-				},
-				"status": 401
-			})
-			resp.headers['Access-Control-Allow-Origin'] = '*'
-			return resp,401
 		name,score = request.args.get("name"), request.args.get("score")
 		if not name or not score:
 			resp = jsonify({
@@ -147,16 +103,6 @@ def scoreboard():
 	elif request.method == "GET":
 		with open("./scoreboard.csv", "r") as f:				
 			scores = f.read()
-		if not request.args.get("auth") in auth:
-			resp = jsonify({
-				"content": {
-					"error": "invalid auth"
-				},
-				"status": 401
-			})
-			resp.headers['Access-Control-Allow-Origin'] = '*'
-			return resp,401
-		log(request)
 		if request.args.get("top"):
 			scores = scores.split("\n")
 			scores.pop(0)
@@ -180,15 +126,6 @@ def scoreboard():
 
 @app.route("/stats",methods=["GET"])
 def stats():
-	if not request.args.get("auth") in auth:
-		resp = jsonify({
-			"content": {
-				"error": "invalid auth"
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
 	statsdict = {}
 	with open("./scoreboard.csv") as f:
 		data = f.read()
