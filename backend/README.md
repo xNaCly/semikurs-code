@@ -6,7 +6,7 @@
 
 | path:       | description:                                | params:                  | returns:      |
 | ----------- | ------------------------------------------- | ------------------------ | ------------- |
-| /all        | !endpoint disabled! ~~`get all questions`~~ | :x:                      | ~~JSON-dict~~ |
+| ~~/all~~        | !endpoint disabled! ~~`get all questions`~~ | :x:                      | ~~JSON-dict~~ |
 | /random     | `get a random question with answers`        | :x:                      | JSON-dict     |
 | /endpoints  | `get all endpoints`                         | :x:                      | Array         |
 | /scoreboard | `get scoreboard`                            | [?top=True]              | csv/JSON-dict |
