@@ -11,7 +11,7 @@
 | /endpoints  | `get all endpoints`                         | :x:                      | Array         |
 | /scoreboard | `get scoreboard`                            | [?top=True]              | csv/JSON-dict |
 | /stats      | `get stats`                                 | :x:                      | JSON-dict     |
-| /check      | `get answer for a question`                 | ?q=<question>&a=<answer> | JSON-dict     |
+| /check      | `get answer for a question`                 | `?q=<question>&a=<answer>` | JSON-dict     |
 
 ### Returns in Detail:
 
