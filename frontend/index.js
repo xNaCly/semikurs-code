@@ -14,7 +14,7 @@ const prefs = {
 		random: "/random",
 		end: "/endpoints",
 		score: "/scoreboard",
-		stats: "/stats",
+		stat: "/graphs",
 		check: "/check",
 		reg: "/register",
 		upd: "/update",
@@ -226,7 +226,7 @@ async function getQuestion() {
 }
 
 async function renderStats() {
-	let stats = await fetch(prefs.base_url + prefs.endpoints.stats + `?sid=${sid}`);
+	let stats = await fetch(prefs.base_url + prefs.endpoints.stat + `?sid=${sid}`);
 	stats = await stats.json();
 	let average = 0;
 	let numbers_below_zero = [];

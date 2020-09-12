@@ -42,7 +42,7 @@ Routes:
 ++ /random
 ++ /endpoints
 ++ /scoreboard
-++ /stats
+++ /graphs
 ++ /check
 
 ---------------------
@@ -86,7 +86,7 @@ get all endpoints
   "/random",
   "/endpoints",
   "/scoreboard",
-  "/stats",
+  "/graphs",
   "/check"
 ]
 -----------
@@ -454,7 +454,7 @@ get stats
   "registered_players": int
 }
 """
-@app.route("/stats",methods=["GET"])
+@app.route("/graphs",methods=["GET"])
 def stats():
 	check_for_time()	
 	if lock_down_api:
