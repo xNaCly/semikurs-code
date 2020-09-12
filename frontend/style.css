@@ -18,6 +18,11 @@ hr {
 	display: none;
 	width: 40%;
 }
+	display: none;
+	border: 1px solid #ffeeba;
+	border-radius: 0.5rem;
+	width: 450px;
+}
 .alert.alert-warning {
 	display: none;
 	border: 1px solid #ffeeba;
@@ -29,7 +34,7 @@ hr {
 	border: 1px solid #b8daff;
 	border-radius: 0.5rem;
 	height: 50px;
-	margin-bottom: 10px;
+	/* margin: 10px; */
 	color: #004085;
 	background-color: #cce5ff;
 	width: 450px;
@@ -60,7 +65,7 @@ hr {
 }
 .alert {
 	height: 50px;
-	margin-top: 20px;
+	margin-top: 10px;
 	align-items: center;
 	justify-content: center;
 }
