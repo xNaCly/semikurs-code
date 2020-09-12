@@ -22,7 +22,10 @@ function checkForLifes() {
 	let score = document.getElementById("score").textContent;
 	let lifesbutton = document.getElementById("lifes");
 	let lifes = Number(lifesbutton.textContent.split(" ")[1]);
-	if (lifes == 4) {
+	if (lifes > 5) {
+		alert("Injection or modification of lifes detected");
+		location.reload();
+	} else if (lifes == 4) {
 		return lifesbutton.classList.replace("btn-success", "btn-warning");
 	} else if (lifes == 2) {
 		return lifesbutton.classList.replace("btn-warning", "btn-danger");
