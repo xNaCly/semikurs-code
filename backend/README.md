@@ -27,7 +27,7 @@
    "answer3",
    "answer4"
  ],
- [...]
+ "nextquestion":[]
 }
 ```
 
@@ -37,11 +37,10 @@
 
 ```json
 {
-  "answers": [ 
-	  "awnser1",
-	  "awnser2",
-	  "awnser3",
-	  "awnser4"
+  "answers": [
+  	"awnser1",
+	"awnser2",
+	"awnser3","awnser4"
   ],
   "question": ""
 }
@@ -100,12 +99,12 @@
 
 ```json
 {
-  "all_scores_sorted": [...],
-  "all_scores_unsorted": [...],
-  "highest_score": int,
-  "lowest_score": Int,
-  "players": int,
-  "registered_players": int
+  "all_scores_sorted": [],
+  "all_scores_unsorted": [],
+  "highest_score": 0,
+  "lowest_score": 0,
+  "players": 0,
+  "registered_players":0 
 }
 ```
 
