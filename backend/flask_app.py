@@ -1,17 +1,32 @@
 import backend
 from flask import Flask, jsonify, redirect, Response, request
+import schedule
+import time
 import json
 import uuid
 app = Flask(__name__)
 data = backend.reader("./contents.json")
 endpointers = backend.reader("./endpoints.json")
 
+users = {}
+auth = ",".join(users.keys()).split(",")
+
+def clear_cache():
+	del auth[:]
+	users.clear()
+
+def check_for_time():
+	schedule.every().day.at("21:00").do(clear_cache)
+
+
+# flags
 lock_down_api = False
-disable_post = True
+disable_post = False
 disable_dash_all_request = False
 
 if lock_down_api:
 	print("! API LOCKED DOWN !")
+
 """
 prints stuff
 ---------------------
@@ -79,6 +94,16 @@ get all endpoints
 """
 @app.route("/endpoints")
 def endpoints():
+	check_for_time()
+	if not request.args.get("sid") in auth:
+		resp = jsonify({
+			"content": {
+				"error": "invalid sid"
+			},
+			"status": 401
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
 	if lock_down_api:
 		resp = jsonify({
 					"content": {
@@ -112,6 +137,7 @@ get a question:
 """
 @app.route("/random")
 def random():
+	check_for_time()
 	if lock_down_api:
 		resp = jsonify({
 					"content": {
@@ -120,7 +146,16 @@ def random():
 						"status": 403
 					})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,403
+		return resp,403	
+	if not request.args.get("sid") in auth:
+		resp = jsonify({
+			"content": {
+				"error": "invalid sid"
+			},
+			"status": 401
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
 	resp = jsonify(newQuestion())
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
@@ -143,6 +178,7 @@ get answer for query:
 """
 @app.route("/check")
 def check():
+	check_for_time()	
 	if lock_down_api:
 		resp = jsonify({
 					"content": {
@@ -152,6 +188,15 @@ def check():
 					})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,403
+	if not request.args.get("sid") in auth:
+		resp = jsonify({
+			"content": {
+				"error": "invalid sid"
+			},
+			"status": 401
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
 	q = request.args.get("q")
 	a = request.args.get("a")
 	if not q or not a:
@@ -228,6 +273,7 @@ endpoint disabled due to abuse
 """
 @app.route("/all")
 def all():
+	check_for_time()	
 	if lock_down_api:
 		resp = jsonify({
 					"content": {
@@ -246,6 +292,15 @@ def all():
 				})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,403
+	if not request.args.get("sid") in auth:
+		resp = jsonify({
+			"content": {
+				"error": "invalid sid"
+			},
+			"status": 401
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
 	resp = jsonify(json.loads(data))
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
@@ -285,15 +340,26 @@ player,score,uuid
 """
 @app.route("/scoreboard", methods=['POST','GET'])
 def scoreboard():
+	check_for_time()	
 	if lock_down_api:
 		resp = jsonify({
-					"content": {
-							"error": "API currently locked down, try again later"
-						},
-						"status": 403
-					})
+			"content": {
+					"error": "API currently locked down, try again later"
+				},
+				"status": 403
+		})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,403
+	sid = request.args.get("sid")
+	if not sid in auth:
+		resp = jsonify({
+			"content": {
+				"error": "invalid sid"
+			},
+			"status": 401
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
 	if request.method == "POST":
 		if disable_post:
 			resp = jsonify({
@@ -304,37 +370,52 @@ def scoreboard():
 				})
 			resp.headers['Access-Control-Allow-Origin'] = '*'
 			return resp,403
-		name,score = request.args.get("name"), request.args.get("score")
-		if not name or not score:
+		name = request.args.get("name")
+		if not name or not sid:
 			resp = jsonify({
 				"content": {
-					"error": "missing params. syntax should be: ?name=<string>&score=<number>"
+					"error": "missing params. syntax should be: ?name=<string>&sid=<sessionID>"
 				},
 				"status": 400
 			})
 			resp.headers['Access-Control-Allow-Origin'] = '*'
 			return resp,400
 		try:
-			useruuid = str(uuid.uuid4()) + str(uuid.uuid4())
+			score = users[sid]["score"]
+		except:
+			resp = jsonify({
+				"content": {
+					"error": "invalid sid"
+				},
+				"status": 401
+			})
+			resp.headers['Access-Control-Allow-Origin'] = '*'
+			return resp,401
+		try:
 			with open("./scoreboard.csv", "a") as f:
-				f.write(f"\n{name},{score},{useruuid}")
+				f.write(f"\n{name},{score},{sid}")
 			resp = jsonify({
 				"content": {
 					"name":name,
-					"score":score
+					"score":score,
+					"message":"wrote the above to the db"
 				},
 				"status": 200
 			})
 			resp.headers['Access-Control-Allow-Origin'] = '*'
+			users.pop(sid)
+			auth.remove(sid)
 			return resp,200
 		except Exception as EX:
-			jsonify({
+			resp = jsonify({
 				"content": {
 					"error": "couldnt write to scoreboardDB:" + EX
 				},
 				"status": 500
 			})
 			resp.headers['Access-Control-Allow-Origin'] = '*'
+			users.pop(sid)
+			auth.remove(sid)
 			return resp,500
 	elif request.method == "GET":
 		with open("./scoreboard.csv", "r") as f:				
@@ -374,6 +455,7 @@ get stats
 """
 @app.route("/stats",methods=["GET"])
 def stats():
+	check_for_time()	
 	if lock_down_api:
 		resp = jsonify({
 					"content": {
@@ -383,6 +465,15 @@ def stats():
 					})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,403
+	if not request.args.get("sid") in auth:
+		resp = jsonify({
+			"content": {
+				"error": "invalid sid"
+			},
+			"status": 401
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
 	statsdict = {}
 	with open("./scoreboard.csv") as f:
 		data = f.read()
@@ -409,6 +500,48 @@ def stats():
 	statsdict = jsonify(statsdict)
 	statsdict.headers['Access-Control-Allow-Origin'] = '*'
 	return statsdict,200
+
+@app.route("/register")
+def register():
+	check_for_time()
+	sessionid = uuid.uuid4()
+	auth.append(str(sessionid))
+	users[str(sessionid)] = {"lifes":5,"score":0}
+	resp = jsonify({
+		"content": {
+				"session_id": sessionid,
+				"message":"sessionid generated, userobject created."
+			},
+			"status": 201
+		})
+	resp.headers['Access-Control-Allow-Origin'] = '*'
+	return resp,201
+
+@app.route("/update", methods=["POST","GET"])
+def update():
+	pass
+
+# Dev check for users
+# ---------
+# @app.route("/users")
+# def user():
+# 	check_for_time()
+# 	if request.args.get("pw") != "lelek":
+# 		resp = jsonify({
+# 			"content": {
+# 				"error": "invalid pw"
+# 			},
+# 			"status": 401
+# 		})
+# 		resp.headers['Access-Control-Allow-Origin'] = '*'
+# 		return resp,401
+# 	resp = jsonify({
+# 		"users":users,
+# 		"auths":auth
+# 	})
+# 	resp.headers['Access-Control-Allow-Origin'] = '*'
+# 	return resp,200
+
 
 if __name__ == "__main__":
 	routes()

@@ -1,5 +1,7 @@
 const production = false;
 
+var sid;
+
 const prefs = {
 	//change this if you got a different port, or an external api-server
 	/*
@@ -7,7 +9,16 @@ const prefs = {
 	localhost: http://127.0.0.1:5000/
 	*/
 	base_url: production ? "https://xnaclyy.pythonanywhere.com" : "http://127.0.0.1:5000",
-	endpoints: ["/all", "/random", "/endpoints", "/scoreboard", "/stats", "/check"],
+	endpoints: {
+		all: "/all",
+		random: "/random",
+		end: "/endpoints",
+		score: "/scoreboard",
+		stats: "/stats",
+		check: "/check",
+		reg: "/register",
+		upd: "/update",
+	},
 };
 
 var rightanswer = "";
@@ -40,26 +51,15 @@ function checkForLifes() {
 		if (!username) {
 			username = `Player ${player}`;
 		}
-		fetch(
-			prefs.base_url +
-				prefs.endpoints[3] +
-				`?name=${username}&score=${
-					score.split(" ")[1]
-				}&auth=e1150d25-f56a-4688-aeb8-8163a3f4b6399eeacf73-fff8-4bfb-bcbb-5f2a40eef02d`,
-			{
-				method: "POST",
-			}
-		);
+		fetch(prefs.base_url + prefs.endpoints.score + `?name=${username}&sid=${sid}`, {
+			method: "POST",
+		});
 		location.reload();
 	}
 }
 
 async function modifyscoreboard() {
-	let response = await fetch(
-		prefs.base_url +
-			prefs.endpoints[3] +
-			"?auth=e1150d25-f56a-4688-aeb8-8163a3f4b6399eeacf73-fff8-4bfb-bcbb-5f2a40eef02d&top=true"
-	);
+	let response = await fetch(prefs.base_url + prefs.endpoints.score + `?sid=${sid}&top=true`);
 	response = await response.json();
 	document.getElementById("score1").innerHTML += ` ${response.content["0"]
 		.split(",")
@@ -131,7 +131,9 @@ function feedback(rightorwrong) {
 async function checkForAnswer(answer) {
 	let question = document.getElementById("question").textContent;
 	let rightanswer = await fetch(
-		prefs.base_url + prefs.endpoints[5] + `?q=${encodeURIComponent(question)}&a=${encodeURIComponent(answer)}`
+		prefs.base_url +
+			prefs.endpoints.check +
+			`?q=${encodeURIComponent(question)}&a=${encodeURIComponent(answer)}&sid=${sid}`
 	);
 	rightanswer = await rightanswer.json();
 	let score = document.getElementById("score");
@@ -173,11 +175,7 @@ async function getQuestion() {
 			feedbackbutton.innerHTML = "";
 		}, 3000);
 
-		let response = await fetch(
-			prefs.base_url +
-				prefs.endpoints[1] +
-				"?auth=e1150d25-f56a-4688-aeb8-8163a3f4b6399eeacf73-fff8-4bfb-bcbb-5f2a40eef02d"
-		);
+		let response = await fetch(prefs.base_url + prefs.endpoints.random + `?sid=${sid}`);
 		// display score if connection worked
 		document.getElementById("score").style.display = "inline";
 		document.getElementById("lifes").style.display = "inline";
@@ -228,11 +226,7 @@ async function getQuestion() {
 }
 
 async function renderStats() {
-	let stats = await fetch(
-		prefs.base_url +
-			prefs.endpoints[4] +
-			"?auth=e1150d25-f56a-4688-aeb8-8163a3f4b6399eeacf73-fff8-4bfb-bcbb-5f2a40eef02d"
-	);
+	let stats = await fetch(prefs.base_url + prefs.endpoints.stats + `?sid=${sid}`);
 	stats = await stats.json();
 	let average = 0;
 	let numbers_below_zero = [];
@@ -384,9 +378,15 @@ window.addEventListener("load", async () => {
 		"font-family:monospace"
 	);
 	console.error("visit my github: https://github.com/xNaCly/semikurs-code");
+
+	sid = await fetch(prefs.base_url + prefs.endpoints.reg);
+	sid = await sid.json();
+	sid = sid.content.session_id;
+
 	renderStats();
 	modifyscoreboard();
 	getQuestion();
+
 	//displayerrormodal:
 	$("#myModal").modal({ show: true });
 	console.error(
