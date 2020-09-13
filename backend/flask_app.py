@@ -518,8 +518,8 @@ def register():
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp,201
 
-@app.route("/update",methods=["PUT"])
-def update():
+@app.route("/update",methods=["GET"])
+def update():	
 	sid = request.args.get("sid")
 	if not sid in auth:
 		resp = jsonify({
@@ -531,19 +531,10 @@ def update():
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,401
 	correct = request.args.get("cr")
-	if not correct:
-		resp = jsonify({
-			"content": {
-					"error": "missing params. syntax should be: ?name=<string>&sid=<sessionID>"
-				},
-				"status": 400
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,400
 	if users[sid]["lifes"] == 0:
 		resp = jsonify({
 			"content": {
-					"message":"Game over",
+					"error":"Game over",
 					"body":{
 						"score": users[sid]["score"],
 						"lifes": users[sid]["lifes"],
@@ -567,7 +558,7 @@ def update():
 			})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,201
-	else:
+	elif correct == "no":
 		users[sid]["score"] -= 100
 		users[sid]["lifes"] -= 1
 		resp = jsonify({
@@ -582,7 +573,20 @@ def update():
 			})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,201
-	
+	else:
+		resp = jsonify({
+				"content": {
+						"message":sid,
+						"body":{
+							"score": users[sid]["score"],
+							"lifes": users[sid]["lifes"],
+						}
+					},
+					"status": 200
+				})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,200
+		
 	
 # Dev check for users
 # ---------

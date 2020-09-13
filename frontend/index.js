@@ -29,25 +29,17 @@ function submit(button) {
 	checkForAnswer(value);
 }
 
-function checkForLifes() {
-	let score = document.getElementById("score").textContent;
-	let lifesbutton = document.getElementById("lifes");
-	let lifes = Number(lifesbutton.textContent.split(" ")[1]);
-	if (lifes > 5) {
-		alert("Injection or modification of lifes detected");
-		location.reload();
-	} else if (lifes == 4) {
-		return lifesbutton.classList.replace("btn-success", "btn-warning");
-	} else if (lifes == 2) {
-		return lifesbutton.classList.replace("btn-warning", "btn-danger");
-	} else if (!lifes) {
+async function checkForLifes() {
+	let resp = await fetch(prefs.base_url + prefs.endpoints.upd + `?sid=${sid}`);
+	resp = await resp.json();
+	if (resp.content.error) {
 		var dt = new Date().getTime();
 		var player = "xxxxx".replace(/[xy]/g, function (c) {
 			var r = (dt + Math.random() * 5) % 5 | 0;
 			dt = Math.floor(dt / 5);
 			return (c == "x" ? r : (r & 0x3) | 0x8).toString(5);
 		});
-		var username = prompt(`Game over.\nYour game with a score of: ${score.split(" ")[1]} will be saved as: `);
+		var username = prompt(`Game over.\nYour game will be saved as: `);
 		if (!username) {
 			username = `Player ${player}`;
 		}
@@ -55,6 +47,12 @@ function checkForLifes() {
 			method: "POST",
 		});
 		location.reload();
+	}
+	let { lifes } = resp.content.body;
+	if (lifes == 4) {
+		return lifesbutton.classList.replace("btn-success", "btn-warning");
+	} else if (lifes == 2) {
+		return lifesbutton.classList.replace("btn-warning", "btn-danger");
 	}
 }
 
@@ -136,28 +134,28 @@ async function checkForAnswer(answer) {
 			`?q=${encodeURIComponent(question)}&a=${encodeURIComponent(answer)}&sid=${sid}`
 	);
 	rightanswer = await rightanswer.json();
-	let score = document.getElementById("score");
-	let lifes = document.getElementById("lifes");
+	let scorebutton = document.getElementById("score");
+	let lifesbutton = document.getElementById("lifes");
 	checkForLifes();
 	if (rightanswer.content.success) {
-		// alert("Right answer");
+		let resp = await fetch(prefs.base_url + prefs.endpoints.upd + `?cr=yes&sid=${sid}`);
+		resp = await resp.json();
+		let { score } = resp.content.body;
 		//update score
-		let latestscore = score.textContent.split(" ");
-		score.textContent = `Score: ${Number(latestscore[1]) + 100}`;
+		scorebutton.textContent = `Score: ${score}`;
 
 		//get new question
 		feedback(true);
 		return getQuestion();
 	} else {
-		// alert("Wrong answer");
-
+		let resp = await fetch(prefs.base_url + prefs.endpoints.upd + `?cr=no&sid=${sid}`);
+		resp = await resp.json();
+		let { score, lifes } = resp.content.body;
 		//update score
-		let latestscore = score.textContent.split(" ");
-		score.textContent = `Score: ${Number(latestscore[1]) - 100}`;
+		scorebutton.textContent = `Score: ${score}`;
 
 		//update lifes
-		let latestlife = lifes.textContent.split(" ");
-		lifes.textContent = `Lifes: ${Number(latestlife[1]) - 1}`;
+		lifesbutton.textContent = `Lifes: ${lifes}`;
 
 		//get new question
 		feedback(false);
@@ -176,9 +174,16 @@ async function getQuestion() {
 		}, 3000);
 
 		let response = await fetch(prefs.base_url + prefs.endpoints.random + `?sid=${sid}`);
+		let resp = await fetch(prefs.base_url + prefs.endpoints.upd + `?sid=${sid}`);
+		resp = await resp.json();
+		let { lifes, score } = resp.content.body;
 		// display score if connection worked
-		document.getElementById("score").style.display = "inline";
-		document.getElementById("lifes").style.display = "inline";
+		let scorebutton = document.getElementById("score");
+		scorebutton.style.display = "inline";
+		scorebutton.textContent = `Score: ${score}`;
+		let lifesbutton = document.getElementById("lifes");
+		lifesbutton.style.display = "inline";
+		lifesbutton.textContent = `Lifes: ${lifes}`;
 		var { answers, question } = await response.json();
 		// shuffle 'answers' to be random
 		let temporaryValue, randomIndex;
