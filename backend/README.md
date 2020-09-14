@@ -1,6 +1,9 @@
 # Backend - REST*ful*Api
 
 `http://xnaclyy.pythonanywhere.com/` current api host url
+## Architecture:
+<img src="https://cdn.discordapp.com/attachments/568847750226116609/755166023946076341/Untitled_Diagram.png" />
+
 
 ## Endpoints:
 
