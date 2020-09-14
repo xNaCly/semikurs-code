@@ -1,6 +1,7 @@
-import backend
 from flask import Flask, jsonify, redirect, Response, request
 import schedule
+import backend
+from random import shuffle
 import time
 import json
 import uuid
@@ -69,10 +70,12 @@ format questions
 def newQuestion():
 	question = backend.getQuestion(data)
 	answers = backend.getValuesFromQuestion(question, data)
+	returnanswers = answers
+	shuffle(returnanswers)
 
 	showObject = {
 		"question": question,
-		"answers": answers,
+		"answers": returnanswers,
 	}
 	return showObject
 

@@ -185,16 +185,6 @@ async function getQuestion() {
 		lifesbutton.style.display = "inline";
 		lifesbutton.textContent = `Lifes: ${lifes}`;
 		var { answers, question } = await response.json();
-		// shuffle 'answers' to be random
-		let temporaryValue, randomIndex;
-
-		for (let i = 0; i < answers.length; i++) {
-			randomIndex = Math.floor(Math.random() * i);
-
-			temporaryValue = answers[i];
-			answers[i] = answers[randomIndex];
-			answers[randomIndex] = temporaryValue;
-		}
 
 		// replace placeholders with randomised 'antwort' values
 		document.getElementById("question").textContent = question;
