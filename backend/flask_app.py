@@ -1,13 +1,18 @@
 from flask import Flask, jsonify, redirect, Response, request
 import schedule
 import backend
+import os
 from random import shuffle
 import time
 import json
 import uuid
 app = Flask(__name__)
-data = backend.reader("./contents.json")
-endpointers = backend.reader("./endpoints.json")
+
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+
+data = backend.reader(os.path.join(THIS_FOLDER, 'contents.json'))
+endpointers = backend.reader(os.path.join(THIS_FOLDER, 'endpoints.json'))
+
 
 users = {}
 auth = ",".join(users.keys()).split(",")
@@ -396,7 +401,7 @@ def scoreboard():
 			resp.headers['Access-Control-Allow-Origin'] = '*'
 			return resp,401
 		try:
-			with open("./scoreboard.csv", "a") as f:
+			with open(os.path.join(THIS_FOLDER, 'scoreboard.csv'), "a") as f:
 				f.write(f"\n{name},{score},{sid}")
 			resp = jsonify({
 				"content": {
@@ -422,7 +427,7 @@ def scoreboard():
 			auth.remove(sid)
 			return resp,500
 	elif request.method == "GET":
-		with open("./scoreboard.csv", "r") as f:				
+		with open(os.path.join(THIS_FOLDER, 'scoreboard.csv'), "r") as f:				
 			scores = f.read()
 		if request.args.get("top"):
 			scores = scores.split("\n")
@@ -479,7 +484,7 @@ def stats():
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,401
 	statsdict = {}
-	with open("./scoreboard.csv") as f:
+	with open(os.path.join(THIS_FOLDER, 'scoreboard.csv'), "r") as f:
 		data = f.read()
 	data = data.split("\n")
 	data.pop(0)
