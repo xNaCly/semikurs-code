@@ -23,6 +23,9 @@
 
 -   this project is intended to be used as a simple, easy to use and maintain tool for educational purposes
 
+## Todos: 
+<t>_[#3](https://github.com/xNaCly/semikurs-code/issues/3) a todo list with all things we can think of right now_
+
 ### URLS:
 - API: `http://xnaclyy.pythonanywhere.com/`
 - WEBSITE: `https://semikurs-code.vercel.app/`
