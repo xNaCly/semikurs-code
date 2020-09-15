@@ -1,4 +1,4 @@
-const production = false;
+const production = true;
 
 var sid;
 
