@@ -8,8 +8,15 @@ import json
 import uuid
 app = Flask(__name__)
 
-THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+# flags
+lock_down_api = False
+disable_post = False
+disable_dash_all_request = False
 
+
+# fix for not working paths on server:
+
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 data = backend.reader(os.path.join(THIS_FOLDER, 'contents.json'))
 endpointers = backend.reader(os.path.join(THIS_FOLDER, 'endpoints.json'))
 
@@ -25,10 +32,6 @@ def check_for_time():
 	schedule.every().day.at("21:00").do(clear_cache)
 
 
-# flags
-lock_down_api = False
-disable_post = False
-disable_dash_all_request = False
 
 if lock_down_api:
 	print("! API LOCKED DOWN !")

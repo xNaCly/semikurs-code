@@ -3,6 +3,7 @@
 </p>
 
 # Semikurs-code
+
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-Javascript-f1e05a?style=flat)](https://developer.mozilla.org/en/JavaScript)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-3572A5.svg)](https://www.python.org/)
 [![made-with-html](https://img.shields.io/badge/Made%20with-Html-e34c26?style=flat)](https://developer.mozilla.org/en/html)
@@ -10,10 +11,12 @@
 [![made-with-bootstrap](https://img.shields.io/badge/Made%20with-Bootstrap-7952b3?style=flat)](https://getbootstrap.com/)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
+[<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/DE.png"/>](https://github.com/xNaCly/semikurs-code/blob/master/README_de.md) [<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/GB.png"/>](https://github.com/xNaCly/semikurs-code)
+|[DOCS](https://github.com/xNaCly/semikurs-code/tree/master/docs) | [TUTORIAL](https://drive.google.com/file/d/1ICvM5Mor6QLDIMFfPV3urC9oPgppvvq8/view) | [DEMO](https://semikurs-code.vercel.app/) |
+|:---:|:---:|:---:|
 
-# [<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/DE.png"/>](https://github.com/xNaCly/semikurs-code/blob/master/README_de.md) [<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/GB.png"/>](https://github.com/xNaCly/semikurs-code)
-# [DOCS](https://github.com/xNaCly/semikurs-code/tree/master/docs) | [TUTORIAL](https://drive.google.com/file/d/1ICvM5Mor6QLDIMFfPV3urC9oPgppvvq8/view) | [DEMO](https://semikurs-code.vercel.app/)
 ### Why and how:
+
 -   This project was initiated by me and a good friend of mine as our final product for the seminar course:<br/>
     [computer science & data security (DE)](https://fwg.dahme-spreewald.info/fw/Fachschaften/Technik/Informatik/30549.html)
 
@@ -23,13 +26,14 @@
 
 -   this project is intended to be used as a simple, easy to use and maintain tool for educational purposes
 
-## Todos: 
+## Todos:
+
 <t>_[#3](https://github.com/xNaCly/semikurs-code/issues/3) a todo list with all things we can think of right now_
 
 ### URLS:
-- API: `http://xnaclyy.pythonanywhere.com/`
-- WEBSITE: `https://semikurs-code.vercel.app/`
 
+-   API: `http://xnaclyy.pythonanywhere.com/`
+-   WEBSITE: `https://semikurs-code.vercel.app/`
 
 #### The MIT License (MIT)
 
