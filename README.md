@@ -28,7 +28,7 @@
 
 ## Todos:
 
-<t>_[#3](https://github.com/xNaCly/semikurs-code/issues/3) a todo list with all things we can think of right now_
+[![Todo](https://better-issues.herokuapp.com/render_issue?issue=https://github.com/xNaCly/semikurs-code/issues/3&type=compact)](https://github.com/xNaCly/semikurs-code/issues/3)
 
 ### URLS:
 
