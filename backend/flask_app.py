@@ -106,7 +106,7 @@ get all endpoints
 @app.route("/endpoints",methods=["GET"])
 def endpoints():
 	check_for_time()
-	if not request.args.get("sid") in auth:
+	if not request.args.get("sid") in auth or not request.args.get("sid"):
 		resp = jsonify({
 			"content": {
 				"error": "invalid sid"
@@ -158,7 +158,7 @@ def random():
 					})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,403	
-	if not request.args.get("sid") in auth:
+	if not request.args.get("sid") in auth or not request.args.get("sid"):
 		resp = jsonify({
 			"content": {
 				"error": "invalid sid"
@@ -199,7 +199,7 @@ def check():
 					})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,403
-	if not request.args.get("sid") in auth:
+	if not request.args.get("sid") in auth or not request.args.get("sid"):
 		resp = jsonify({
 			"content": {
 				"error": "invalid sid"
@@ -303,7 +303,7 @@ def all():
 				})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,403
-	if not request.args.get("sid") in auth:
+	if not request.args.get("sid") in auth or not request.args.get("sid"):
 		resp = jsonify({
 			"content": {
 				"error": "invalid sid"
@@ -362,7 +362,7 @@ def scoreboard():
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,403
 	sid = request.args.get("sid")
-	if not sid in auth:
+	if not sid in auth or not sid:
 		resp = jsonify({
 			"content": {
 				"error": "invalid sid"
@@ -476,7 +476,7 @@ def stats():
 					})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,403
-	if not request.args.get("sid") in auth:
+	if not request.args.get("sid") in auth or not request.args.get("sid"):
 		resp = jsonify({
 			"content": {
 				"error": "invalid sid"
@@ -531,7 +531,7 @@ def register():
 @app.route("/update",methods=["GET"])
 def update():	
 	sid = request.args.get("sid")
-	if not sid in auth:
+	if not sid in auth or not sid:
 		resp = jsonify({
 			"content": {
 				"error": "invalid sid"
