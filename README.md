@@ -11,9 +11,10 @@
 [![made-with-bootstrap](https://img.shields.io/badge/Made%20with-Bootstrap-7952b3?style=flat)](https://getbootstrap.com/)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
-[<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/DE.png"/>](https://github.com/xNaCly/semikurs-code/blob/master/README_de.md) [<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/GB.png"/>](https://github.com/xNaCly/semikurs-code)
-|[DOCS](https://github.com/xNaCly/semikurs-code/tree/master/docs) | [TUTORIAL](https://drive.google.com/file/d/1ICvM5Mor6QLDIMFfPV3urC9oPgppvvq8/view) | [DEMO](https://semikurs-code.vercel.app/) |
+|[<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/DE.png"/>](https://github.com/xNaCly/semikurs-code/blob/master/README_de.md) |---|[<img src="https://github.com/madebybowtie/FlagKit/blob/master/Assets/PNG/GB.png"/>](https://github.com/xNaCly/semikurs-code)|
 |:---:|:---:|:---:|
+|[DOCS](https://github.com/xNaCly/semikurs-code/tree/master/docs) | [TUTORIAL](https://drive.google.com/file/d/1ICvM5Mor6QLDIMFfPV3urC9oPgppvvq8/view) | [DEMO](https://semikurs-code.vercel.app/) |
+
 
 ### Why and how:
 
@@ -28,7 +29,7 @@
 
 ## Todos:
 
-<t>_[#3](https://github.com/xNaCly/semikurs-code/issues/3) a todo list with all things we can think of right now_
+[![Todo](https://better-issues.herokuapp.com/render_issue?issue=https://github.com/xNaCly/semikurs-code/issues/3&type=compact)](https://github.com/xNaCly/semikurs-code/issues/3)
 
 ### URLS:
 
