@@ -15,7 +15,6 @@ disable_dash_all_request = False
 
 
 # fix for not working paths on server:
-
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 data = backend.reader(os.path.join(THIS_FOLDER, 'contents.json'))
 endpointers = backend.reader(os.path.join(THIS_FOLDER, 'endpoints.json'))
@@ -541,6 +540,17 @@ def update():
 		})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,401
+	if request.args.get("del"):
+		users.pop(sid)
+		auth.remove(sid)
+		resp = jsonify({
+				"content": {
+						"message":f"{sid} removed from the current users",
+					},
+					"status": 200
+				})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,200
 	correct = request.args.get("cr")
 	if users[sid]["lifes"] == 0:
 		resp = jsonify({
@@ -597,28 +607,6 @@ def update():
 				})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,200
-		
-	
-# Dev check for users
-# ---------
-# @app.route("/users")
-# def user():
-# 	check_for_time()
-# 	if request.args.get("pw") != "lelek":
-# 		resp = jsonify({
-# 			"content": {
-# 				"error": "invalid pw"
-# 			},
-# 			"status": 401
-# 		})
-# 		resp.headers['Access-Control-Allow-Origin'] = '*'
-# 		return resp,401
-# 	resp = jsonify({
-# 		"users":users,
-# 		"auths":auth
-# 	})
-# 	resp.headers['Access-Control-Allow-Origin'] = '*'
-# 	return resp,200
 
 
 if __name__ == "__main__":
