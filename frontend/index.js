@@ -29,6 +29,11 @@ function submit(button) {
 	checkForAnswer(value);
 }
 
+function quit_button() {
+	fetch(`${prefs.base_url + prefs.endpoints.upd}?sid=${sid}&del=true`);
+	location.reload();
+}
+
 async function checkForLifes() {
 	let resp = await fetch(prefs.base_url + prefs.endpoints.upd + `?sid=${sid}`);
 	resp = await resp.json();
@@ -381,10 +386,4 @@ window.addEventListener("load", async () => {
 	renderStats();
 	modifyscoreboard();
 	getQuestion();
-
-	// displayerrormodal:
-	// $("#myModal").modal({ show: true });
-	// console.error(
-	// 	"POST requests to scoreboard/leaderboard currently disabled, we will keep you posted.\nYour score will not be safed."
-	// );
 });

@@ -15,6 +15,6 @@ GET http://127.0.0.1:5000/register
 ### Get users score and lifes to display on website:
 GET http://127.0.0.1:5000/update?sid=
 ### Update users score and lifes (cr=yes-->+100score||cr=no-->-100score&&-1life)
-PUT http://127.0.0.1:5000/update?sid=&cr=yes
+GET http://127.0.0.1:5000/update?sid=&cr=yes
 ### Write userobject from ram to scoreboard.csv
 POST http://127.0.0.1:5000/scoreboard?name=xnacly&sid=
