@@ -1,4 +1,4 @@
-const production = true;
+const production = false;
 
 var sid;
 
@@ -27,11 +27,6 @@ var rightanswer = "";
 function submit(button) {
 	let value = button.textContent.split(" - ")[1];
 	checkForAnswer(value);
-}
-
-function quit_button() {
-	fetch(`${prefs.base_url + prefs.endpoints.upd}?sid=${sid}&del=true`);
-	location.reload();
 }
 
 async function checkForLifes() {

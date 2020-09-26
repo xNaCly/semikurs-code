@@ -540,17 +540,17 @@ def update():
 		})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,401
-	if request.args.get("del"):
-		users.pop(sid)
-		auth.remove(sid)
-		resp = jsonify({
-				"content": {
-						"message":f"{sid} removed from the current users",
-					},
-					"status": 200
-				})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,200
+	# if request.args.get("del"):
+	# 	users.pop(sid)
+	# 	auth.remove(sid)
+	# 	resp = jsonify({
+	# 			"content": {
+	# 					"message":f"{sid} removed from the current users",
+	# 				},
+	# 				"status": 200
+	# 			})
+	# 	resp.headers['Access-Control-Allow-Origin'] = '*'
+	# 	return resp,200
 	correct = request.args.get("cr")
 	if users[sid]["lifes"] == 0:
 		resp = jsonify({
