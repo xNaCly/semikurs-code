@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, redirect, Response, request
-import schedule
 import backend
 import os
 from random import shuffle
@@ -22,14 +21,6 @@ endpointers = backend.reader(os.path.join(THIS_FOLDER, 'endpoints.json'))
 
 users = {}
 auth = ",".join(users.keys()).split(",")
-
-def clear_cache():
-	del auth[:]
-	users.clear()
-
-def check_for_time():
-	schedule.every().day.at("21:00").do(clear_cache)
-
 
 
 if lock_down_api:
@@ -105,11 +96,20 @@ get all endpoints
 """
 @app.route("/endpoints",methods=["GET"])
 def endpoints():
-	check_for_time()
-	if not request.args.get("sid") in auth or not request.args.get("sid"):
+	sid = request.args.get("sid")
+	if not sid in auth or not sid:
 		resp = jsonify({
 			"content": {
 				"error": "invalid sid"
+			},
+			"status": 401
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
+	if not time.time() < users[sid]["createdAt"] + (15*60):
+		resp = jsonify({
+			"content": {
+				"error": "sid "
 			},
 			"status": 401
 		})
@@ -148,7 +148,6 @@ get a question:
 """
 @app.route("/random",methods=["GET"])
 def random():
-	check_for_time()
 	if lock_down_api:
 		resp = jsonify({
 					"content": {
@@ -158,7 +157,8 @@ def random():
 					})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,403	
-	if not request.args.get("sid") in auth or not request.args.get("sid"):
+	sid = request.args.get("sid")
+	if not sid in auth or not sid:
 		resp = jsonify({
 			"content": {
 				"error": "invalid sid"
@@ -167,6 +167,15 @@ def random():
 		})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,401
+	if not time.time() < users[sid]["createdAt"] + (15*60):
+		resp = jsonify({
+			"content": {
+				"error": "sid "
+			},
+			"status": 401
+		})
+	resp.headers['Access-Control-Allow-Origin'] = '*'
+	return resp,401
 	resp = jsonify(newQuestion())
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
@@ -188,8 +197,7 @@ get answer for query:
 - returns json
 """
 @app.route("/check",methods=["GET"])
-def check():
-	check_for_time()	
+def check():	
 	if lock_down_api:
 		resp = jsonify({
 					"content": {
@@ -199,10 +207,20 @@ def check():
 					})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,403
-	if not request.args.get("sid") in auth or not request.args.get("sid"):
+	sid = request.args.get("sid")
+	if not sid in auth or not sid:
 		resp = jsonify({
 			"content": {
 				"error": "invalid sid"
+			},
+			"status": 401
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
+	if not time.time() < users[sid]["createdAt"] + (15*60):
+		resp = jsonify({
+			"content": {
+				"error": "sid "
 			},
 			"status": 401
 		})
@@ -283,8 +301,7 @@ endpoint disabled due to abuse
 -returns json
 """
 @app.route("/all",methods=["GET"])
-def all():
-	check_for_time()	
+def all():	
 	if lock_down_api:
 		resp = jsonify({
 					"content": {
@@ -303,10 +320,20 @@ def all():
 				})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,403
-	if not request.args.get("sid") in auth or not request.args.get("sid"):
+	sid = request.args.get("sid")
+	if not sid in auth or not sid:
 		resp = jsonify({
 			"content": {
 				"error": "invalid sid"
+			},
+			"status": 401
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
+	if not time.time() < users[sid]["createdAt"] + (15*60):
+		resp = jsonify({
+			"content": {
+				"error": "sid "
 			},
 			"status": 401
 		})
@@ -350,8 +377,7 @@ player,score,uuid
 -----------
 """
 @app.route("/scoreboard", methods=['POST','GET'])
-def scoreboard():
-	check_for_time()	
+def scoreboard():	
 	if lock_down_api:
 		resp = jsonify({
 			"content": {
@@ -366,6 +392,15 @@ def scoreboard():
 		resp = jsonify({
 			"content": {
 				"error": "invalid sid"
+			},
+			"status": 401
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
+	if not time.time() < users[sid]["createdAt"] + (15*60):
+		resp = jsonify({
+			"content": {
+				"error": "sid "
 			},
 			"status": 401
 		})
@@ -465,8 +500,7 @@ get stats
 }
 """
 @app.route("/graphs",methods=["GET"])
-def stats():
-	check_for_time()	
+def stats():	
 	if lock_down_api:
 		resp = jsonify({
 					"content": {
@@ -476,10 +510,20 @@ def stats():
 					})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,403
-	if not request.args.get("sid") in auth or not request.args.get("sid"):
+	sid = request.args.get("sid")
+	if not sid in auth or not sid:
 		resp = jsonify({
 			"content": {
 				"error": "invalid sid"
+			},
+			"status": 401
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
+	if not time.time() < users[sid]["createdAt"] + (15*60):
+		resp = jsonify({
+			"content": {
+				"error": "sid "
 			},
 			"status": 401
 		})
@@ -514,10 +558,9 @@ def stats():
 
 @app.route("/register",methods=["GET"])
 def register():
-	check_for_time()
 	sessionid = uuid.uuid4()
 	auth.append(str(sessionid))
-	users[str(sessionid)] = {"lifes":5,"score":0}
+	users[str(sessionid)] = {"lifes":5,"score":0,"createdAt":time.time()}
 	resp = jsonify({
 		"content": {
 				"session_id": sessionid,
@@ -535,6 +578,15 @@ def update():
 		resp = jsonify({
 			"content": {
 				"error": "invalid sid"
+			},
+			"status": 401
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
+	if not time.time() < users[sid]["createdAt"] + (15*60):
+		resp = jsonify({
+			"content": {
+				"error": "sid "
 			},
 			"status": 401
 		})
@@ -565,7 +617,7 @@ def update():
 		})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,201
-	if correct == "yes":
+	if correct == "y*es":
 		users[sid]["score"] += 100
 		resp = jsonify({
 			"content": {
@@ -607,6 +659,11 @@ def update():
 				})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,200
+
+@app.route("/users")
+def users_route():
+	resp = users
+	return resp,200
 
 
 if __name__ == "__main__":
