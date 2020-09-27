@@ -1,10 +1,10 @@
 from flask import Flask, jsonify, redirect, Response, request
-import backend
-import os
-from random import shuffle
-import time
-import json
-import uuid
+import backend # 
+import os # used for relative paths
+from random import shuffle # used to shuffle items in []
+import time # used for time check
+import json # used for dict work
+import uuid # used for to gen userids
 app = Flask(__name__)
 
 # flags
@@ -109,7 +109,7 @@ def endpoints():
 	if not time.time() < users[sid]["createdAt"] + (15*60):
 		resp = jsonify({
 			"content": {
-				"error": "sid "
+				"error": "sid"
 			},
 			"status": 401
 		})
@@ -170,7 +170,7 @@ def random():
 	if not time.time() < users[sid]["createdAt"] + (15*60):
 		resp = jsonify({
 			"content": {
-				"error": "sid "
+				"error": "sid outdated"
 			},
 			"status": 401
 		})

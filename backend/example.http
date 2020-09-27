@@ -17,4 +17,4 @@ GET http://127.0.0.1:5000/update?sid=
 ### Update users score and lifes (cr=yes-->+100score||cr=no-->-100score&&-1life)
 GET http://127.0.0.1:5000/update?sid=&cr=yes
 ### Write userobject from ram to scoreboard.csv
-POST http://127.0.0.1:5000/scoreboard?name=xnacly&sid=1a3e333b-c6ad-4086-ae73-bf4b65a12970
+POST http://127.0.0.1:5000/scoreboard?name=xnacly&sid=
