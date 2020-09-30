@@ -12,7 +12,8 @@ for x in content:
         x[1],
         x[2],
         x[3],
-        x[4]
+        x[4],
+        x[5]
     ]
 
 with open("temp.json","w") as f:
