@@ -174,8 +174,8 @@ def random():
 			},
 			"status": 401
 		})
-	resp.headers['Access-Control-Allow-Origin'] = '*'
-	return resp,401
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,401
 	resp = jsonify(newQuestion())
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
@@ -238,7 +238,7 @@ def check():
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,400
 	content = json.loads(data)
-	answer = content[q][0]
+	answer = content[q]["values"][0]
 	if not answer:
 		resp = jsonify({
 				"content": {

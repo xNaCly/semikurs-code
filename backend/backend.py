@@ -64,7 +64,7 @@ returns an array of values for a given question:
 	content_json = loa(content)
 
 	answer_array = []
-	for x in content_json[getQuestion]:
+	for x in content_json[getQuestion]["values"]:
 		answer_array.append(x)
 
 	# answer_array[0] --> right anwser
