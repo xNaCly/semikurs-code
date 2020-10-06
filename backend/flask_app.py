@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, redirect, Response, request
+import warnings
 import backend # 
 import os # used for relative paths
 from random import shuffle # used to shuffle items in []
@@ -24,7 +25,7 @@ auth = ",".join(users.keys()).split(",")
 
 
 if lock_down_api:
-	print("! API LOCKED DOWN !")
+	warnings.warn("! API LOCKED DOWN !")
 
 """
 prints stuff
@@ -43,6 +44,8 @@ Routes:
 ++ /scoreboard
 ++ /graphs
 ++ /check
+++ /register
+++ /update
 
 ---------------------
 """
@@ -252,7 +255,8 @@ def check():
 		resp = jsonify({
 				"content": {
 					"success": False,
-					"error": a + " isnt right" 
+					"error": a + " isnt right",
+					"context": content[q]["context"]
 				},
 				"status": 409
 			})
@@ -261,7 +265,8 @@ def check():
 	resp = jsonify({
 			"content": {
 				"success": True,
-				"feedback": a + " is right" 
+				"feedback": a + " is right" ,
+				"context": content[q]["context"]
 			},
 			"status": 200
 		})
