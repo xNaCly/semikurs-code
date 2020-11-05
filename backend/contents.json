@@ -23,5 +23,63 @@
 	"Auf was sollte man im Internet achten?": {
 		"values": ["Keine persoenlichen Daten angeben", "Dateisysteme", "Alles", "hobbies haben"],
 		"context": ""
+	},
+	"Sie besuchen eine Internetseite. Woran erkennen Sie, dass die Daten sicher übertragen werden?": {
+		"values": [
+			"Die URL der aufgerufenen Internetseite beginnt mit https:",
+			"Sie waren bereits zuvor auf der Seite und kennen deren Inhalt.",
+			"Auf der aufgerufenen Seite erscheint der Hinweis, dass diese Seite sicher ist.",
+			"Die URL der aufgerufenen Seite beginnt mit http:"
+		],
+		"context": "Die Abkürzung \"https\" steht für \"HyperText Transfer Protocol Secure\", also für ein sicheres Hypertext-übertragungsprotokoll. An einem Schloss-Symbol in der Adresszeile des Browsers ist die sichere übertragung von Daten zu erkennen."
+	},
+	"Was ist die Aufgabe einer Firewall?": {
+		"values": [
+			"Alle Daten kontrollieren, die in das eigene Netzwerk hinein kommen oder es verlassen.",
+			"Viren aufspüren und löschen.",
+			"Vor Spam-Mails schützen",
+			"Die installierten Programme regelmä?ig aktualisieren."
+		],
+		"context": "Die Firewall kontrolliert alle Daten, die vom Internet auf den eigenen Computer kommen und anders herum."
+	},
+	"Bei welchem dieser vier Vorgänge handelt es sich nicht um einen Betrugsversuch?": {
+		"values": ["Pairing", "Pharming", "Vishing", "Phishing"],
+		"context": "Pharming ist eine Fortentwicklung des klassischen Phishings und bezeichnet die Fälschung der Zuordnung von Namen zu IP-Adressen. Ziel ist, Anfragen auf gefälschte Webseiten umzuleiten. Der Nutzer landet so auf einem manipulierten Server eines Phishers, obwohl er im Browser die richtige URL zum Beispiel von Hand eingegeben hat. Pharming ist auch unter dem Begriff Domain-Spoofing bekannt.\\n\\nPairing ist kein Betrugsversuch, sondern bezeichnet den Verbindungsaufbau während der Kopplung von Bluetooth-Geräten. Dabei werden zwischen den Kommunikations-Partnern Kenndaten ausgetauscht, damit sie sich bei der nächsten Verbindung automatisch wieder erkennen.\\n\\nAuch Vishing ist eine Form des Betrugs im Internet und steht für \"Voice Phishing\". Betrüger versuchen mit automatisierten Telefonanrufen über Internettelefonie, den Empfänger zur Herausgabe von sensiblen Daten zu bewegen.\\n\\nPhishing setzt sich zusammen aus \"Password\" und \"fishing\". Mit einer E-Mail von einer scheinbar vertrauenswürdigen Quelle, wie beispielsweise einer Bank, fordern Betrüger den Empfänger dazu auf, seine Daten einzugeben. über einen Link gelangt der Empfänger der E-Mail auf eine gefälschte Internetseite der \"offiziellen\" Quelle, auf der über ein Eingabeformular vertrauliche Daten abgefragt werden."
+	},
+	"Was ist ein Botnetz": {
+		"values": [
+			"Per Fernsteuerung zusammengeschlossene PCs, die für bestimmte Aktionen wie das Versenden von Spam-Mails missbraucht werden",
+			"Eine Falschmeldung, zum Beispiel über büsartige Computerprogramme oder darüber, wie man schnell viel Geld gewinnen kann",
+			"E-Mails, die im Massenversand verschickt werden, ohne angefordert worden zu sein",
+			"Programme, die PCs schädigen"
+		],
+		"context": "Hacker schalten hunderte oder tausende PCs zu einem Netzwerk zusammen, um sie ferngesteuert und ohne Wissen des Anwenders für kriminelle Aktivitäten zu nutzen. Dazu zählen unter anderem der Versand von Spam-Mails und oder die sogenannten DDoS-Angriffe (Distributed Denial of Service), mit denen Internetseiten lahm gelegt werden künnen."
+	},
+	"Was sollten Sie tun, wenn sich der eigene PC seltsam verhält, zum Beispiel nur noch langsam lädt, Programme nicht mehr starten oder ständig Meldungen von unbekannten Programmen angezeigt werden?": {
+		"values": [
+			"Einen Virenscan durchführen",
+			"Im Internet nach einer Lüsung suchen",
+			"Neustarten und Weiterarbeiten",
+			"Gar nichts"
+		],
+		"context": "Im Falle von Unregelmä?igkeiten beim eigenen PC sollten Sie sofort einen Virenscan durchführen, um zu prüfen, ob sich ungebetene Programme eingenistet haben. Sollte dies der Fall sein, empfehlen wir das \u00c3\u201endern aller Ihrer Passwürter von einem sauberen Rechner aus, da nicht auszuschlie?en ist, dass das Schadprogramm Passwürter und Zugangsdaten ausgespäht hat. Prüfen Sie au?erdem alle Kontoauszüge und Kundenkonten auf Unregelmä?igkeiten. Um auf Nummer Sicher zu gehen, setzen Sie dann den Rechner aus einem vertrauenswürdigen Backup neu auf."
+	},
+	"Wie sieht die richtige Reaktion auf Spam E-Mails aus?": {
+		"values": [
+			"Lüschen",
+			"Dem Absender antworten, dass Sie keine weiteren E-Mails wünschen.",
+			"An andere Personen weiterleiten, von denen Sie meinen, sie künnten sich für das angebotene Produkt interessieren.",
+			"Anzeige erstatten"
+		],
+		"context": "über Spam E-Mails sollten Sie gar nicht länger nachdenken und sie nach Müglichkeit nicht üffnen und lesen. Sie gehüren in den Papierkorb. Bei manchen Mails erkennt man nicht sofort, dass es sich um Spam handelt. Seien Sie deshalb grundsätzlich misstrauisch, üffnen Sie keine Anhänge von unbekannten Absendern und folgen Sie keinen Links. Auch Zahlungsaufforderungen sollten Sie niemals nachkommen. Im Zweifel nehmen Sie Kontakt zu Personen auf, die wissen, ob es sich um eine echte Warnung oder wichtige Information handelt. Verwenden Sie dafür jedoch nie die Kontaktdaten aus der E-Mail!"
+	},
+	"Worauf sollten Sie beim Online-Shopping achten?": {
+		"values": [
+			"Der Online-Händler gibt eine vollständige Anbieterkennzeichnung, Allgemeine Geschäftsbedingungen und Datenschutzinformationen an",
+			"Die bestellte Ware ist einwandfrei",
+			"Der Online-Shop bietet Bezahlsysteme wie PayPal oder Giropay an",
+			"Die bestellte Ware kann kostenfrei zurück gesendet werden"
+		],
+		"context": "Um Kreditkarten- und Bankdaten zu schützen, sollte der Online-Händler genau überprüft werden, zum Beispiel ob er eine vollständige Anbieterkennzeichnung, AGB und Datenschutzinformationen angibt."
 	}
 }

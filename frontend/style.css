@@ -10,8 +10,12 @@
 #ant4 {
 	margin-top: 5px !important;
 	margin-left: 5px !important;
-	width: 300px;
-	height: 80px;
+	min-width: 500px;
+	min-height: 200px;
+	max-width: 500px;
+	max-height: 200px;
+	height: fit-content;
+	width: fit-content;
 	display: none;
 }
 hr {

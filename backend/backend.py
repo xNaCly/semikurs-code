@@ -20,7 +20,7 @@ basicly a snippet to read and store the content of the specifed file in the 'con
 \ninput: `"contents.json"`
 \noutput: `content` `(jsonObject)`
 	"""
-	with open(file, "r") as f:
+	with open(file, "r", encoding='utf8') as f:
 		content = f.read()
 
 	return content

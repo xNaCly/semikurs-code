@@ -8,13 +8,18 @@ with open("content.csv","r") as f:
 
 for x in content:
     x = x.split("|")
-    questions[x[0]] = [
-        x[1],
-        x[2],
-        x[3],
-        x[4],
-        x[5]
-    ]
+    try:
+        questions[x[0]] = {
+            "values":[
+                x[1],
+                x[2],
+                x[3],
+                x[4],
+            ],
+            "context": x[5]
+        }
+    except:
+        pass
 
 with open("temp.json","w") as f:
     json.dump(questions, f)
