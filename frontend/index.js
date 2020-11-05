@@ -22,6 +22,7 @@ const prefs = {
 };
 
 var rightanswer = "";
+var lifesbutton = document.getElementById("lifes");
 
 // format answer
 function submit(button) {

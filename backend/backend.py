@@ -72,5 +72,5 @@ returns an array of values for a given question:
 
 if __name__ == "__main__":
 	print("Backend-file -- do not execute as mainfile")
-	input()
+	input() #
 	exit()
