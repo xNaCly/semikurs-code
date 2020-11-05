@@ -622,7 +622,7 @@ def update():
 		})
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,201
-	if correct == "y*es":
+	if correct == "yes":
 		users[sid]["score"] += 100
 		resp = jsonify({
 			"content": {
