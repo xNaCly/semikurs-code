@@ -11,7 +11,7 @@ app = Flask(__name__)
 # flags
 lock_down_api = False
 disable_post = False
-disable_dash_all_request = False
+disable_dash_all_request = True
 
 
 # fix for not working paths on server:
