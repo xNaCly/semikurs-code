@@ -58,15 +58,15 @@
 	"Was sollten Sie tun, wenn sich der eigene PC seltsam verhält, zum Beispiel nur noch langsam lädt, Programme nicht mehr starten oder ständig Meldungen von unbekannten Programmen angezeigt werden?": {
 		"values": [
 			"Einen Virenscan durchführen",
-			"Im Internet nach einer Lüsung suchen",
+			"Im Internet nach einer Lösung suchen",
 			"Neustarten und Weiterarbeiten",
 			"Gar nichts"
 		],
-		"context": "Im Falle von Unregelmä?igkeiten beim eigenen PC sollten Sie sofort einen Virenscan durchführen, um zu prüfen, ob sich ungebetene Programme eingenistet haben. Sollte dies der Fall sein, empfehlen wir das \u00c3\u201endern aller Ihrer Passwürter von einem sauberen Rechner aus, da nicht auszuschlie?en ist, dass das Schadprogramm Passwürter und Zugangsdaten ausgespäht hat. Prüfen Sie au?erdem alle Kontoauszüge und Kundenkonten auf Unregelmä?igkeiten. Um auf Nummer Sicher zu gehen, setzen Sie dann den Rechner aus einem vertrauenswürdigen Backup neu auf."
+		"context": "Im Falle von Unregelmä?igkeiten beim eigenen PC sollten Sie sofort einen Virenscan durchführen, um zu prüfen, ob sich ungebetene Programme eingenistet haben. Sollte dies der Fall sein, empfehlen wir das Ändern aller Ihrer Passwörter von einem sauberen Rechner aus, da nicht auszuschlie?en ist, dass das Schadprogramm Passwürter und Zugangsdaten ausgespäht hat. Prüfen Sie au?erdem alle Kontoauszüge und Kundenkonten auf Unregelmä?igkeiten. Um auf Nummer Sicher zu gehen, setzen Sie dann den Rechner aus einem vertrauenswürdigen Backup neu auf."
 	},
 	"Wie sieht die richtige Reaktion auf Spam E-Mails aus?": {
 		"values": [
-			"Lüschen",
+			"Löschen",
 			"Dem Absender antworten, dass Sie keine weiteren E-Mails wünschen.",
 			"An andere Personen weiterleiten, von denen Sie meinen, sie künnten sich für das angebotene Produkt interessieren.",
 			"Anzeige erstatten"

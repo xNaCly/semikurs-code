@@ -1,4 +1,4 @@
-const production = true;
+const production = false;
 
 var sid;
 
@@ -207,17 +207,7 @@ async function getQuestion() {
 		document.getElementById("hr-upper").style.display = "block";
 		document.getElementById("hr-lower").style.display = "block";
 	} catch (e) {
-		console.error(e);
-
-		document.getElementsByClassName("liste")[0].style.display = "none";
-
-		document.getElementById("hr-upper").style.display = "none";
-		document.getElementById("hr-lower").style.display = "none";
-
-		// if connection failed, display the alert
-
-		document.getElementById("loader-error").style.display = "block";
-		document.getElementById("alert").style.display = "block";
+		console.error("Connection to server failed...\ngetting question from server failed")
 	}
 }
 
@@ -365,7 +355,7 @@ async function renderStats() {
 
 // if window is loaded, try loading questions and answers
 window.addEventListener("load", async () => {
-	console.warn(
+	console.info(
 		`%cmade by:\n\n__  ___   _    _    ____ _  __   __
 \\ \\/ / \\ | |  / \\  / ___| | \\ \\ / /
  \\  /|  \\| | / _ \\| |   | |  \\ V / 
@@ -373,12 +363,27 @@ window.addEventListener("load", async () => {
 /_/\\_\\_| \\_/_/   \\_\\____|_____|_|\n\n`,
 		"font-family:monospace"
 	);
-	console.error("visit my github: https://github.com/xNaCly/semikurs-code");
+	console.info("visit my github: https://github.com/xNaCly/semikurs-code");
+	
+	try {
+		sid = await fetch(prefs.base_url + prefs.endpoints.reg);
+		sid = await sid.json();
+		sid = sid.content.session_id;
+	} catch (e) {
+		console.error("\nConnection to server failed...\nServer seems to be offline");
 
-	sid = await fetch(prefs.base_url + prefs.endpoints.reg);
-	sid = await sid.json();
-	sid = sid.content.session_id;
+		document.getElementsByClassName("liste")[0].style.display = "none";
 
+		document.getElementById("hr-upper").style.display = "none";
+		document.getElementById("hr-lower").style.display = "none";
+
+		// if connection failed, display the alert
+
+		document.getElementById("loader-error").style.display = "block";
+		document.getElementById("alert").style.display = "block";
+	}
+
+	if(!sid) throw "\nSid couldn't be generated\nServer seems to be offline"
 	renderStats();
 	modifyscoreboard();
 	getQuestion();

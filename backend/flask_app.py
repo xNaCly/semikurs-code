@@ -27,7 +27,7 @@ auth = ",".join(users.keys()).split(",")
 if lock_down_api:
 	warnings.warn("! API LOCKED DOWN !")
 
-"""
+f"""
 prints stuff
 ---------------------
 
@@ -37,16 +37,6 @@ prints stuff
   /  \| |\  |/ ___ \ |___| |___| |   | (_>  <  | || |\  | . \| |  | |  __/ | | | |\  |/ /_ 
  /_/\_\_| \_/_/   \_\____|_____|_|    \___/\/ |___|_| \_|_|\_\_|  |_|_|    |_| |_| \_/____|
                                                                                             
-Routes:
-++ /all
-++ /random
-++ /endpoints
-++ /scoreboard
-++ /graphs
-++ /check
-++ /register
-++ /update
-
 ---------------------
 """
 def routes():
@@ -265,7 +255,6 @@ def check():
 	resp = jsonify({
 			"content": {
 				"success": True,
-				"feedback": a + " is right" ,
 				"context": content[q]["context"]
 			},
 			"status": 200
