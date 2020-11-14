@@ -1,14 +1,15 @@
 const production = true;
 
-var sid;
+let sid;
 
+let version = 2;
 const prefs = {
 	//change this if you got a different port, or an external api-server
 	/*
 	online: https://xnaclyy.pythonanywhere.com
 	localhost: http://127.0.0.1:5000/
 	*/
-	base_url: production ? "https://xnaclyy.pythonanywhere.com" : "http://127.0.0.1:5000",
+	base_url: production ? "https://xnaclyy.pythonanywhere.com" : `http://127.0.0.1:5000/api/v${version}`,
 	endpoints: {
 		all: "/all",
 		random: "/random",
@@ -207,7 +208,7 @@ async function getQuestion() {
 		document.getElementById("hr-upper").style.display = "block";
 		document.getElementById("hr-lower").style.display = "block";
 	} catch (e) {
-		console.error("Connection to server failed...\ngetting question from server failed")
+		console.error("Connection to server failed...\ngetting question from server failed");
 	}
 }
 
@@ -364,7 +365,7 @@ window.addEventListener("load", async () => {
 		"font-family:monospace"
 	);
 	console.info("visit my github: https://github.com/xNaCly/semikurs-code");
-	
+
 	try {
 		sid = await fetch(prefs.base_url + prefs.endpoints.reg);
 		sid = await sid.json();
@@ -383,7 +384,7 @@ window.addEventListener("load", async () => {
 		document.getElementById("alert").style.display = "block";
 	}
 
-	if(!sid) throw "\nSid couldn't be generated\nServer seems to be offline"
+	if (!sid) throw "\nSid couldn't be generated\nServer seems to be offline";
 	renderStats();
 	modifyscoreboard();
 	getQuestion();

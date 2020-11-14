@@ -6,6 +6,8 @@ from random import shuffle # used to shuffle items in []
 import time # used for time check
 import json # used for dict work
 import uuid # used for to gen userids
+import re
+
 app = Flask(__name__)
 
 # flags
@@ -16,9 +18,10 @@ disable_dash_all_request = True
 
 # fix for not working paths on server:
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-data = backend.reader(os.path.join(THIS_FOLDER, 'contents.json'))
-endpointers = backend.reader(os.path.join(THIS_FOLDER, 'endpoints.json'))
-
+data = backend.reader(os.path.join(os.path.join(THIS_FOLDER, 'assets'), 'contents.json'))
+with open(os.path.join(os.path.join(THIS_FOLDER, 'assets'), 'flask_config'),"r") as file:
+	filecontent = file.read().split("=")
+	flask_config = {filecontent[0]:filecontent[1]}
 
 users = {}
 auth = ",".join(users.keys()).split(",")
@@ -27,33 +30,6 @@ auth = ",".join(users.keys()).split(",")
 if lock_down_api:
 	warnings.warn("! API LOCKED DOWN !")
 
-f"""
-prints stuff
----------------------
-
- __  ___   _    _    ____ _  __   __   ___     ___ _   _ _  ____  __ ____ _____ _   _ _____
- \ \/ / \ | |  / \  / ___| | \ \ / /  ( _ )   |_ _| \ | | |/ /  \/  |  _ \_   _| \ | |__  /
-  \  /|  \| | / _ \| |   | |  \ V /   / _ \/\  | ||  \| | ' /| |\/| | |_) || | |  \| | / / 
-  /  \| |\  |/ ___ \ |___| |___| |   | (_>  <  | || |\  | . \| |  | |  __/ | | | |\  |/ /_ 
- /_/\_\_| \_/_/   \_\____|_____|_|    \___/\/ |___|_| \_|_|\_\_|  |_|_|    |_| |_| \_/____|
-                                                                                            
----------------------
-"""
-def routes():
-	routes = endpointers.replace("[","").replace("]","").replace("\"","").replace(" ","").split(",")
-	print("---------------------")
-	print("""
- __  ___   _    _    ____ _  __   __   ___     ___ _   _ _  ____  __ ____ _____ _   _ _____
- \ \/ / \ | |  / \  / ___| | \ \ / /  ( _ )   |_ _| \ | | |/ /  \/  |  _ \_   _| \ | |__  /
-  \  /|  \| | / _ \| |   | |  \ V /   / _ \/\  | ||  \| | ' /| |\/| | |_) || | |  \| | / / 
-  /  \| |\  |/ ___ \ |___| |___| |   | (_>  <  | || |\  | . \| |  | |  __/ | | | |\  |/ /_ 
- /_/\_\_| \_/_/   \_\____|_____|_|    \___/\/ |___|_| \_|_|\_\_|  |_|_|    |_| |_| \_/____| 
-""")
-
-	print("Routes:")
-	for route in routes:
-		print(f"++ {route}")
-	print("---------------------\n\n\n")
 
 """
 format questions
@@ -69,6 +45,50 @@ def newQuestion():
 		"answers": returnanswers,
 	}
 	return showObject
+
+"""
+check for auth
+"""
+@app.before_request
+def before_request():
+	if lock_down_api:
+		resp = jsonify({
+			"content": {
+				"error": "API currently locked down, try again later"
+			},
+			"status": 403
+		})
+		resp.headers['Access-Control-Allow-Origin'] = '*'
+		return resp,403
+	if request.endpoint in ["all", "random", "scoreboard", "graphs", "check", "update", "users"]:
+		sid = request.args.get("sid")
+		if not sid:
+			resp = jsonify({
+				"content": {
+					"error": "missing sid"
+				},
+				"status": 401
+			})
+			resp.headers['Access-Control-Allow-Origin'] = '*'
+			return resp,401
+		if not sid in auth:
+			resp = jsonify({
+				"content": {
+					"error": "invalid sid"
+				},
+				"status": 401
+			})
+			resp.headers['Access-Control-Allow-Origin'] = '*'
+			return resp,401
+		if not time.time() < users[sid]["createdAt"] + (15*60):
+			resp = jsonify({
+				"content": {
+					"error": "sid expired"
+				},
+				"status": 401
+			})
+			resp.headers['Access-Control-Allow-Origin'] = '*'
+			return resp,401
 
 """
 get all endpoints
@@ -87,37 +107,12 @@ get all endpoints
 
 - returns array
 """
-@app.route("/endpoints",methods=["GET"])
+@app.route("/api/v" + flask_config["version"] + "/endpoints",methods=["GET"])
 def endpoints():
-	sid = request.args.get("sid")
-	if not sid in auth or not sid:
-		resp = jsonify({
-			"content": {
-				"error": "invalid sid"
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
-	if not time.time() < users[sid]["createdAt"] + (15*60):
-		resp = jsonify({
-			"content": {
-				"error": "sid"
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
-	if lock_down_api:
-		resp = jsonify({
-					"content": {
-							"error": "API currently locked down, try again later"
-						},
-						"status": 403
-					})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,403
-	resp = jsonify(json.loads(endpointers))
+	routes = []
+	for route in re.findall(r"('\/api\/v2\/.*?')",str(app.url_map)):
+		routes.append(route[1:-1].split("/")[3])
+	resp = jsonify(routes)
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
 
@@ -139,36 +134,8 @@ get a question:
 
 - returns json
 """
-@app.route("/random",methods=["GET"])
+@app.route("/api/v" + flask_config["version"] + "/random",methods=["GET"])
 def random():
-	if lock_down_api:
-		resp = jsonify({
-					"content": {
-							"error": "API currently locked down, try again later"
-						},
-						"status": 403
-					})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,403	
-	sid = request.args.get("sid")
-	if not sid in auth or not sid:
-		resp = jsonify({
-			"content": {
-				"error": "invalid sid"
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
-	if not time.time() < users[sid]["createdAt"] + (15*60):
-		resp = jsonify({
-			"content": {
-				"error": "sid outdated"
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
 	resp = jsonify(newQuestion())
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
@@ -189,36 +156,8 @@ get answer for query:
 
 - returns json
 """
-@app.route("/check",methods=["GET"])
+@app.route("/api/v" + flask_config["version"] + "/check",methods=["GET"])
 def check():	
-	if lock_down_api:
-		resp = jsonify({
-					"content": {
-							"error": "API currently locked down, try again later"
-						},
-						"status": 403
-					})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,403
-	sid = request.args.get("sid")
-	if not sid in auth or not sid:
-		resp = jsonify({
-			"content": {
-				"error": "invalid sid"
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
-	if not time.time() < users[sid]["createdAt"] + (15*60):
-		resp = jsonify({
-			"content": {
-				"error": "sid "
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
 	q = request.args.get("q")
 	a = request.args.get("a")
 	if not q or not a:
@@ -245,7 +184,6 @@ def check():
 		resp = jsonify({
 				"content": {
 					"success": False,
-					"error": a + " isnt right",
 					"context": content[q]["context"]
 				},
 				"status": 409
@@ -294,45 +232,8 @@ endpoint disabled due to abuse
 
 -returns json
 """
-@app.route("/all",methods=["GET"])
-def all():	
-	if lock_down_api:
-		resp = jsonify({
-					"content": {
-							"error": "API currently locked down, try again later"
-						},
-						"status": 403
-					})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,403
-	if disable_dash_all_request:
-		resp = jsonify({
-				"content": {
-						"error": "'GET' requests to this Endpoint, due to abuse, not allowed!"
-					},
-					"status": 403
-				})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,403
-	sid = request.args.get("sid")
-	if not sid in auth or not sid:
-		resp = jsonify({
-			"content": {
-				"error": "invalid sid"
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
-	if not time.time() < users[sid]["createdAt"] + (15*60):
-		resp = jsonify({
-			"content": {
-				"error": "sid "
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
+@app.route("/api/v" + flask_config["version"] + "/all",methods=["GET"])
+def all():
 	resp = jsonify(json.loads(data))
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp, 200
@@ -370,36 +271,9 @@ player,score,uuid
 -returns json
 -----------
 """
-@app.route("/scoreboard", methods=['POST','GET'])
+@app.route("/api/v" + flask_config["version"] + "/scoreboard", methods=['POST','GET'])
 def scoreboard():	
-	if lock_down_api:
-		resp = jsonify({
-			"content": {
-					"error": "API currently locked down, try again later"
-				},
-				"status": 403
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,403
 	sid = request.args.get("sid")
-	if not sid in auth or not sid:
-		resp = jsonify({
-			"content": {
-				"error": "invalid sid"
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
-	if not time.time() < users[sid]["createdAt"] + (15*60):
-		resp = jsonify({
-			"content": {
-				"error": "sid "
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
 	if request.method == "POST":
 		if disable_post:
 			resp = jsonify({
@@ -411,7 +285,7 @@ def scoreboard():
 			resp.headers['Access-Control-Allow-Origin'] = '*'
 			return resp,403
 		name = request.args.get("name")
-		if not name or not sid:
+		if not name:
 			resp = jsonify({
 				"content": {
 					"error": "missing params. syntax should be: ?name=<string>&sid=<sessionID>"
@@ -432,7 +306,7 @@ def scoreboard():
 			resp.headers['Access-Control-Allow-Origin'] = '*'
 			return resp,401
 		try:
-			with open(os.path.join(THIS_FOLDER, 'scoreboard.csv'), "a") as f:
+			with open(os.path.join(os.path.join(THIS_FOLDER, 'assets'), 'scoreboard.csv'), "a") as f:
 				f.write(f"\n{name},{score},{sid}")
 			resp = jsonify({
 				"content": {
@@ -458,7 +332,7 @@ def scoreboard():
 			auth.remove(sid)
 			return resp,500
 	elif request.method == "GET":
-		with open(os.path.join(THIS_FOLDER, 'scoreboard.csv'), "r") as f:				
+		with open(os.path.join(os.path.join(THIS_FOLDER, 'assets'), 'scoreboard.csv'), "r") as f:				
 			scores = f.read()
 		if request.args.get("top"):
 			scores = scores.split("\n")
@@ -493,38 +367,10 @@ get stats
   "registered_players": int
 }
 """
-@app.route("/graphs",methods=["GET"])
-def stats():	
-	if lock_down_api:
-		resp = jsonify({
-					"content": {
-							"error": "API currently locked down, try again later"
-						},
-						"status": 403
-					})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,403
-	sid = request.args.get("sid")
-	if not sid in auth or not sid:
-		resp = jsonify({
-			"content": {
-				"error": "invalid sid"
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
-	if not time.time() < users[sid]["createdAt"] + (15*60):
-		resp = jsonify({
-			"content": {
-				"error": "sid "
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
+@app.route("/api/v" + flask_config["version"] + "/graphs",methods=["GET"])
+def graphs():
 	statsdict = {}
-	with open(os.path.join(THIS_FOLDER, 'scoreboard.csv'), "r") as f:
+	with open(os.path.join(os.path.join(THIS_FOLDER, 'assets'), 'scoreboard.csv'), "r") as f:
 		data = f.read()
 	data = data.split("\n")
 	data.pop(0)
@@ -550,7 +396,7 @@ def stats():
 	statsdict.headers['Access-Control-Allow-Origin'] = '*'
 	return statsdict,200
 
-@app.route("/register",methods=["GET"])
+@app.route("/api/v" + flask_config["version"] + "/register",methods=["GET"])
 def register():
 	sessionid = uuid.uuid4()
 	auth.append(str(sessionid))
@@ -558,34 +404,17 @@ def register():
 	resp = jsonify({
 		"content": {
 				"session_id": sessionid,
-				"message":"sessionid generated, userobject created."
+				"expires": time.time() + (15*60),
+				"message":"sid generated, userobject created."
 			},
 			"status": 201
 		})
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp,201
 
-@app.route("/update",methods=["GET"])
+@app.route("/api/v" + flask_config["version"] + "/update",methods=["GET"])
 def update():	
 	sid = request.args.get("sid")
-	if not sid in auth or not sid:
-		resp = jsonify({
-			"content": {
-				"error": "invalid sid"
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
-	if not time.time() < users[sid]["createdAt"] + (15*60):
-		resp = jsonify({
-			"content": {
-				"error": "sid "
-			},
-			"status": 401
-		})
-		resp.headers['Access-Control-Allow-Origin'] = '*'
-		return resp,401
 	# if request.args.get("del"):
 	# 	users.pop(sid)
 	# 	auth.remove(sid)
@@ -654,11 +483,27 @@ def update():
 		resp.headers['Access-Control-Allow-Origin'] = '*'
 		return resp,200
 
-@app.route("/users")
-def users_route():
-	resp = users
-	return resp,200
+# @app.route("/api/v" + flask_config.version + "/users")
+# def users():
+# 	resp = users
+# 	return resp,200
 
+
+def routes():
+	print("---------------------")
+	print("""
+ __  ___   _    _    ____ _  __   __   ___     ___ _   _ _  ____  __ ____ _____ _   _ _____
+ \ \/ / \ | |  / \  / ___| | \ \ / /  ( _ )   |_ _| \ | | |/ /  \/  |  _ \_   _| \ | |__  /
+  \  /|  \| | / _ \| |   | |  \ V /   / _ \/\  | ||  \| | ' /| |\/| | |_) || | |  \| | / / 
+  /  \| |\  |/ ___ \ |___| |___| |   | (_>  <  | || |\  | . \| |  | |  __/ | | | |\  |/ /_ 
+ /_/\_\_| \_/_/   \_\____|_____|_|    \___/\/ |___|_| \_|_|\_\_|  |_|_|    |_| |_| \_/____| 
+""")
+	for route in re.findall(r"('\/api\/v2\/.*?')",str(app.url_map)):
+		print(f"++ {route[1:-1]}")
+	# print("Routes:")
+	# for route in routes:
+		# print(f"++ {route}")
+	print("---------------------\n\n\n")
 
 if __name__ == "__main__":
 	routes()
