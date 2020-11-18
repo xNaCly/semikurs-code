@@ -1,11 +1,12 @@
 from flask import Flask, jsonify, redirect, Response, request
-import warnings
-import backend # 
-import os # used for relative paths
 from random import shuffle # used to shuffle items in []
+import statistics
+import backend # 
+import warnings
 import time # used for time check
 import json # used for dict work
 import uuid # used for to gen userids
+import os # used for relative paths
 import re
 
 app = Flask(__name__)
@@ -369,7 +370,20 @@ get stats
 """
 @app.route("/api/v" + flask_config["version"] + "/graphs",methods=["GET"])
 def graphs():
-	statsdict = {}
+	statsdict = {
+		"highest_score":0,
+		"lowest_score":0,
+		"players":0,
+		"registered_players":0,
+		"all_scores_unsorted":0,
+		"all_scores_sorted":0,
+		"precalced_stats":{
+			"average":0,
+			"median":0,
+			"scores_under_0":0,
+			"scores_over_0":0,
+			}
+		}
 	with open(os.path.join(os.path.join(THIS_FOLDER, 'assets'), 'scoreboard.csv'), "r") as f:
 		data = f.read()
 	data = data.split("\n")
@@ -392,6 +406,19 @@ def graphs():
 	statsdict["registered_players"] = len(data) - len(names)
 	statsdict["all_scores_unsorted"] = unsorted
 	statsdict["all_scores_sorted"] = scores
+	f_num_added_up = 0
+	f_bigger_0 = []
+	f_smaller_0 = []
+	for num in scores:
+		if num > 0:
+			f_bigger_0.append(num)
+		elif num < 0:
+			f_smaller_0.append(num)
+		f_num_added_up += num
+	statsdict["precalced_stats"]["average"] = f_num_added_up/len(scores)
+	statsdict["precalced_stats"]["median"] = statistics.median(scores)
+	statsdict["precalced_stats"]["scores_under_0"] = f_smaller_0
+	statsdict["precalced_stats"]["scores_over_0"] = f_bigger_0
 	statsdict = jsonify(statsdict)
 	statsdict.headers['Access-Control-Allow-Origin'] = '*'
 	return statsdict,200
