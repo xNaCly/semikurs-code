@@ -127,7 +127,6 @@ function feedback(rightorwrong) {
 	}
 }
 
-// self-explanatory
 async function checkForAnswer(answer) {
 	let question = document.getElementById("question").textContent;
 	let rightanswer = await fetch(
@@ -167,7 +166,6 @@ async function checkForAnswer(answer) {
 
 async function getQuestion() {
 	try {
-		// send request to local api server
 		setTimeout(() => {
 			feedbackbutton = document.getElementById("feedbackalert");
 			feedbackbutton.classList.remove("alert-success");
@@ -215,13 +213,28 @@ async function getQuestion() {
 async function renderStats() {
 	let stats = await fetch(prefs.base_url + prefs.endpoints.stat + `?sid=${sid}`);
 	stats = await stats.json();
-
-	document.getElementById("stats1").innerHTML += " " + stats.precalced_stats.median.toFixed(2);
-	document.getElementById("stats2").innerHTML += " " + stats.precalced_stats.average.toFixed(2);
 	document.getElementById("stats3").innerHTML += " " + stats.highest_score;
 	document.getElementById("stats4").innerHTML += " " + stats.lowest_score;
-	document.getElementById("stats5").innerHTML += " " + stats.precalced_stats.scores_under_0.length;
-	document.getElementById("stats6").innerHTML += " " + stats.precalced_stats.scores_over_0.length;
+	if (!production) {
+		document.getElementById("stats1").innerHTML += " " + stats.precalced_stats.median.toFixed(2);
+		document.getElementById("stats2").innerHTML += " " + stats.precalced_stats.average.toFixed(2);
+		document.getElementById("stats5").innerHTML += " " + stats.precalced_stats.scores_under_0.length;
+		document.getElementById("stats6").innerHTML += " " + stats.precalced_stats.scores_over_0.length;
+	} else {
+		let average = 0;
+		let numbers_below_zero = [];
+		for (var number in stats.all_scores_sorted) {
+			if (Number(stats.all_scores_sorted[number]) < 0) {
+				numbers_below_zero.push(Number(stats.all_scores_sorted[number]));
+			}
+			average += Number(stats.all_scores_sorted[number]);
+		}
+		document.getElementById("stats1").innerHTML +=
+			" " + Math.round(stats.all_scores_sorted[stats.all_scores_sorted.length / 2]);
+		document.getElementById("stats2").innerHTML += " " + Math.round(average / stats.all_scores_sorted.length);
+		document.getElementById("stats5").innerHTML += " " + numbers_below_zero.length;
+		document.getElementById("stats6").innerHTML += ` ${stats.all_scores_sorted.length - numbers_below_zero.length}`;
+	}
 	let myChart = document.getElementById("players").getContext("2d");
 
 	new Chart(myChart, {
