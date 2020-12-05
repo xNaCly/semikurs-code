@@ -1,29 +1,4 @@
 {
-	"Welches OS wird am meisten verwendet?": {
-		"values": ["Android", "OpenBSD", "Windows", "macOS"],
-		"context": ""
-	},
-	"Welches der folgenden ist kein Dateisystem?": {
-		"values": ["JHB52", "Fat32", "George 3", "DOS 3.x"],
-		"context": ""
-	},
-	"Was bedeuted FAT?": {
-		"values": ["File Allocation Table", "Freaking Amazing Tower", "FAT Joe", "Factory Acceptance Test"],
-		"context": ""
-	},
-	"Wie sichert man sein Passwort am besten?": {
-		"values": [
-			"16 zahlen/ziffern/symbole",
-			"4 zahlen/ziffern/symbole",
-			"6 zahlen/ziffern/symbole",
-			"10 zahlen/ziffern/symbole"
-		],
-		"context": ""
-	},
-	"Auf was sollte man im Internet achten?": {
-		"values": ["Keine persoenlichen Daten angeben", "Dateisysteme", "Alles", "hobbies haben"],
-		"context": ""
-	},
 	"Sie besuchen eine Internetseite. Woran erkennen Sie, dass die Daten sicher übertragen werden?": {
 		"values": [
 			"Die URL der aufgerufenen Internetseite beginnt mit https://",
@@ -62,7 +37,7 @@
 			"Neustarten und Weiterarbeiten",
 			"Gar nichts"
 		],
-		"context": "Im Falle von Unregelmäßigkeiten beim eigenen PC sollten Sie sofort einen Virenscan durchführen, um zu prüfen, ob sich ungebetene Programme eingenistet haben. Sollte dies der Fall sein, empfehlen wir das Ändern aller Ihrer Passwörter von einem sauberen Rechner aus, da nicht auszuschließen ist, dass das Schadprogramm Passwürter und Zugangsdaten ausgespäht hat. Prüfen Sie außerdem alle Kontoauszüge und Kundenkonten auf Unregelmäßigkeiten. Um auf Nummer Sicher zu gehen, setzen Sie dann den Rechner aus einem vertrauenswürdigen Backup neu auf."
+		"context": "Im Falle von Unregelmäßigkeiten beim eigenen PC sollten Sie sofort einen Virenscan durchführen, um zu prüfen, ob sich ungebetene Programme eingenistet haben. Sollte dies der Fall sein, empfehlen wir das Ändern aller Ihrer Passwörter von einem sauberen Rechner aus, da nicht auszuschließen ist, dass das Schadprogramm Passwörter und Zugangsdaten ausgespäht hat. Prüfen Sie außerdem alle Kontoauszüge und Kundenkonten auf Unregelmäßigkeiten. Um auf Nummer Sicher zu gehen, setzen Sie dann den Rechner aus einem vertrauenswürdigen Backup neu auf."
 	},
 	"Wie sieht die richtige Reaktion auf Spam E-Mails aus?": {
 		"values": [
@@ -71,7 +46,7 @@
 			"An andere Personen weiterleiten, von denen Sie meinen, sie künnten sich für das angebotene Produkt interessieren.",
 			"Anzeige erstatten"
 		],
-		"context": "über Spam E-Mails sollten Sie gar nicht länger nachdenken und sie nach Müglichkeit nicht üffnen und lesen. Sie gehüren in den Papierkorb. Bei manchen Mails erkennt man nicht sofort, dass es sich um Spam handelt. Seien Sie deshalb grundsätzlich misstrauisch, üffnen Sie keine Anhänge von unbekannten Absendern und folgen Sie keinen Links. Auch Zahlungsaufforderungen sollten Sie niemals nachkommen. Im Zweifel nehmen Sie Kontakt zu Personen auf, die wissen, ob es sich um eine echte Warnung oder wichtige Information handelt. Verwenden Sie dafür jedoch nie die Kontaktdaten aus der E-Mail!"
+		"context": "über Spam E-Mails sollten Sie gar nicht länger nachdenken und sie nach Möglichkeit nicht öffnen und lesen. Sie gehören in den Papierkorb. Bei manchen Mails erkennt man nicht sofort, dass es sich um Spam handelt. Seien Sie deshalb grundsätzlich misstrauisch, öffnen Sie keine Anhänge von unbekannten Absendern und folgen Sie keinen Links. Auch Zahlungsaufforderungen sollten Sie niemals nachkommen. Im Zweifel nehmen Sie Kontakt zu Personen auf, die wissen, ob es sich um eine echte Warnung oder wichtige Information handelt. Verwenden Sie dafür jedoch nie die Kontaktdaten aus der E-Mail!"
 	},
 	"Worauf sollten Sie beim Online-Shopping achten?": {
 		"values": [
