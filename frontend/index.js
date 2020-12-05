@@ -147,7 +147,6 @@ async function checkForAnswer(answer) {
 
 		//get new question
 		feedback(true);
-		return getQuestion();
 	} else {
 		let resp = await fetch(prefs.base_url + prefs.endpoints.upd + `?cr=no&sid=${sid}`);
 		resp = await resp.json();
@@ -160,8 +159,18 @@ async function checkForAnswer(answer) {
 
 		//get new question
 		feedback(false);
-		return getQuestion();
 	}
+	getQuestion();
+	document.getElementById("main-content-connection").style.display = "none";
+	document.getElementsByClassName("toast-container")[0].style.display = "flex";
+	document.getElementsByClassName("toast-body")[0].innerHTML = rightanswer.content.context
+		? rightanswer.content.context
+		: "no context available";
+	$(".toast").toast({ autohide: false });
+	$(".toast").toast("show");
+	$(".toast").on("hidden.bs.toast", () => {
+		document.getElementById("main-content-connection").style.display = "block";
+	});
 }
 
 async function getQuestion() {
@@ -361,6 +370,7 @@ async function renderStats() {
 
 // if window is loaded, try loading questions and answers
 window.addEventListener("load", async () => {
+	document.getElementsByClassName("toast-container")[0].style.display = "none";
 	console.info(
 		`%cmade by:\n\n__  ___   _    _    ____ _  __   __
 \\ \\/ / \\ | |  / \\  / ___| | \\ \\ / /

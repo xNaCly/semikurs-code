@@ -26,12 +26,12 @@
 	},
 	"Sie besuchen eine Internetseite. Woran erkennen Sie, dass die Daten sicher übertragen werden?": {
 		"values": [
-			"Die URL der aufgerufenen Internetseite beginnt mit https:",
+			"Die URL der aufgerufenen Internetseite beginnt mit https://",
 			"Sie waren bereits zuvor auf der Seite und kennen deren Inhalt.",
 			"Auf der aufgerufenen Seite erscheint der Hinweis, dass diese Seite sicher ist.",
-			"Die URL der aufgerufenen Seite beginnt mit http:"
+			"Die URL der aufgerufenen Seite beginnt mit http://"
 		],
-		"context": "Die Abkürzung \"https\" steht für \"HyperText Transfer Protocol Secure\", also für ein sicheres Hypertext-übertragungsprotokoll. An einem Schloss-Symbol in der Adresszeile des Browsers ist die sichere übertragung von Daten zu erkennen."
+		"context": "Die Abkürzung \"https\" steht für \"HyperText Transfer Protocol Secure\", also für ein sicheres Hypertext-Übertragungsprotokoll. An einem Schloss-Symbol in der Adresszeile des Browsers ist die sichere Übertragung von Daten zu erkennen."
 	},
 	"Was ist die Aufgabe einer Firewall?": {
 		"values": [
@@ -62,7 +62,7 @@
 			"Neustarten und Weiterarbeiten",
 			"Gar nichts"
 		],
-		"context": "Im Falle von Unregelmä?igkeiten beim eigenen PC sollten Sie sofort einen Virenscan durchführen, um zu prüfen, ob sich ungebetene Programme eingenistet haben. Sollte dies der Fall sein, empfehlen wir das Ändern aller Ihrer Passwörter von einem sauberen Rechner aus, da nicht auszuschlie?en ist, dass das Schadprogramm Passwürter und Zugangsdaten ausgespäht hat. Prüfen Sie au?erdem alle Kontoauszüge und Kundenkonten auf Unregelmä?igkeiten. Um auf Nummer Sicher zu gehen, setzen Sie dann den Rechner aus einem vertrauenswürdigen Backup neu auf."
+		"context": "Im Falle von Unregelmäßigkeiten beim eigenen PC sollten Sie sofort einen Virenscan durchführen, um zu prüfen, ob sich ungebetene Programme eingenistet haben. Sollte dies der Fall sein, empfehlen wir das Ändern aller Ihrer Passwörter von einem sauberen Rechner aus, da nicht auszuschließen ist, dass das Schadprogramm Passwürter und Zugangsdaten ausgespäht hat. Prüfen Sie außerdem alle Kontoauszüge und Kundenkonten auf Unregelmäßigkeiten. Um auf Nummer Sicher zu gehen, setzen Sie dann den Rechner aus einem vertrauenswürdigen Backup neu auf."
 	},
 	"Wie sieht die richtige Reaktion auf Spam E-Mails aus?": {
 		"values": [

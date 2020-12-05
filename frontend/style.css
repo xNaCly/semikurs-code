@@ -44,6 +44,15 @@ hr {
 	background-color: #cce5ff;
 	width: 450px;
 }
+.toast-container {
+	padding-top: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.toast {
+	height: fit-content;
+}
 #error-div {
 	/* margin-top: 40vh; */
 	display: flex;
